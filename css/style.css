@@ -1,0 +1,17 @@
+.useFontAwesomeFamily::placeholder { /* Most modern browsers */
+    /*font-family: "Font Awesome 5 Brands" !important;*/
+}
+
+.user_icon--position-absolute{
+    position: absolute;
+    left: 30%;
+}
+
+.mt-responsive {
+    margin-top: 0;
+}
+
+position: absolute;
+left: 32%;
+/* bottom: -14px; */
+top: -60px;
