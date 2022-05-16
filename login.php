@@ -16,28 +16,34 @@
 
     <div class="container">
         <div class="row">
-            <div class="center">
+            <div class="div--center">
               
-            
-                <div class="card mt-responsive mx-auto div--center div--center-border" style="width: 18rem;">
+            <div class="div--center-images w-card mx-auto">
+                <img src="./assets/images/user.png" alt="User logo" class="img-fluid user--size mx-auto">
+            </div>
+                <div class="card mt-responsive mx-auto div--center-border w-card mb-3" style="z-index: 1;">
+                    
                     <div class="card-body">
-                 <img src="./assets/images/user.png" alt="User logo" class="img-fluid user--size user_icon--position-absolute">
+                    
 
                         <div class="mb-3 mt-5 row">
                             <div class="col-sm-12 mb-3">
-                                <input type="text" class="useFontAwesomeFamily form-control" id="staticEmail" placeholder="&#xf2bd; Usuario">
+                                <input type="text" class="useFontAwesomeFamily form-control" id="staticEmail" placeholder="&#xf406;   Usuario">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col-sm-12 mb-3">
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
+                                <input type="password" class="useFontAwesomeFamily form-control" id="inputPassword" placeholder="&#xf084;   Clave">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <div class="col-sm-12 mb-2">
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-danger rounded-pill" type="button">Ingresar</button>
+                                    <!-- Enviar con el submit
+                                    <button class="btn btn-danger btn-login rounded-pill fw-bolder" type="button">Ingresar</button>
+                                    -->
+                                    <a class="btn btn-danger btn-login rounded-pill fw-bolder" href="./menu.php">Ingresar  </a>
                                
                                 </div>
                             </div>

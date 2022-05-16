@@ -1,14 +1,68 @@
 .useFontAwesomeFamily::placeholder { /* Most modern browsers */
     /*font-family: "Font Awesome 5 Brands" !important;*/
+    font-family: FontAwesome;
+    font-size: 10px;
+    text-transform: capitalize;
+    
 }
+
+
+
 
 .user_icon--position-absolute{
     position: absolute;
     left: 30%;
 }
 
-.mt-responsive {
-    margin-top: 0;
+.w-card{
+    width: 18rem;
+}
+
+
+
+.btn-login{
+    background-color: #E31D38 !important;
+    
+}
+
+
+/* Login */
+
+.card-body {
+    z-index: 1;
+    background-color: rgb(211 211 211) !important;
+}
+
+.div--center-images {
+    background-color: transparent;
+    top:20% !important;
+    z-index: 2;
+  }
+  
+.div--center-images img {
+    z-index: 2;
+    position: relative;
+    top: 40px;
+}
+
+/* Menu main */
+
+.text-link {
+    color:#000;
+    text-decoration: none;
+}
+
+.text-link p {
+    margin-top: 0.5rem;
+}
+
+.img-menu { transition: all .2s ease-in-out; }
+.img-menu:hover { transform: scale(1.1); }
+
+
+.text-link p{ transition: all .2s ease-in-out; }
+.text-link p:hover {
+    transform: scale(1.1);
 }
 
 position: absolute;
