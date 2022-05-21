@@ -1,3 +1,8 @@
+*{
+    font-size:;
+}
+
+
 .useFontAwesomeFamily::placeholder { /* Most modern browsers */
     /*font-family: "Font Awesome 5 Brands" !important;*/
     font-family: FontAwesome;
@@ -64,6 +69,38 @@
 .text-link p:hover {
     transform: scale(1.1);
 }
+
+select {
+    background-color: rgba(242, 242, 242,1) !important;
+}
+
+.bg-transparent {
+    background-color: transparent !important;
+}
+
+
+/* end menu main*/
+
+
+/* inspeccion */
+
+#description_inspeccion, #fechaInspeccion {
+    background-color: rgba(242, 242, 242,1);
+}
+
+.card-title { 
+    font-size:1.15rem !important;
+}
+
+.btn-register {
+    background-color: #E31D38 !important;
+}
+
+/* end inspeccion */
+
+
+
+
 
 position: absolute;
 left: 32%;

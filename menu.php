@@ -27,25 +27,25 @@
         </div>
   <div class="row animate__animated animate__fadeInDown animate__slow">
     <div class="col-sm-6 col-md-4 text-center">
-        <a href="./login.php" class="text-link text-link--mt">
+        <a href="./inspeccion.php" class="text-link text-link--mt">
         <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
         <p> Registrar nueva inspección </p>
         </a>   
 
     </div>
     <div class="col-sm-6 col-md-4 text-center">
-        <a href="./login.php" class="text-link text-link--mt">
+        <a href="./inspeccion.php" class="text-link text-link--mt">
         <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
         <p> Ver inspecciones </p>
         </a>
     </div>
     <div class="col-sm-6 col-md-4 text-center">
-        <a href="./login.php" class="text-link text-link--mt">
+        <a href="./inspeccion.php" class="text-link text-link--mt">
         <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
         <p> Registrar nueva inspección </p></a>  
     </div>
     <div class="col-sm-6 col-md-4 text-center">
-    <a href="./login.php" class="text-link text-link--mt">
+    <a href="./inspeccion.php" class="text-link text-link--mt">
      <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
      <p> Registrar nueva inspección </p>
     </a>

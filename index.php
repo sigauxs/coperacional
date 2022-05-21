@@ -25,7 +25,7 @@
                     
                     <div class="card-body">
                     
-                    <form action="../server/login-server.php" method="POST" class="needs-validation" novalidate>
+                    <form action="" method="POST" class="needs-validation" novalidate>
 
                         <div class="mb-3 mt-5 row">
                             <div class="col-sm-12 mb-3">
@@ -48,11 +48,11 @@
                             <div class="col-sm-12 mb-2">
                                 <div class="d-grid gap-2">
                                    
-                                    <button class="btn btn-danger btn-login rounded-pill fw-bolder" type="submit">Ingresar</button>
+                                   <!--<button class="btn btn-danger btn-login rounded-pill fw-bolder" type="submit">Ingresar</button>-->
                                     
-                                    <!--
+                                    
                                     <a class="btn btn-danger btn-login rounded-pill fw-bolder" href="./menu.php">Ingresar  </a>
-                                    -->
+                                    
                                
                                 </div>
                             </div>
