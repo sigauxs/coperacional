@@ -48,11 +48,8 @@
                                     <label> Sede </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" name="sede" aria-label="Default select example">
+                                    <select class="form-select"  name="sede"  onchange="changeSede(this)" id="sedes" aria-label="Default select example">
                                         <option selected>Escoger un Sede</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
                                     </select>
                                 </div>
 
@@ -63,11 +60,9 @@
                                     <label> Localización </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" name="localizacion" aria-label="Default select example">
+                                    <select class="form-select" id="Locacion"  name="localizacion" aria-label="Default select example">
                                         <option selected>Escoger una localización </option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                      
                                     </select>
                                 </div>
 
@@ -233,6 +228,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/defaultValue.js"></script>
+    <script src="./js/services_select.js"></script>
+    <script>
+
+        console.log(        document.querySelector('#Locacion'))
+    </script>
+    <script>
+
+    
+    </script>
 </body>
 
 </html>
