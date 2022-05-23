@@ -62,7 +62,6 @@
                                 <div class="col-sm-12 col-md-9">
                                     <select class="form-select" id="Locacion"  name="localizacion" aria-label="Default select example">
                                         <option selected>Escoger una localización </option>
-                                      
                                     </select>
                                 </div>
 
