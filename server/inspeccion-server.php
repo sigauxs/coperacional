@@ -1,10 +1,5 @@
 <?php 
 
-/*
-$fecha_inspeccion = $_POST['fechaInspeccion'];
-$date = strtotime($fecha_inspeccion);
-echo date('d/m/Y',$date);*/
-
 include("../connection/connection.php");
 $pdo = new Conexion();
 
@@ -22,16 +17,28 @@ if($method == "OPTIONS") {
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
 
-        $idSede = $_GET['idSede'];
-        
-        if($idSede != ""){
-            $sql = "SELECT idLocacion, NombreLocacion from locacion where idSede = :idSede";
+        $vp_idsede = $_GET['vp_idsede'];
+        $dpto = $_GET['dpto'];
+        $area = $_GET['area'];
+
+        if($vp_idsede != ""){
+            $sql = "SELECT idVP, NombreVP from vp where VP_idSede = :vp_idsede";
             $stmt = $pdo->prepare($sql);
-            $stmt->bindValue(':idSede',$idSede);
-        }else {
-            $sql = "SELECT idSede, NombreSede from sedes";
-            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':vp_idsede',$vp_idsede);
         }
+        
+        if($dpto!= ""){
+            $sql = "SELECT id_Dpto, Nombre_Dpto, Dpto_idVP FROM departamentos WHERE Dpto_idVP = :dpto ";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':dpto',$dpto);
+        }
+
+        if( $area != "" ){
+            $sql = "SELECT id_Area, Nombre_Area, Area_id_Dpto FROM areas WHERE Area_id_Dpto = :area";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':area',$area);
+        }
+
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         

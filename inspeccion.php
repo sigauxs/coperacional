@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-body bg-transparent">
 
-                        <form action="./server/inspeccion-server.php" method="POST" class="needs-validation" novalidate>
+                        <form id="formInspeccion" action="./server/inspeccionRegister.php" method="POST" class="needs-validation" novalidate>
 
                             <div class="mb-3 row align-items-center ">
                                 <div class="col-sm-12 col-md-3 text-center">
@@ -48,35 +48,25 @@
                                     <label> Sede </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select"  name="sede"  onchange="changeSede(this)" id="sedes" aria-label="Default select example">
-                                        <option selected>Escoger un Sede</option>
+                                    <select class="form-select"  name="sede"  onchange="changevp(this)" id="sedes" aria-label="Default select example">
+                                        <option value="0" selected>Escoger un Sede</option>
+                                        <option value="1" >Mina</option>
+                                        <option value="2" >Puertos</option>
+
                                     </select>
                                 </div>
 
                             </div>
 
-                            <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Localización </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" id="Locacion"  name="localizacion" aria-label="Default select example">
-                                        <option selected>Escoger una localización </option>
-                                    </select>
-                                </div>
-
-                            </div>
+                            
 
                             <div class="mb-3 row align-items-center">
                                 <div class="col-sm-12 col-md-3 text-center">
                                     <label> Vicepresidencia </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" name="vicepresidencia" aria-label="Default select example">
-                                        <option selected>Escoger un Vicepresidencia</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select value="0" class="form-select" name="vp" id="vp_idSede" onchange="changeDpto(this)" name="vicepresidencia" aria-label="Default select example">
+                                        <option value="0" selected>Escoger un Vicepresidencia</option>
                                     </select>
                                 </div>
 
@@ -87,11 +77,8 @@
                                     <label> Departamento </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" name="departamento" aria-label="Default select example">
-                                        <option selected>Escoger un Departamento</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select value="0" class="form-select" id="dpto" name="dpto" onchange="changeArea(this)" name="departamento" aria-label="Default select example">
+                                        <option value="0" selected>Escoger un Departamento</option>
                                     </select>
                                 </div>
 
@@ -102,11 +89,8 @@
                                     <label> Área </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 ">
-                                    <select class="form-select" name="area" aria-label="Default select example">
-                                        <option selected>Escoger un área</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select value="0" class="form-select" name="area" id="area" aria-label="Default select example">
+                                        <option value="0" selected>Escoger un área</option>
                                     </select>
                                 </div>
 
@@ -117,8 +101,8 @@
                                     <label> Inspeccionado </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" name="inspeccionado" aria-label="Default select example">
-                                        <option selected>Escoger un Inspeccionado</option>
+                                    <select value="0" class="form-select" name="inspeccionado" aria-label="Default select example">
+                                        <option value="0" selected>Escoger un Inspeccionado</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
@@ -133,7 +117,7 @@
                                     <label> Turno </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select"  name="turno" aria-label="Default select example">
+                                    <select value="0" class="form-select"  name="turno" aria-label="Default select example">
                                         <option selected>Escoger un Turno</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -149,7 +133,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-9">
                                     <select class="form-select" name="grupo" aria-label="Default select example">
-                                        <option selected>Escoger un grupo</option>
+                                        <option value="" selected>Escoger un grupo</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
@@ -164,7 +148,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-9">
                                     <select class="form-select" name="liderArea" aria-label="Default select example">
-                                        <option selected>Escoger un lider de area</option>
+                                        <option value="" selected>Escoger un lider de area</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
@@ -195,7 +179,9 @@
                                     <label> Descripción </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 mb-3">
-                                    <textarea id="description_inspeccion" class="form-control" name="descripcion_inspeccion" id="descripcionInspeccion" cols="30" rows="5"></textarea>
+                                    <textarea id="description_inspeccion"  
+                                    class="form-control" name="descripcion" 
+                                    id="descripcionInspeccion" cols="30" rows="5"></textarea>
                                 </div>
 
                             </div>
@@ -206,9 +192,9 @@
                                 <div class="col-sm-12 mb-2">
                                     <div class="d-grid gap-2 col-sm-12 offset-md-6 col-md-6">
 
-                                        <!--<button class="btn btn-danger btn-login  btn-lg rounded-pill fw-bolder" type="submit">Ingresar</button>-->
+                                        <button class="btn btn-danger btn-login  btn-lg rounded-pill fw-bolder" type="submit">Ingresar</button>
                                         
-                                        <a class="btn btn-danger btn-login rounded-pill fw-bolder" href="./hallazgo.php">Ingresar  </a>
+                                        <!--<a class="btn btn-danger btn-login rounded-pill fw-bolder" href="./hallazgo.php">Ingresar  </a>-->
 
                                     </div>
                                 </div>
@@ -228,14 +214,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/defaultValue.js"></script>
     <script src="./js/services_select.js"></script>
-    <script>
-
-        console.log(        document.querySelector('#Locacion'))
-    </script>
-    <script>
-
-    
-    </script>
+   
 </body>
 
 </html>
