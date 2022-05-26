@@ -44,21 +44,25 @@ sedes.addEventListener("change",()=>{
   $("#sedes option:selected").each(function () {
 
     let VP_idSede = $(this).val();
-
-    if(vp_idSede){
+  
+    if(VP_idSede != 0){
       fetchDataSelect(VP_idSede,"","","#vp_idSede");
       $( "#area" ).prop( "disabled", false );
       $( "#dpto" ).prop( "disabled", false );
       $( "#vp_idSede").prop( "disabled", false );
 
-     
-      form.elements[2].value = 0;
-      form.elements[3].value = 0;
-      form.elements[4].value = 0;
-    }else{
-      form.elements[2].value = 0;
-      form.elements[3].value = 0;
-      form.elements[4].value = 0;
+      form.elements[2].value = "";
+      form.elements[3].value = "";
+      form.elements[4].value = "";
+
+    }else if(VP_idSede == "" || VP_idSede ==  undefined || VP_idSede ==  0 ){
+
+      form.elements[2].value = "";
+    
+
+      form.elements[3].value = "";
+    
+      form.elements[4].value = "";
 
       $( "#area" ).prop( "disabled", true );
       $( "#dpto" ).prop( "disabled", true );
@@ -70,42 +74,66 @@ sedes.addEventListener("change",()=>{
  
 })
 
-const vp = document.getElementById("vp_idSede");	
-vp.addEventListener("change",()=>{
+const vicepresidencia = document.getElementById("vp_idSede");	
+vicepresidencia.addEventListener("change",()=>{
+
+  area = form.elements[4].value = "";
+
   $("#vp_idSede option:selected").each(function () {
-    let dpto_idVP = $(this).val();
-    
 
-    if(dpto_idVP != 0){
+    let idVicepresidencia = $(this).val();
+  
+    if(idVicepresidencia != 0){
 
-      fetchDataSelect("",dpto_idVP,"","#dpto");
+      fetchDataSelect("",idVicepresidencia,"","#dpto");
       $( "#area" ).prop( "disabled", false );
       $( "#dpto" ).prop( "disabled", false );
-      }else{
+
+      const dptoSelectIndex = document.getElementById("dpto").selectedIndex;
+
+      if( dptoSelectIndex == 1){
+        $( "#area" ).prop( "disabled", true );
+      }
+
+    }else if(idVicepresidencia == 0){
  
-      form.elements[3].value = 0;
-      form.elements[4].value = 0;
+      form.elements[3].value = "";
+      form.elements[4].value = "";
 
       $( "#area" ).prop( "disabled", true );
       $( "#dpto" ).prop( "disabled", true );
 
     }
+
+    
+
+    
   });
+
+
+
+
+
 })
 
-const dpto = document.getElementById("dpto");	
+const dpto = document.getElementById("dpto");
 dpto.addEventListener("change",()=>{
  $("#dpto option:selected").each(function () {
     let area_idDpto = $(this).val();
+
     if(area_idDpto != 0){  
       fetchDataSelect("","",area_idDpto,"#area");
       $( "#area" ).prop( "disabled", false );
       }else{
-      form.elements[4].value = 0;
+      form.elements[4].value = "";
       $( "#area" ).prop( "disabled", true );
     }
+
+
   });
 })
+
+
 
 
 /*
@@ -170,8 +198,9 @@ function renderSelect(values, selector) {
   $(`${selector} option`).remove();
 
   let defaultOption = document.createElement("option");
-  defaultOption.value = 0;
+  defaultOption.value = "";
   defaultOption.text = textSelect;
+  defaultOption.selected = true;
   select.appendChild(defaultOption);
 
   for (option of values) {

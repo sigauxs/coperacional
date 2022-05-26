@@ -48,12 +48,15 @@
                                     <label> Sede </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select"  name="sede"  id="sedes" aria-label="Default select example">
-                                        <option value="0" selected>Escoger un Sede</option>
+                                    <select class="form-select"  name="sede"  id="sedes" aria-label="Default select example" required>
+                                        <option value="" selected>Escoger un Sede</option>
                                         <option value="1" >Mina</option>
                                         <option value="2" >Puertos</option>
 
                                     </select>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Selecciona una Sede
                                 </div>
 
                             </div>
@@ -65,7 +68,7 @@
                                     <label> Vicepresidencia </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select value="0" class="form-select" name="vp" id="vp_idSede" name="vicepresidencia" aria-label="Default select example">
+                                    <select value="" class="form-select" name="vp" id="vp_idSede" name="vicepresidencia" aria-label="Default select example">
                                         <option value="0" selected>Escoger un Vicepresidencia</option>
                                     </select>
                                 </div>
@@ -77,8 +80,8 @@
                                     <label> Departamento </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select value="0" class="form-select" id="dpto" name="dpto"  name="departamento" aria-label="Default select example">
-                                        <option value="0" selected>Escoger un Departamento</option>
+                                    <select value="" class="form-select" id="dpto" name="dpto"  name="departamento" aria-label="Default select example">
+                                        <option value="" selected>Escoger un Departamento</option>
                                     </select>
                                 </div>
 
@@ -89,8 +92,8 @@
                                     <label> Área </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 ">
-                                    <select value="0" class="form-select" name="area" id="area" aria-label="Default select example">
-                                        <option value="0" selected>Escoger un área</option>
+                                    <select value="" class="form-select" name="area" id="area" aria-label="Default select example">
+                                        <option value="" selected>Escoger un área</option>
                                     </select>
                                 </div>
 
@@ -164,7 +167,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-9">
                                     <select class="form-select" name="empresa" aria-label="Default select example">
-                                        <option selected>Escoger un área</option>
+                                        <option value="" selected>Escoger un área</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
@@ -208,13 +211,97 @@
         </div>
     </div>
 
+<form class="row g-3 needs-validation" novalidate>
+  <div class="col-md-4">
+    <label for="validationCustom01" class="form-label">First name</label>
+    <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationCustom02" class="form-label">Last name</label>
+    <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationCustomUsername" class="form-label">Username</label>
+    <div class="input-group has-validation">
+      <span class="input-group-text" id="inputGroupPrepend">@</span>
+      <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+      <div class="invalid-feedback">
+        Please choose a username.
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">City</label>
+    <input type="text" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Please provide a valid city.
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label for="validationCustom04" class="form-label">State</label>
+    <select class="form-select" id="validationCustom04" required>
+      <option selected disabled value="">Choose...</option>
+      <option>...</option>
+    </select>
+    <div class="invalid-feedback">
+      Please select a valid state.
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label for="validationCustom05" class="form-label">Zip</label>
+    <input type="text" class="form-control" id="validationCustom05" required>
+    <div class="invalid-feedback">
+      Please provide a valid zip.
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+      <label class="form-check-label" for="invalidCheck">
+        Agree to terms and conditions
+      </label>
+      <div class="invalid-feedback">
+        You must agree before submitting.
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Submit form</button>
+  </div>
+</form>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/defaultValue.js"></script>
     <script src="./js/services_select_new.js"></script>
-   
+<script>
+    (function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 </body>
 
 </html>
