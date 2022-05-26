@@ -5,7 +5,7 @@ class Conexion extends PDO {
 
 
     private $hostname = "localhost";
-    private $bd_name = "cpoperacional";
+    private $bd_name = "c_operacional";
     private $username =  "root";
     private $password =  "";
 

@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
             $stmt->bindValue(':vp_idsede',$vp_idsede);
         }
         
-        if($dpto!= ""){
+        if($dpto != "" ){
             $sql = "SELECT id_Dpto, Nombre_Dpto, Dpto_idVP FROM departamentos WHERE Dpto_idVP = :dpto ";
             $stmt = $pdo->prepare($sql);
             $stmt->bindValue(':dpto',$dpto);
