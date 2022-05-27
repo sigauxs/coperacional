@@ -35,7 +35,12 @@
                                     <label> Fecha inspección </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 text-center">
-                                    <input type="date" name="fechaInspeccion" id="fechaInspeccion" class="form-control text-center">
+                                    <input 
+                                    type="date" 
+                                    name="fechaInspeccion" 
+                                    id="fechaInspeccion" 
+                                    class="form-control text-center"
+                                    required>
                                 </div>
 
                             </div>
@@ -48,13 +53,21 @@
                                     <label> Sede </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select"  name="sede"  onchange="changevp(this)" id="sedes" aria-label="Default select example">
-                                        <option value="0" selected>Escoger un Sede</option>
+                                    <select class="form-select"  
+                                            name="sede"  
+                                            id="sedes" 
+                                            aria-label="Default select example" 
+                                            required>
+                                        <option value="" selected>Escoger un Sede</option>
                                         <option value="1" >Mina</option>
                                         <option value="2" >Puertos</option>
 
                                     </select>
+                                    <div class="invalid-feedback">
+                                     Selecciona una Sede
+                                    </div>
                                 </div>
+                               
 
                             </div>
 
@@ -65,9 +78,18 @@
                                     <label> Vicepresidencia </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select value="0" class="form-select" name="vp" id="vp_idSede" onchange="changeDpto(this)" name="vicepresidencia" aria-label="Default select example">
-                                        <option value="0" selected>Escoger un Vicepresidencia</option>
+                                    <select  
+                                            class="form-select" 
+                                            name="vp" 
+                                            id="vp_idSede" 
+                                            name="vicepresidencia" 
+                                            aria-label="Default select example" 
+                                            required>
+                                        <option value="" selected>Escoger un Vicepresidencia</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                     Selecciona una vicepresidencia
+                                    </div>
                                 </div>
 
                             </div>
@@ -77,9 +99,17 @@
                                     <label> Departamento </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select value="0" class="form-select" id="dpto" name="dpto" onchange="changeArea(this)" name="departamento" aria-label="Default select example">
-                                        <option value="0" selected>Escoger un Departamento</option>
+                                    <select class="form-select" 
+                                            id="dpto" 
+                                            name="dpto"  
+                                            name="departamento" 
+                                            aria-label="Default select example"
+                                            required>
+                                        <option value="" selected>Escoger un Departamento</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                      Selecciona un Departamento
+                                    </div>
                                 </div>
 
                             </div>
@@ -89,9 +119,16 @@
                                     <label> Área </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 ">
-                                    <select value="0" class="form-select" name="area" id="area" aria-label="Default select example">
-                                        <option value="0" selected>Escoger un área</option>
+                                    <select class="form-select" 
+                                            name="area" 
+                                            id="area" 
+                                            aria-label="Default select example" 
+                                            required>
+                                        <option value="" selected>Escoger un área</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                      Selecciona un Area
+                                    </div>
                                 </div>
 
                             </div>
@@ -164,7 +201,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-9">
                                     <select class="form-select" name="empresa" aria-label="Default select example">
-                                        <option selected>Escoger un área</option>
+                                        <option value="" selected>Escoger un área</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
@@ -208,13 +245,32 @@
         </div>
     </div>
 
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/defaultValue.js"></script>
     <script src="./js/services_select.js"></script>
-   
+<script>
+    (function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 </body>
 
 </html>

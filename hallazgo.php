@@ -164,19 +164,19 @@
                                 </h2>
                                 <div id="flush-collapseCIluminacion" class="accordion-collapse collapse" aria-labelledby="flush-headingCIluminacion" data-bs-parent="#accordionFlushControlIluminación">
                                   <div class="accordion-body">
-                                  <form>
-                                    
-                                    <label for="">Cumple</label>
-                                    <input type="radio" name="controls" id="" value="true">
+                                    <form>
 
-                                    <label for="">No Cumple</label>
-                                    <input type="radio" name="controls" id="" value="true">
-                                  </form>
+                                      <label for="">Cumple</label>
+                                      <input type="radio" name="controls" id="" value="true">
+
+                                      <label for="">No Cumple</label>
+                                      <input type="radio" name="controls" id="" value="true">
+                                    </form>
                                   </div>
                                 </div>
                               </div>
-                             
-                           
+
+
                             </div>
 
 
@@ -193,28 +193,28 @@
                         <div id="flush-collapseRuido" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushPeligroElectrico">
                           <div class="accordion-body">
 
-                          <div class="accordion accordion-flush" id="accordionFlushControlRuido">
+                            <div class="accordion accordion-flush" id="accordionFlushControlRuido">
                               <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-headingCRuido">
                                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseCRuido" aria-expanded="false" aria-controls="flush-collapseCRuido">
-                                  Uso de protección auditiva
+                                    Uso de protección auditiva
                                   </button>
                                 </h2>
                                 <div id="flush-collapseCRuido" class="accordion-collapse collapse" aria-labelledby="flush-headingCRuido" data-bs-parent="#accordionFlushControlRuido">
                                   <div class="accordion-body">
-                                  <form>
-                                    
-                                    <label for="">Cumple</label>
-                                    <input type="radio" name="controls" id="" value="true">
-
-                                    <label for="">No Cumple</label>
-                                    <input type="radio" name="controls" id="" value="true">
-                                  </form>
+                                    <form>
+                                      <select class="form-select" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                      </select>
+                                    </form>
                                   </div>
                                 </div>
                               </div>
-                             
-                           
+
+
                             </div>
 
 
