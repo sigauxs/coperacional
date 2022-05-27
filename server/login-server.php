@@ -1,25 +1,22 @@
-<?php
-include "../connection/connection.php";
+<?PHP
 
-$email = $_POST['email'];
-$clave = $_POST['clave'];
 
-//variable tipo vector
+include ("../connetion/connection.php");
+
+
 $json=array();
-if (isset($email) && isset($clave) ){
+if (isset($_POST['email']) && isset($_POST['pass']) ){
   
-    
-//conexion a la base de datos
-$consulta = "SELECT DISTINCT email, clave FROM users where email = ? and clave = ? ";
-$account =htmlentities($email);
-$pass =htmlentities($clave);
+$consulta = "";
+$account =htmlentities($_GET['account']);
+$pass =htmlentities($_GET['pass']);
   
 $resultado=mysqli_prepare($conexion,$consulta); 
 if (!$resultado) {
     echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
 }
 
-$ok=mysqli_stmt_bind_param($resultado,'ss', $email,$clave);
+$ok=mysqli_stmt_bind_param($resultado,'ss', $account,$pass);
 
 
 
@@ -28,7 +25,7 @@ if (!$ok) {
     echo "Falló la ejecución: (" . $sentencia->errno . ") " . $sentencia->error;
 }
 
-$ok=mysqli_stmt_bind_result($resultado,$email,$clave); 
+$ok=mysqli_stmt_bind_result($resultado,$account,$pass); 
 
 
 
@@ -59,5 +56,11 @@ echo "hola mundo";
 
 }
     
+   
 
+		
+
+        
+		
 ?>
+
