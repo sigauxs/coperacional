@@ -1,66 +1,36 @@
-<?PHP
+<?php
+
+include("../connection/connection.php");
+$pdo = new Conexion();
 
 
-include ("../connetion/connection.php");
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods:OPTIONS,POST");
+header("Allow: OPTIONS,POST");
 
-
-$json=array();
-if (isset($_POST['email']) && isset($_POST['pass']) ){
-  
-$consulta = "";
-$account =htmlentities($_GET['account']);
-$pass =htmlentities($_GET['pass']);
-  
-$resultado=mysqli_prepare($conexion,$consulta); 
-if (!$resultado) {
-    echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
-}
-
-$ok=mysqli_stmt_bind_param($resultado,'ss', $account,$pass);
-
-
-
-$ok=mysqli_stmt_execute($resultado);
-if (!$ok) {
-    echo "Falló la ejecución: (" . $sentencia->errno . ") " . $sentencia->error;
-}
-
-$ok=mysqli_stmt_bind_result($resultado,$account,$pass); 
-
-
-
-/* $consulta->bind_result($json['account'], $json['pass']);*/
-$final  = $resultado->get_result();
-
-
-
-
-while($registro=mysqli_fetch_assoc($final)){
-//se pasa el vector de registros a un archivo json
-$json[]=$registro;
-
-
+$method = $_SERVER['REQUEST_METHOD'];
+if($method == "OPTIONS") {
+    die();
 }
 
 
-mysqli_close($conexion);
-echo json_encode($json);
-
-}else{
+/*if($_SERVER['REQUEST_METHOD']=='POST'){
 
 
+}*/
+$nombre = "AMorgan@drummondltd.com";
+$edad = "77162256";
 
-echo "hola mundo";
 
+$sql = "CALL Usuario_Registrado(:nombre,:edad);";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':nombre',$nombre);
+$stmt->bindValue(':edad',$edad);
+$stmt->execute();
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
+header('HTTP/1.1 200 OK');
+echo json_encode($stmt->fetchAll());
 
-}
-    
-   
-
-		
-
-        
-		
 ?>
-

@@ -17,48 +17,75 @@
     <div class="container">
         <div class="row">
             <div class="div--center">
-              
-            <div class="div--center-images w-card mx-auto">
-                <img src="./assets/images/user.png" alt="User logo" class="img-fluid user--size mx-auto">
-            </div>
+
+                <div class="div--center-images w-card mx-auto">
+                    <img src="./assets/images/user.png" alt="User logo" class="img-fluid user--size mx-auto">
+                </div>
                 <div class="card mt-responsive mx-auto div--center-border w-card mb-3" style="z-index: 1;">
-                    
+
                     <div class="card-body">
-                    
-                    <form action="" method="POST" class="needs-validation" novalidate>
 
-                        <div class="mb-3 mt-5 row">
-                            <div class="col-sm-12 mb-3">
-                                <input type="email" id="email" name="email" class="useFontAwesomeFamily form-control" placeholder="&#xf406;   Usuario" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <div class="col-sm-12 mb-3">
-                                <input type="password" id="password" name="clave" class="useFontAwesomeFamily form-control"  placeholder="&#xf084;   Clave" required>
-                                <div class="invalid-feedback">
-                                    Ingrese un usuario o contraseña valida.
-                            </div>
-                            </div>
-                        
-                        </div>
+                        <form method="POST" id="login" class="needs-validation" novalidate>
 
-
-
-                        <div class="mb-3 row">
-                            <div class="col-sm-12 mb-2">
-                                <div class="d-grid gap-2">
-                                   
-                                   <!--<button class="btn btn-danger btn-login rounded-pill fw-bolder" type="submit">Ingresar</button>-->
-                                    
-                                    
-                                    <a class="btn btn-danger btn-login rounded-pill fw-bolder" href="./menu.php">Ingresar  </a>
-                                    
-                               
+                            <div class="mb-3 mt-5 row">
+                                <div class="col-sm-12 mb-3">
+                                    <input type="email" id="email" name="email" class="useFontAwesomeFamily form-control" placeholder="&#xf406;   Usuario" required>
                                 </div>
                             </div>
-                        </div>
+                            <div class="mb-3 row">
+                                <div class="col-sm-12 mb-3">
+                                    <input type="password" id="password" name="clave" class="useFontAwesomeFamily form-control" placeholder="&#xf084;   Clave" required>
+                                    <div class="invalid-feedback">
+                                        Ingrese un usuario o contraseña valida.
 
-                    </form>
+                                        <?php
+                                        include_once("../connection/connection.php");
+
+                                        if(isset($_GET['cerrar_session'])){
+                                            session_unset();
+
+                                            session_destroy();
+                                        }
+
+                                        if(isset($_SESSION['rol'])){
+                                            switch($_SESSION['rol']){
+                                                case 1:
+                                                    header('location: admin.php');
+                                                break;
+                                    
+                                                case 2:
+                                                header('location: colab.php');
+                                                break;
+                                    
+                                                default:
+                                            }
+                                        }
+                                    
+                                        
+
+                                        ?>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="mb-3 row">
+                                <div class="col-sm-12 mb-2">
+                                    <div class="d-grid gap-2">
+
+                                  <button class="btn btn-danger btn-login rounded-pill fw-bolder" type="submit">Ingresar</button>
+
+
+                                       
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
@@ -70,6 +97,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/validate.js"></script>
+    <script src="./js/login-server.js"></script>
 </body>
 
 </html>
