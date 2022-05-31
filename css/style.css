@@ -1,6 +1,5 @@
-*{
-    font-size:;
-}
+@import url("../css/navbar.css");
+
 
 
 .useFontAwesomeFamily::placeholder { /* Most modern browsers */

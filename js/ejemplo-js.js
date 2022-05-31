@@ -1,9 +1,6 @@
 /*const formLogin = document.getElementById("login");
 
-
-
 let url = "http://localhost/cp/server/login-server.php";
-
 
 formLogin.addEventListener("submit",(e)=>{
  
@@ -13,7 +10,7 @@ formLogin.addEventListener("submit",(e)=>{
     console.log(password);
 
     fetchPostLogin(url,email,password);
-    e.preventDefault();
+    
    
 
 
@@ -33,12 +30,12 @@ const fetchPostLogin = async (url,email,password) => {
         .then(data => console.log(data));
 
         
-}*/
+}
 
-document.addEventListener("DOMContentLoaded",()=>{
+/*document.addEventListener("DOMContentLoaded",()=>{
     let _datos = {
-        email: "amorgan@drummondltd.com",
-        password: "7716226", 
+        email: "AMorgan@drummondltd.com",
+        password: "77162256", 
       }
 
       console.log(_datos);
@@ -52,7 +49,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       .then(response => response.json()) 
       .then(json => console.log(json))
      
-})
+})*/
 
 
   

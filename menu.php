@@ -1,3 +1,19 @@
+<?php
+
+include_once("./include/typeAdmin.php");
+
+session_start();
+
+if (!isset($_SESSION['usuarioId'])) {
+    header('location: index.php');
+}
+
+$tipoUsuario = $_SESSION['tipoUsuario'];
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es-CO">
 
@@ -7,10 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control Operacional</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="./css/responsive.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2dd4f6d179.js" crossorigin="anonymous"></script>
@@ -18,40 +31,48 @@
 
 <body>
 
-  
+
     <div class="container container-sm">
         <div class="row">
             <div class="col text-center">
                 <h2 class="my-5">Menu Principal</h2>
             </div>
         </div>
-  <div class="row animate__animated animate__fadeInDown animate__slow">
-    <div class="col-sm-6 col-md-4 text-center">
-        <a href="./inspeccion.php" class="text-link text-link--mt">
-        <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
-        <p> Registrar nueva inspección </p>
-        </a>   
+        <div class="row animate__animated animate__fadeInDown animate__slow">
+            <div class="col-sm-6 col-md-4 text-center">
+                <a href="./inspeccion.php" class="text-link text-link--mt">
+                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
+                    <p> Registrar nueva inspección </p>
+                </a>
 
+            </div>
+            <div class="col-sm-6 col-md-4 text-center">
+                <a href="./inspeccion.php" class="text-link text-link--mt">
+                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
+                    <p> Ver inspecciones </p>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 text-center">
+                <a href="./inspeccion.php" class="text-link text-link--mt">
+                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
+                    <p> Registrar nueva inspección </p>
+                </a>
+            </div>
+           
+            <?php if(typeAdmin($tipoUsuario)){ ?>
+            <div class="col-sm-6 col-md-4 text-center">
+                <a href="./inspeccion.php" class="text-link text-link--mt">
+                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
+                    <p> configuraciones </p>
+                </a>
+            </div>
+            <?php } ?>
+        </div>
     </div>
-    <div class="col-sm-6 col-md-4 text-center">
-        <a href="./inspeccion.php" class="text-link text-link--mt">
-        <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
-        <p> Ver inspecciones </p>
-        </a>
+
+    <div>
+        <a class="nav-link" href="client/logout.php"> Salir</a>
     </div>
-    <div class="col-sm-6 col-md-4 text-center">
-        <a href="./inspeccion.php" class="text-link text-link--mt">
-        <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
-        <p> Registrar nueva inspección </p></a>  
-    </div>
-    <div class="col-sm-6 col-md-4 text-center">
-    <a href="./inspeccion.php" class="text-link text-link--mt">
-     <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
-     <p> Registrar nueva inspección </p>
-    </a>
-    </div>
-  </div>
-</div>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

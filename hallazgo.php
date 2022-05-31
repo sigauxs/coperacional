@@ -1,3 +1,20 @@
+
+<?php
+
+include_once("./include/typeAdmin.php");
+
+session_start();
+
+if (!isset($_SESSION['usuarioId'])) {
+    header('location: index.php');
+}
+
+$tipoUsuario = $_SESSION['tipoUsuario'];
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es-CO">
 
