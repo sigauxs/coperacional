@@ -1,4 +1,4 @@
-<?php 
+<?php
 function typeAdmin($idTipoUsuario)
 {
     if($idTipoUsuario == 1){
@@ -7,4 +7,5 @@ function typeAdmin($idTipoUsuario)
         return false;
     }
 }
+
 ?>

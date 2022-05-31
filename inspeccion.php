@@ -1,6 +1,6 @@
 <?php
 
-include_once("./include/typeAdmin.php");
+include("./include/typeAdmin.php");
 
 session_start();
 
@@ -32,10 +32,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 <body>
 
 <?php include("./components/navbar.php") ?>
-    <div class="container container-sm">
+<?php include("./components/navbar-movil.php") ?>
+    <div class="container-fluid container-fluid-sm">
        
         <div class="row">
-            <div class="offset-md-2 col-md-8">
+            <div class="offset-md-3 col-md-8">
                 <div class="card mt-responsive mt-3 mx-auto div--center-border mb-3" style="z-index: 1;">
 
                     <div class="card-header">
@@ -150,15 +151,13 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                             </div>
 
                             <div class="mb-3 row align-items-center">
+
                                 <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Inspeccionado </label>
+                                    <label> Inspector </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select value="0" class="form-select" name="inspeccionado" aria-label="Default select example">
-                                        <option value="0" selected>Escoger un Inspeccionado</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select id="inspector"  class="form-select" name="inspeccionado" aria-label="Default select example">
+                                        <option value="" selected>Escoger un Inspeccionado</option>
                                     </select>
                                 </div>
 
@@ -257,7 +256,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                     </div>
                 </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
         </div>
     </div>
 

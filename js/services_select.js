@@ -102,19 +102,15 @@ dpto.addEventListener("change",()=>{
   });
 })
 
+const inspector = document.getElementById("inspector");
+document.addEventListener("DOMContentLoaded",()=>{
+  console.log(inspector);
+})
 
 
 
-function changeDpto(select){
-    let dpto_idVP = select.value;
-    fetchDataSelect("",dpto_idVP,"","#dpto");
-    let dpto = document.getElementById("dpto").value;
-}
 
-function changeArea(select){
-    let area_id = select.value;
-    fetchDataSelect("","",area_id,"#area")
-}
+
 
 
 const fetchDataSelect = async (vp_idsede,dpto,area,selector) => {

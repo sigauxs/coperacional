@@ -1,20 +1,15 @@
-<?php
-
-session_start();
-
-
-?>
-
-<nav id="navbar">
+<nav id="navbar-desktop">
     <div>
         <ul>
-            <li><a href="">inicio</a></li>
-            <li><a href="">Registrar nueva inspeccion</a></li>
-            <li><a href="">Listar inspeccion</a></li>
-            <p><?php echo $_SESSION['usuarioId'] ?></p>
+            <li><a href="menu.php">inicio</a></li>
+            <li><a href="inspeccion.php">Registrar nueva inspeccion</a></li>
+            <li><a href="listarinspeccion.php">Listar inspeccion</a></li>
+            <li><a href="client\logout.php">Cerrar sesión</a></li>
         </ul>
     </div>
 </nav>
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", (e) => {
@@ -43,7 +38,6 @@ session_start();
         }
 
         const userId= "<?php echo $_SESSION['usuarioId'] ?>";
-console.log(userId);
         dataPerson( userId ).then( dataUser => {
             console.log( dataUser );
         })

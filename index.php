@@ -6,12 +6,7 @@ $pdo = new Conexion();
 
 session_start();
 
-
-if (isset($_GET['cerrar_session'])) {
-    session_unset();
-
-    session_destroy();
-}
+$_SESSION['data'] = true ;
 
 if (isset($_POST['email']) && isset($_POST['clave'])) {
 
@@ -24,13 +19,12 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     $stmt->bindValue(':password', $password);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_NUM);
-
-    var_dump($row);
+    
 
     if ($row) {
         // validar rol
-        $idUsuario = $row['0'];
-        $tipoUsuario = $row['1'];
+        $idUsuario = $row[0];
+        $tipoUsuario = $row[1];
         $rol = $row[2];
 
 
@@ -38,12 +32,22 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
         $_SESSION['usuarioId']  = $idUsuario;
         $_SESSION['tipoUsuario'] = $tipoUsuario;
 
-        header('location: menu.php');
+     header('location: menu.php');
     } else {
-        $messages = "El usuario o contraseña son incorrectos o no existe";
+        
+       echo $messages = "<div class='alert alert-danger alert-dismissible fade show mx-auto mt-4' style='width:370px' role='alert'>
+                            Usuario y/o constraseña incorrectas
+       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+     </div>";
+        
     }
 
+
+
 }
+
+
+
 
 
 ?>
@@ -65,7 +69,6 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
 </head>
 
 <body>
-<?php echo $email ?>
     <div class="container">
         <div class="row">
             <div class="div--center">
@@ -91,9 +94,6 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
                                     <input type="password" id="password" name="clave" class="useFontAwesomeFamily form-control" placeholder="&#xf084;   Clave" required>
                                     <div class="invalid-feedback">
                                         Ingrese un usuario o contraseña valida.
-                                    </div>
-                                    <div>
-                                        <p><?php echo $messages ?></p>
                                     </div>
                                 </div>
 
