@@ -103,8 +103,19 @@ dpto.addEventListener("change",()=>{
 })
 
 const inspector = document.getElementById("inspector");
+console.log(inspector);
 document.addEventListener("DOMContentLoaded",()=>{
-  console.log(inspector);
+  let userCurrent = localStorage.getItem("userCurrent");
+  let userCurrentJson =  JSON.parse(userCurrent);
+
+  console.log(userCurrentJson);
+  let fullname = userCurrentJson.Primer_Nombre 
+                  + " " + userCurrentJson.Segundo_Nombre
+                  + " " + userCurrentJson.Primer_Apellido 
+                  + " " + userCurrentJson.Segundo_Apellido
+console.log( fullname);
+console.log(userCurrentJson.Primer_Apellido);
+
 })
 
 

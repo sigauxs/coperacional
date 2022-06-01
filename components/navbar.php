@@ -4,7 +4,7 @@
             <li><a href="menu.php">inicio</a></li>
             <li><a href="inspeccion.php">Registrar nueva inspeccion</a></li>
             <li><a href="listarinspeccion.php">Listar inspeccion</a></li>
-            <li><a href="client\logout.php">Cerrar sesión</a></li>
+            <li><a id="logout" href="client\logout.php">Cerrar sesión</a></li>
         </ul>
     </div>
 </nav>
@@ -12,9 +12,16 @@
 
 
 <script>
+   let logout =  document.getElementById("logout");
+
+   logout.addEventListener("click",()=>{
+     localStorage.clear();
+   })
+
     document.addEventListener("DOMContentLoaded", (e) => {
 
         console.log("<?php echo $_SESSION['usuarioId'] ?>")
+        let user = [];
 
         const options = {
             method: "GET",
@@ -38,10 +45,15 @@
         }
 
         const userId= "<?php echo $_SESSION['usuarioId'] ?>";
-        dataPerson( userId ).then( dataUser => {
-            console.log( dataUser );
+
+        const userData = dataPerson( userId ).then( dataUser => {
+           localStorage.setItem("userCurrent",JSON.stringify(dataUser[0]));
         })
 
+        let userCurrent = localStorage.getItem("userCurrent");
+      
 
     })
+
+
 </script>
