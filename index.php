@@ -3,6 +3,7 @@
 include("./connection/connection.php");
 
 $pdo = new Conexion();
+$pdo_person = new Conexion();
 
 session_start();
 
@@ -20,6 +21,7 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_NUM);
     
+    var_dump($stmt);
 
     if ($row) {
         // validar rol
@@ -31,6 +33,30 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
         $_SESSION['rol'] = $rol;
         $_SESSION['usuarioId']  = $idUsuario;
         $_SESSION['tipoUsuario'] = $tipoUsuario;
+        $_SESSION['test'] = "Hola mundo";
+
+                       
+        
+        $sql_person = "SELECT * FROM personas WHERE idPersona = :idPerson";
+        $stmt_person = $pdo_person->prepare($sql_person);
+        $stmt_person->bindValue(':idPerson', $idUsuario);
+        $stmt_person->execute();
+        $row_person = $stmt_person->fetch(PDO::FETCH_NUM);
+          
+            $primer_nombre = $row_person[0];
+            $segundo_nombre = $row_person[1];
+            $primer_apellido = $row_person[2];
+            $segundo_apellido = $row_person[3];
+
+            
+        $_SESSION['primerNombre'] = $primer_nombre;
+        $_SESSION['segundoNombre']  = $segundo_nombre;
+        $_SESSION['primerApellido'] = $primer_apellido;
+        $_SESSION['segundoApellido'] = $segundo_apellido;
+
+          
+
+       
 
      header('location: menu.php');
     } else {
@@ -127,6 +153,8 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/validate.js"></script>
+  
+
 
 </body>
 

@@ -8,8 +8,8 @@ if (!isset($_SESSION['usuarioId'])) {
     header('location: index.php');
 }
 
+$fullname = $_SESSION['primerNombre']. " " . $_SESSION['segundoNombre']." ".$_SESSION['primerApellido']." ".$_SESSION['segundoApellido'];
 $tipoUsuario = $_SESSION['tipoUsuario'];
-
 
 ?>
 
@@ -156,8 +156,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Inspector </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select id="inspector"  class="form-select" name="inspeccionado" aria-label="Default select example">
-                                        <option value="" selected>Escoger un Inspeccionado</option>
+                                    <select id="inspector"  class="form-select" name="inspector" aria-label="Default select example">
+                                        <option <?php echo "value='".$_SESSION['usuarioId'];?> <?php echo "'"?>  selected><?php echo $fullname ?></option>
                                     </select>
                                 </div>
 
@@ -217,9 +217,6 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                 <div class="col-sm-12 col-md-9">
                                     <select class="form-select" name="empresa" aria-label="Default select example">
                                         <option value="" selected>Escoger un área</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
                                     </select>
                                 </div>
 
