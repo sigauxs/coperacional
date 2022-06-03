@@ -1,30 +1,38 @@
 document.addEventListener("DOMContentLoaded",()=>{
-    const options = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-    
-
    
-      var url = new URL("http://localhost/cp/api/hallazgo.php");
     
-      var params = {};
-      
-      url.search = new URLSearchParams(params).toString();
 
-      const factor = async () =>{
-        const response = await  fetch(url, options);
+      const factoresRiesgo = 1;
+      const peligroRiesgo = 2;
+      const controles = 3;
+      const desviaciones = 4;
+   
+
+      const fetchDataHallazgo = async (factorRiesgo,peligroRiesgo,controles,desviaciones) =>{
+
+        const options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        var url = new URL("http://localhost/cp/api/hallazgo.php");
+        var params = {factorRiesgo:factorRiesgo, peligroRiesgo:peligroRiesgo, controles:controles,desviaciones:desviaciones};
+        url.search = new URLSearchParams(params).toString();
+
+        const response = await fetch(url, options);
         const data =  await response.json();
         return data;
       }
 
    
-      factor()
-              .then( dataUser => {
+      fetchDataHallazgo(factoresRiesgo,"","","","")
+              .then( dataHallazgo => {
+                localStorage.setItem("factoresRiesgo",JSON.stringify(dataHallazgo));
+                
                 const menu = document.querySelector("#menu");
-                const factores = dataUser.map(function(factor) {
+                const factores = dataHallazgo.map(function(factor) {
                  
 
                   const lvl1 = document.createElement("li");
@@ -38,10 +46,10 @@ document.addEventListener("DOMContentLoaded",()=>{
 
                   const lvl1subMenu = document.createElement("div");
                   lvl1subMenu.setAttribute("class","submenu");
+
                   const lvl1subMenuA = document.createElement("a");
                   lvl1subMenuA.setAttribute("href","#");
                   lvl1subMenuA.textContent = "item"
-
 
 
                   menu.appendChild(lvl1);
@@ -49,21 +57,26 @@ document.addEventListener("DOMContentLoaded",()=>{
                   lvl1.appendChild(lvl1subMenu);
                   lvl1subMenu.appendChild(lvl1subMenuA);
               });
-               
-                console.log(factores);
+             
+              console.log(factores);
               })
 
+      fetchDataHallazgo("",peligroRiesgo,"","").then( peligroRiesgo => {
+
+        let fr = JSON.parse(localStorage.getItem("factoresRiesgo"));
+        let idsFactorRiesgo = [];
+        fr.map((factorRiesgo)=>{
+          console.log(factorRiesgo);
+          let factorRiesgoMenu = document.querySelector(`#${factorRiesgo.NombreFactor}`);
+          console.log(factorRiesgoMenu);
+        });
+        console.log(idsFactorRiesgo);
+        console.log( peligroRiesgo )
+      
+      });
+
+
+      fetchDataHallazgo("","",controles,"").then( controles => { console.log( controles )});
+      fetchDataHallazgo("","","",desviaciones).then( desviaciones => { console.log( desviaciones)});
       
 })
-     /* let menu = document.getElementById("#menu");
-function renderlvl1(values) {
-  for (valor of values) {
-    const lvl1 = document.createElement("li");
-    let data = Object.values(valor);
-    console.log(data);
-    lvl1.setAttribute("id",`${data[1]}`)
-    menu.appendChild(lvl1);
-    /*lvl1.value = data[0];
-    lvl1.text = data[1];
-    let menu = document.getElementById("#menu");
-    menu.appendChild(lvl1);*/
