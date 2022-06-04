@@ -153,7 +153,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
               <!--Fisico -->
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingFisico">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFisico" aria-expanded="false" aria-controls="flush-collapseFisico">
+                  <button 
+                  class="accordion-button collapsed" 
+                  type="button" 
+                  data-bs-toggle="collapse" data-bs-target="#flush-collapseFisico" 
+                  aria-expanded="false" aria-controls="flush-collapseFisico">
                     Fisico
                   </button>
                 </h2>

@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded",()=>{
    
     
-      const body = document.body;
+      const cardBody = document.querySelector('#card-body');
       const factoresRiesgo = 1;
       const peligroRiesgo = 2;
       const controles = 3;
@@ -30,14 +30,12 @@ document.addEventListener("DOMContentLoaded",()=>{
       fetchDataHallazgo(factoresRiesgo,"","","","")
               .then( dataHallazgo => {
                 localStorage.setItem("factoresRiesgo",JSON.stringify(dataHallazgo));
-                /*<div class="accordion accordion-flush" id="accordionFlushExample"></div>*/
-
-                let divAccordion = document.createElement("div");
-                divAccordion.classList.add("accordion","accordion-flush");
-
-                body.appendChild(divAccordion);
-                console.log(dataHallazgo);
-      })
+                })
+              
+            
+     
 
 
 });
+
+/* */
