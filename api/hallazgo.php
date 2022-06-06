@@ -51,8 +51,9 @@ if (isset($peligroRiesgos) && !empty($peligroRiesgos)) {
 
 if (isset($controles) && !empty($controles)) {
 
-        $sql = "SELECT * FROM controles";
+        $sql = "SELECT * FROM controles where Peligro_idPeligro = :idPeligros";
         $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':idPeligros',$controles);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -63,8 +64,9 @@ if (isset($controles) && !empty($controles)) {
 
 if (isset($desviaciones) && !empty($desviaciones)) {
     
-        $sql = "SELECT * FROM desviaciones";
+        $sql = "SELECT * FROM desviaciones WHERE Control_idControl = :control_id";
         $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':control_id',$desviaciones);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 

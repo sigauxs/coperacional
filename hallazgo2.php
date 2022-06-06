@@ -244,21 +244,50 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                     let ulSubLiLvl2M = document.querySelector(`#${factorRiesgo.NombreFactor.split(' ').join('')}`);
                     peligroRiesgoS.map((peligro) => {
 
-
-
                       let lilvl2 = document.createElement("li");
                       let alvl2 = document.createElement("a");
                       let ulSubLvl2 = document.createElement("ul");
                       let ulSubLiLvl2 = document.createElement("li");
-
-
+                      
+                      let idCleanLvl2 = peligro.Nombre_Peligro.split(' ').join('');
+                      idCleanLvl2.split(',').join('');
 
                       alvl2.classList.add("toggle");
                       alvl2.setAttribute("href", "javascript:void(0);");
                       alvl2.textContent = peligro.Nombre_Peligro;
 
                       ulSubLvl2.classList.add("inner");
+                      ulSubLiLvl2.setAttribute("id",`${idCleanLvl2.split(',').join('')}`);
 
+                      fetchDataHallazgo("","",peligro.id_Peligro,"").then( controles =>{
+                        let ulSubLiLvl3M = document.querySelector(`#${idCleanLvl2.split(',').join('')}`);
+                    
+                        controles.map(control => {
+                          
+                      let lilvl3 = document.createElement("li");
+                      let alvl3 = document.createElement("a");
+                      let ulSubLvl3 = document.createElement("ul");
+                      let ulSubLiLvl3 = document.createElement("li");
+
+                      alvl3.classList.add("toggle");
+                      alvl3.setAttribute("href", "javascript:void(0);");
+                      alvl3.textContent = control.Descripcion_Control;
+
+                      ulSubLvl3.classList.add("inner");
+                        fetchDataHallazgo("","","",control.idControl).then( desviaciones => {
+                          console.log(desviaciones);
+                        })
+                      /*lilvl3.setAttribute("id",`${idCleanLvl2.split(',').join('')}`);*/
+
+                      ulSubLiLvl3M.appendChild(lilvl3);
+                      lilvl3.appendChild(alvl3);
+                      lilvl3.append(ulSubLvl3);
+                      ulSubLvl3.appendChild(ulSubLiLvl3);
+
+
+
+                        })
+                      });
 
                       ulSubLiLvl2M.appendChild(lilvl2);
                       lilvl2.appendChild(alvl2);
@@ -303,7 +332,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         <script>
          window.addEventListener('DOMContentLoaded', (event) => {
           setTimeout(function(){
-            console.log('5s');
+            console.log('2s');
             $('.toggle').click(function(e) {
               e.preventDefault();
 
@@ -319,7 +348,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                 $this.next().slideToggle(350);
               }
             });
-}, 500);
+}, 7000);
 
    })
         </script>
