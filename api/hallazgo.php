@@ -15,9 +15,7 @@ if ($method == "OPTIONS") {
 }
 
 define("FACTOR_RIESGO", 1);
-define("PELIGRO_RIESGO", 2);
-define("CONTROLES", 3);
-define("DESVIACIONES", 4);
+
 
 
 $factoresRiesgos = $_GET['factorRiesgo'];
@@ -39,19 +37,20 @@ if (isset($factoresRiesgos) && !empty($factoresRiesgos)) {
 }
 
 if (isset($peligroRiesgos) && !empty($peligroRiesgos)) {
-    if (PELIGRO_RIESGO == $peligroRiesgos) {
-        $sql = "SELECT * FROM peligro_riesgo";
+  
+        $sql = "SELECT * FROM peligro_riesgo where Factor_idFactor = :idfactor_peligro";
         $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':idfactor_peligro',$peligroRiesgos);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
         header('HTTP/1.1 200 OK');
         echo json_encode($stmt->fetchAll());
-    }
+    
 }
 
 if (isset($controles) && !empty($controles)) {
-    if (CONTROLES == $controles) {
+
         $sql = "SELECT * FROM controles";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
@@ -59,11 +58,11 @@ if (isset($controles) && !empty($controles)) {
 
         header('HTTP/1.1 200 OK');
         echo json_encode($stmt->fetchAll());
-    }
+
 }
 
 if (isset($desviaciones) && !empty($desviaciones)) {
-    if (DESVIACIONES == $desviaciones) {
+    
         $sql = "SELECT * FROM desviaciones";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
@@ -71,5 +70,5 @@ if (isset($desviaciones) && !empty($desviaciones)) {
 
         header('HTTP/1.1 200 OK');
         echo json_encode($stmt->fetchAll());
-    }
+ 
 }
