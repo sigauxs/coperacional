@@ -26,7 +26,9 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="./css/responsive.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <script src="https://kit.fontawesome.com/2dd4f6d179.js" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -45,7 +47,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                     </div>
                     <div class="card-body bg-transparent">
 
-                        <form id="formInspeccion" action="./server/inspeccionRegister.php" method="POST" class="needs-validation" novalidate>
+                        <form id="formInspeccion" onSubmit="prueba()" action="./server/inspeccionRegister.php" method="POST" class="needs-validation" novalidate>
 
                             <div class="mb-3 row align-items-center ">
                                 <div class="col-sm-12 col-md-3 text-center">
@@ -87,6 +89,27 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                
 
                             </div>
+
+                            <div class="mb-3 row align-items-center">
+                                <div class="col-sm-12 col-md-3 text-center">
+                                    <label> Locacion </label>
+                                </div>
+                                <div class="col-sm-12 col-md-9">
+                                    <select class="form-select"  
+                                            name="locacion"  
+                                            id="locacion" 
+                                            aria-label="Default select example" 
+                                            required>
+                                        <option value="" selected>Escoger un locacion</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                     Selecciona una locacion
+                                    </div>
+                                </div>
+                               
+
+                            </div>
+
 
                             
 
@@ -169,11 +192,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Turno </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select value="0" class="form-select"  name="turno" aria-label="Default select example">
+                                    <select value="" class="form-select" id="turno"  name="turno" aria-label="Default select example">
                                         <option selected>Escoger un Turno</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <option value="1">Dia</option>
+                                        <option value="2">Noche</option>
+                                   
                                     </select>
                                 </div>
 
@@ -181,14 +204,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
                             <div class="mb-3 row align-items-center">
                                 <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Grupo </label>
+                                    <label> Delegado del Area </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" name="grupo" aria-label="Default select example">
-                                        <option value="" selected>Escoger un grupo</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="form-select" id="delegado" name="delegado" aria-label="Default select example">
+                                        <option value="" selected>Escoger un delegado de area</option>
                                     </select>
                                 </div>
 
@@ -196,32 +216,15 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
                             <div class="mb-3 row align-items-center">
                                 <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Lider de Area </label>
+                                    <label> Responsable del Area </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" name="liderArea" aria-label="Default select example">
-                                        <option value="" selected>Escoger un lider de area</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="form-select" id="responsable" name="responsable" aria-label="Default select example">
+                                        <option value="" selected>Escoger un responsable de area</option>
                                     </select>
                                 </div>
 
                             </div>
-
-
-                            <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Empresa </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" name="empresa" aria-label="Default select example">
-                                        <option value="" selected>Escoger un área</option>
-                                    </select>
-                                </div>
-
-                            </div>
-
 
                             <div class="mb-3 row">
                                 <div class="col-sm-12 col-md-3 text-center">
@@ -262,6 +265,31 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/defaultValue.js"></script>
     <script src="./js/services_select.js"></script>
+    <script>
+/*
+        function prueba(){
+            console.log('hola mundo');
+            Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
+            e.preventDefault();
+        }*/
+       
+    </script>
 <script>
     (function () {
   'use strict'

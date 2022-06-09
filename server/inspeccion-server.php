@@ -20,6 +20,16 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         $vp_idsede = $_GET['vp_idsede'];
         $dpto = $_GET['dpto'];
         $area = $_GET['area'];
+        $locacion = $_GET['locacion'];
+
+
+ 
+
+        if($locacion != ""){
+            $sql = "CALL locacion(:idSede);";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':idSede',$locacion);
+        }
 
         if($vp_idsede != ""){
             $sql = "SELECT idVP, NombreVP from vp where VP_idSede = :vp_idsede";
@@ -46,7 +56,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         header('HTTP/1.1 200 OK');
         echo json_encode($stmt->fetchAll());
         
-        
+        $pdo = null;
 
 
 

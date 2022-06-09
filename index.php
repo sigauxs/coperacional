@@ -8,6 +8,7 @@ $pdo_person = new Conexion();
 session_start();
 
 $_SESSION['data'] = true ;
+$_SESSION['message'] = "";
 
 if (isset($_POST['email']) && isset($_POST['clave'])) {
 
@@ -26,12 +27,14 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     if ($row) {
         // validar rol
         $idUsuario = $row[0];
-        $tipoUsuario = $row[1];
-        $rol = $row[2];
+        $idPerson = $row[1];
+        $tipoUsuario = $row[2];
+        $rol = $row[3];
 
 
         $_SESSION['rol'] = $rol;
         $_SESSION['usuarioId']  = $idUsuario;
+        $_SESSION['personId'] = $idPerson;
         $_SESSION['tipoUsuario'] = $tipoUsuario;
         $_SESSION['test'] = "Hola mundo";
 
@@ -39,7 +42,7 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
         
         $sql_person = "SELECT * FROM personas WHERE idPersona = :idPerson";
         $stmt_person = $pdo_person->prepare($sql_person);
-        $stmt_person->bindValue(':idPerson', $idUsuario);
+        $stmt_person->bindValue(':idPerson', $idPerson);
         $stmt_person->execute();
         $row_person = $stmt_person->fetch(PDO::FETCH_NUM);
           

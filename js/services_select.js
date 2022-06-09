@@ -1,7 +1,7 @@
 const resetValue = 0;
 
 
-const sedes = document.getElementById("sedes");
+let sedes = document.getElementById("sedes");
 let form = document.querySelector("#formInspeccion");
 
 $( "#area" ).prop( "disabled", true );
@@ -11,29 +11,33 @@ $( "#vp_idSede").prop( "disabled", true );
 
 sedes.addEventListener("change",()=>{
   $("#sedes option:selected").each(function () {
-
-    let VP_idSede = $(this).val();
+ 
+    let idSede = $(this).val();
   
-    if(VP_idSede != 0){
-      fetchDataSelect(VP_idSede,"","","#vp_idSede");
+    if(idSede != 0){
+      fetchDataSelect(idSede,"","","#vp_idSede","");
+      $( "#locacion" ).prop( "disabled", false );
       $( "#area" ).prop( "disabled", false );
       $( "#dpto" ).prop( "disabled", false );
       $( "#vp_idSede").prop( "disabled", false );
 
+      form.elements[3].value = "";
+      form.elements[4].value = "";
+      form.elements[5].value = "";
+      console.log(idSede);
+
+      fetchDataSelect("","","","#locacion",idSede);
+      
+
+    }else if(idSede == "" || idSede ==  undefined || idSede ==  0 ){
+
       form.elements[2].value = "";
       form.elements[3].value = "";
       form.elements[4].value = "";
-
-    }else if(VP_idSede == "" || VP_idSede ==  undefined || VP_idSede ==  0 ){
-
-      form.elements[2].value = "";
-    
-
-      form.elements[3].value = "";
-    
-      form.elements[4].value = "";
+      form.elements[5].value = "";
 
       $( "#area" ).prop( "disabled", true );
+      $( "#locacion" ).prop( "disabled", true );
       $( "#dpto" ).prop( "disabled", true );
       $( "#vp_idSede").prop( "disabled", true );
     }
@@ -43,10 +47,10 @@ sedes.addEventListener("change",()=>{
  
 })
 
-const vicepresidencia = document.getElementById("vp_idSede");	
+let vicepresidencia = document.getElementById("vp_idSede");	
 vicepresidencia.addEventListener("change",()=>{
 
-  area = form.elements[4].value = "";
+ area = form.elements[5].value = "";
 
   $("#vp_idSede option:selected").each(function () {
 
@@ -54,7 +58,7 @@ vicepresidencia.addEventListener("change",()=>{
   
     if(idVicepresidencia != 0){
 
-      fetchDataSelect("",idVicepresidencia,"","#dpto");
+      fetchDataSelect("",idVicepresidencia,"","#dpto","");
       $( "#area" ).prop( "disabled", false );
       $( "#dpto" ).prop( "disabled", false );
 
@@ -66,8 +70,8 @@ vicepresidencia.addEventListener("change",()=>{
 
     }else if(idVicepresidencia == 0){
  
-      form.elements[3].value = "";
       form.elements[4].value = "";
+      form.elements[5].value = "";
 
       $( "#area" ).prop( "disabled", true );
       $( "#dpto" ).prop( "disabled", true );
@@ -85,16 +89,16 @@ vicepresidencia.addEventListener("change",()=>{
 
 })
 
-const dpto = document.getElementById("dpto");
+let dpto = document.getElementById("dpto");
 dpto.addEventListener("change",()=>{
  $("#dpto option:selected").each(function () {
     let area_idDpto = $(this).val();
 
     if(area_idDpto != 0){  
-      fetchDataSelect("","",area_idDpto,"#area");
+      fetchDataSelect("","",area_idDpto,"#area","");
       $( "#area" ).prop( "disabled", false );
       }else{
-      form.elements[4].value = "";
+      form.elements[5].value = "";
       $( "#area" ).prop( "disabled", true );
     }
 
@@ -103,7 +107,31 @@ dpto.addEventListener("change",()=>{
 })
 
 
-const fetchDataSelect = async (vp_idsede,dpto,area,selector) => {
+
+let area = document.getElementById("area");
+area.addEventListener("change",()=>{
+  let locacion = form.elements['locacion'].value;
+ $("#area option:selected").each(function () {
+    let area_id = $(this).val();
+    if(area_id != 0){  
+      SelectDelegadoyPertenece(area_id,locacion,"","#delegado");
+      SelectDelegadoyPertenece(area_id,locacion,1,"#responsable");
+      $( "#delegado" ).prop( "disabled", false );
+      $( "#responsable" ).prop( "disabled", false );
+     
+      }else{
+      form.elements['delegado'].value = "";
+      form.elements['responsable'].value = "";
+      $( "#delegado" ).prop( "disabled", true );
+      $( "#responsable" ).prop( "disabled", true );
+ 
+    }
+  });
+})
+
+
+
+const fetchDataSelect = async (vp_idsede,dpto,area,selector,locacion) => {
   const options = {
     method: "GET",
     headers: {
@@ -114,7 +142,28 @@ const fetchDataSelect = async (vp_idsede,dpto,area,selector) => {
 
   var url = new URL("http://localhost/cp/server/inspeccion-server.php");
 
-  var params = { vp_idsede: vp_idsede, dpto:dpto, area:area };
+  var params = { vp_idsede: vp_idsede, dpto:dpto, area:area, locacion:locacion };
+  
+  url.search = new URLSearchParams(params).toString();
+
+  const sedes = await fetch(url, options)
+    .then((response) => response.json())
+    .then((data) => renderSelect(data, selector));
+  
+};
+
+const SelectDelegadoyPertenece = async (area,locacion,rol,selector) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+
+  var url = new URL("http://localhost/cp/server/select_delegado.php");
+
+  var params = { area: area, locacion:locacion, rol:rol };
   
   url.search = new URLSearchParams(params).toString();
 
