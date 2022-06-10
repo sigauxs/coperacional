@@ -152,56 +152,48 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
             </ul>
 
-            <div id="myModal" class="modal fade" tabindex="-1">
+            <div class="modal fade" id="myModal" role="dialog">
               <div class="modal-dialog">
+                <!-- Modal content-->
                 <div class="modal-content">
-                  <p>hoal mundo</p>
+                  <div class="modal-header">
+                    <button type="button" class="btn" data-bs-dismiss="modal">x</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
                 </div>
               </div>
             </div>
 
 
-            <div class="m-4">
-              <!-- Button HTML (to Trigger Modal) -->
-
-            </div>
 
           </div>
         </div>
 
 
-        <button type="button" id="btnModal" class="btn btn-info btn-lg" data-toggle="modal" data-target="#miModal">Abrir Modal</button>
-<!-- Modal -->
-<div id="miModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Contenido del modal -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p>Texto del modal</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+        <!-- Modal -->
+
 
 
 
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-<script>
-  
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+        <script>
 
-  
 
-  
-</script>
+
+
+
+        </script>
 
         <script>
           const accordion = document.querySelector('.accordion');
@@ -332,26 +324,21 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
                           /*================  Create Modal  ===============================*/
 
+                          let modalIdLvl3 = idCleanLvl3.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
                           let buttonRegister = document.createElement("button");
-                          buttonRegister.setAttribute("id", "btnModal");
-                          buttonRegister.textContent = "Registrar Desviacion";
 
-                          let divModal = document.createElement("div");
-                          divModal.setAttribute("id", "myModal");
-                          divModal.classList.add("modalContainer");
+                          buttonRegister.setAttribute("type", "button");
+                          buttonRegister.classList.add("btn", "btn-info", "btn-lg", "modalButton");
+                          buttonRegister.setAttribute("data-name", `Clicked Modal ${idCleanLvl3}`);
+                          buttonRegister.setAttribute("data-toggle", "modal");
+                          buttonRegister.textContent = `Registrar ${control.Descripcion_Control}`;
 
-                          let divContent = document.createElement("div");
-                          divContent.classList.add("modal-content");
 
-                          let spanClose = document.createElement("span");
-                          spanClose.classList.add("close");
-                          spanClose.textContent = "x";
+
+                         
+
 
                           /* ======================== End Modal ============================ */
-
-
-
-
 
                           let form = document.createElement("form");
                           form.setAttribute("id", "desviaciones");
@@ -367,10 +354,104 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
 
                           ulSubLiLvl3.appendChild(buttonRegister);
+
+                          $(document).ready(function(e) {
+                         
+
+                         buttonRegister.addEventListener("click", (e) => {
+
+                         let divModal = document.createElement("div");
+                         divModal.classList.add("modal-dialog", "modal-dialog-centered", "modal", "fade");
+                         divModal.setAttribute("id", `${modalIdLvl3}`);
+                         divModal.setAttribute("role", "dialog");
+
+                          
+
+                          let divModalDialog = document.createElement("div");
+                          divModalDialog.classList.add("modal-dialog");
+                         
+
+
+                          let divModalContent = document.createElement("div");
+                          divModalContent.classList.add("modal-content");
+
+                         
+
+                          let divModalHeader = document.createElement("div");
+                          divModalHeader.classList.add("model-header");
+
+                          let buttonCloseX = document.createElement("button");
+                          buttonCloseX.classList.add("btn");
+                          buttonCloseX.setAttribute("data-bs-dismiss", "modal");
+                          buttonCloseX.textContent = "x";
+
+                          let h4Header = document.createElement("h4");
+                          h4Header.classList.add("modal-title");
+                          h4Header.textContent = "Modal Header";
+
+                          let divModalBody = document.createElement("div");
+                          divModalBody.classList.add("modal-body");
+
+                          let pBody = document.createElement("p");
+                          pBody.textContent = "Some text in the modal.";
+
+                          let divModalFooter = document.createElement("div");
+                          divModalFooter.classList.add("modal-footer");
+
+                          let buttonClose = document.createElement("button");
+                          buttonClose.classList.add("btn", "btn-secondary");
+                          buttonClose.setAttribute("data-bs-dismiss", "modal");
+                          buttonClose.textContent = "Cerrar";
+
+                          let buttonSave = document.createElement("button");
+                          buttonSave.classList.add("btn", "btn-primary");
+                          buttonSave.setAttribute("data-bs-dismiss", "modal");
+                          buttonSave.textContent = "Guardar";
+
+                          
+
                           ulSubLiLvl3.appendChild(divModal);
-                          divModal.appendChild(divContent);
-                          divContent.appendChild(spanClose);
-                          divContent.appendChild(form);
+                          divModal.appendChild(divModalDialog);
+                          divModalDialog.appendChild(divModalContent);                        
+                          divModalContent.appendChild(divModalHeader);
+                          divModalHeader.appendChild(buttonCloseX);
+                          divModalHeader.appendChild(h4Header);
+
+                          divModalContent.appendChild(divModalBody);
+                          divModalContent.appendChild(divModalFooter);
+
+                          divModalFooter.appendChild(buttonClose);
+                          divModalFooter.appendChild(buttonSave);
+
+                          buttonSave.addEventListener("click",()=>{
+                            $( `#${modalIdLvl3}` ).remove();
+                          })
+
+                          buttonClose.addEventListener("click",()=>{
+                            $( `#${modalIdLvl3}` ).remove();
+                          })
+
+                          $(`${modalIdLvl3}`).modal({
+                              show: false,
+                            });
+
+                                                    
+                              $(`#${modalIdLvl3}`).appendTo("body").modal("show");
+                            })
+
+                          })
+
+                        
+
+
+
+                          
+
+
+
+
+
+
 
                           form.appendChild(select);
                           form.appendChild(textarea);
@@ -470,40 +551,27 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                   $this.next().slideToggle(350);
                 }
               });
-console.log(document.getElementById("btnModal"));
-              if (document.getElementById("btnModal")) {
-                var modal = document.getElementById("myModal");
-                var btn = document.getElementById("btnModal");
-                var span = document.getElementsByClassName("close")[0];
-                var body = document.getElementsByTagName("body")[0];
 
-                btn.onclick = function() {
-                  modal.style.display = "block";
+              /*$(document).ready(function(e) {
+                // Initializing our modal.
+                $('#myModal').modal({
+                  backdrop: 'static',
+                  keyboard: false,
+                  show: false,
+                });
 
-                  body.style.position = "static";
-                  body.style.height = "100%";
-                  body.style.overflow = "hidden";
-                }
+                $(document).on("click", ".modalButton", function() {
 
-                span.onclick = function() {
-                  modal.style.display = "none";
+                  var ClickedButton = $(this).data("name");
 
-                  body.style.position = "inherit";
-                  body.style.height = "auto";
-                  body.style.overflow = "visible";
-                }
+                  $(".modal-body").html("<p>" + ClickedButton + "</p> <p>Some text in the modal.</p> ");
+                  $('#myModal').modal('show');
+                });
 
-                window.onclick = function(event) {
-                  if (event.target == modal) {
-                    modal.style.display = "none";
+              });*/
 
-                    body.style.position = "inherit";
-                    body.style.height = "auto";
-                    body.style.overflow = "visible";
-                  }
-                }
-              }
-            }, 5000);
+
+            }, 3500);
 
           })
         </script>
