@@ -335,7 +335,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
 
 
-                         
+
 
 
                           /* ======================== End Modal ============================ */
@@ -344,108 +344,208 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                           form.setAttribute("id", "desviaciones");
 
                           let textarea = document.createElement("textarea");
+                          textarea.setAttribute("id", "descripcionActividad");
                           textarea.setAttribute("name", "descripcion");
                           textarea.setAttribute("rows", "5");
                           textarea.setAttribute("cols", "40");
 
                           let select = document.createElement("select");
                           select.setAttribute("name", `desviacion`);
-                          select.setAttribute("id", `${idCleanLvl3.split(',').join('')}`);
+                          select.setAttribute("id", `${idCleanLvl3.split(',').join('')}03`);
+
+                          let url_image = document.createElement("input");
+                          url_image.setAttribute("id", "urlImagen");
+                          url_image.setAttribute("type", "file");
 
 
                           ulSubLiLvl3.appendChild(buttonRegister);
 
                           $(document).ready(function(e) {
-                         
-
-                         buttonRegister.addEventListener("click", (e) => {
-
-                         let divModal = document.createElement("div");
-                         divModal.classList.add("modal-dialog", "modal-dialog-centered", "modal", "fade");
-                         divModal.setAttribute("id", `${modalIdLvl3}`);
-                         divModal.setAttribute("role", "dialog");
-
-                          
-
-                          let divModalDialog = document.createElement("div");
-                          divModalDialog.classList.add("modal-dialog");
-                         
 
 
-                          let divModalContent = document.createElement("div");
-                          divModalContent.classList.add("modal-content");
+                            buttonRegister.addEventListener("click", (e) => {
 
-                         
 
-                          let divModalHeader = document.createElement("div");
-                          divModalHeader.classList.add("model-header");
 
-                          let buttonCloseX = document.createElement("button");
-                          buttonCloseX.classList.add("btn");
-                          buttonCloseX.setAttribute("data-bs-dismiss", "modal");
-                          buttonCloseX.textContent = "x";
+                              let divModal = document.createElement("div");
+                              divModal.classList.add("modal-dialog", "modal-dialog-centered", "modal", "fade");
+                              divModal.setAttribute("id", `${modalIdLvl3}`);
+                              divModal.setAttribute("role", "dialog");
 
-                          let h4Header = document.createElement("h4");
-                          h4Header.classList.add("modal-title");
-                          h4Header.textContent = "Modal Header";
 
-                          let divModalBody = document.createElement("div");
-                          divModalBody.classList.add("modal-body");
 
-                          let pBody = document.createElement("p");
-                          pBody.textContent = "Some text in the modal.";
+                              let divModalDialog = document.createElement("div");
+                              divModalDialog.classList.add("modal-dialog");
 
-                          let divModalFooter = document.createElement("div");
-                          divModalFooter.classList.add("modal-footer");
 
-                          let buttonClose = document.createElement("button");
-                          buttonClose.classList.add("btn", "btn-secondary");
-                          buttonClose.setAttribute("data-bs-dismiss", "modal");
-                          buttonClose.textContent = "Cerrar";
 
-                          let buttonSave = document.createElement("button");
-                          buttonSave.classList.add("btn", "btn-primary");
-                          buttonSave.setAttribute("data-bs-dismiss", "modal");
-                          buttonSave.textContent = "Guardar";
+                              let divModalContent = document.createElement("div");
+                              divModalContent.classList.add("modal-content");
 
-                          
 
-                          ulSubLiLvl3.appendChild(divModal);
-                          divModal.appendChild(divModalDialog);
-                          divModalDialog.appendChild(divModalContent);                        
-                          divModalContent.appendChild(divModalHeader);
-                          divModalHeader.appendChild(buttonCloseX);
-                          divModalHeader.appendChild(h4Header);
 
-                          divModalContent.appendChild(divModalBody);
-                          divModalContent.appendChild(divModalFooter);
+                              let divModalHeader = document.createElement("div");
+                              divModalHeader.classList.add("model-header");
 
-                          divModalFooter.appendChild(buttonClose);
-                          divModalFooter.appendChild(buttonSave);
+                              let buttonCloseX = document.createElement("button");
+                              buttonCloseX.classList.add("btn");
+                              buttonCloseX.setAttribute("data-bs-dismiss", "modal");
+                              buttonCloseX.textContent = "x";
 
-                          buttonSave.addEventListener("click",()=>{
-                            $( `#${modalIdLvl3}` ).remove();
-                          })
+                              let h4Header = document.createElement("h4");
+                              h4Header.classList.add("modal-title");
+                              h4Header.textContent = "Modal Header";
 
-                          buttonClose.addEventListener("click",()=>{
-                            $( `#${modalIdLvl3}` ).remove();
-                          })
+                              let divModalBody = document.createElement("div");
+                              divModalBody.classList.add("modal-body");
 
-                          $(`${modalIdLvl3}`).modal({
-                              show: false,
-                            });
+                              let pBody = document.createElement("p");
+                              pBody.textContent = "Some text in the modal.";
 
-                                                    
+                              let divModalFooter = document.createElement("div");
+                              divModalFooter.classList.add("modal-footer");
+
+
+
+
+
+                              ulSubLiLvl3.appendChild(divModal);
+                              divModal.appendChild(divModalDialog);
+                              divModalDialog.appendChild(divModalContent);
+                              divModalContent.appendChild(divModalHeader);
+                              divModalHeader.appendChild(buttonCloseX);
+                              divModalHeader.appendChild(h4Header);
+
+                              divModalContent.appendChild(divModalBody);
+
+
+                              divModalContent.appendChild(divModalFooter);
+
+
+
+
+
+
+
+                              fetchDataHallazgo("", "", "", control.idControl).then(desviaciones => {
+
+
+                                desviaciones.map((desviacion) => {
+                                  const newOption = document.createElement("option");
+                                  let data = Object.values(desviacion);
+                                  newOption.value = data[0];
+                                  newOption.text = data[1];
+                                  select.appendChild(newOption);
+                                })
+
+                              })
+
+                              $(`${modalIdLvl3}`).modal({
+                                show: false,
+                              });
+
+                              let buttonClose = document.createElement("button");
+                              buttonClose.classList.add("btn", "btn-secondary");
+                              buttonClose.setAttribute("id", "close");
+                              buttonClose.setAttribute("data-bs-dismiss", "modal");
+                              buttonClose.textContent = "Cerrar";
+
+                              let buttonSave = document.createElement("button");
+                              buttonSave.classList.add("btn", "btn-primary");
+                              buttonSave.setAttribute("id", "save");
+                              buttonSave.setAttribute("data-bs-dismiss", "modal");
+                              buttonSave.setAttribute("type", "submit");
+                              buttonSave.textContent = "Guardar";
+
+                              setTimeout(function() {
+
+                                form.appendChild(select);
+                                form.appendChild(textarea);
+                                form.appendChild(url_image);
+
+
+                                if (form.elements['save'] == null) {
+                                  form.appendChild(buttonSave);
+                                }
+
+                                if (form.elements['close'] == null) {
+
+                                  form.appendChild(buttonClose);
+                                }
+
+
+
+
+                              }, 350);
+
+
+
+                              buttonSave.addEventListener("click", (e) => {
+                                let inspeccion = 1;
+
+                                let descripcionActividad = document.getElementById("descripcionActividad").value;
+                                console.log(descripcionActividad);
+
+                                let idDesviaciones = document.getElementById(`${idCleanLvl3.split(',').join('')}03`).value;
+                                console.log(idDesviaciones);
+
+                                let idEmpresas = document.getElementById("empresas").value;
+                                console.log(idEmpresas);
+
+                                let url_image = document.getElementById("urlImagen").value;
+                                console.log(url_image);
+
+                            
+
+                              
+                             
+                                let files = $('#urlImagen')[0].files[0];
+                             
+                                RegistrarHallazgo(idDesviaciones, descripcionActividad, idEmpresas, inspeccion, url_image,files);
+                                
+                                document.getElementById("desviaciones").reset();
+
+                                $(`#${idCleanLvl3.split(',').join('')}03 option`).remove();
+
+                                $(`#${modalIdLvl3}`).remove();
+                              })
+
+
+
+
+                              buttonClose.addEventListener("click", () => {
+                                $(`#${modalIdLvl3}`).remove();
+                              })
+
+                            
+                            const url_registro_hallazgo = "http://localhost/cp/api/desviaciones.php";
+                              
+                              const RegistrarHallazgo = async (idDesviacion, descripcion, idempresas, idInspeccion, rutaEvidencia,files) => {
+                                const registro = await fetch(url_registro_hallazgo, {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json"
+                                  },
+                                  body: JSON.stringify({
+                                    "idDesviacion": idDesviacion,
+                                    "descripcion": descripcion,
+                                    "idempresas": idempresas,
+                                    "idInspeccion": idInspeccion,
+                                    "rutaEvidencia": rutaEvidencia,
+                                    "files":files
+                                  })
+                                })
+
+
+                              }
+
+                              divModalBody.appendChild(form);
+
                               $(`#${modalIdLvl3}`).appendTo("body").modal("show");
                             })
 
                           })
 
-                        
-
-
-
-                          
 
 
 
@@ -453,21 +553,15 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
 
 
-                          form.appendChild(select);
-                          form.appendChild(textarea);
 
 
-                          fetchDataHallazgo("", "", "", control.idControl).then(desviaciones => {
 
-                            desviaciones.map((desviacion) => {
-                              const newOption = document.createElement("option");
-                              let data = Object.values(desviacion);
-                              newOption.value = data[0];
-                              newOption.text = data[1];
-                              select.appendChild(newOption);
-                            })
 
-                          })
+
+
+
+
+
                           /*lilvl3.setAttribute("id",`${idCleanLvl2.split(',').join('')}`);*/
 
                           ulSubLiLvl3M.appendChild(lilvl3);
