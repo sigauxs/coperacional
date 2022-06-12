@@ -11,6 +11,8 @@ if (!isset($_SESSION['usuarioId'])) {
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
 
+
+
 ?>
 
 
@@ -247,7 +249,6 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
           }
 
-
           let company = document.getElementById("empresas");
 
           fechDataEmpresa().then(empresas => {
@@ -259,6 +260,31 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
               company.appendChild(newOption);
             })
           })
+
+          const LastInsertInspeccionUser = async (idInspector) => {
+            const options = {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            };
+
+            var url = new URL("http://localhost/cp/api/lastInspeccion.php");
+            var params = {
+              idInspector: idInspector
+            };
+            url.search = new URLSearchParams(params).toString();
+
+            const response = await fetch(url, options);
+            const data = await response.json();
+            return data;
+
+          }
+
+
+
+
+
 
           fetchDataHallazgo(factoresRiesgo, "", "", "", "")
             .then(dataHallazgo => {
@@ -340,8 +366,22 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
                           /* ======================== End Modal ============================ */
 
+
+
+
+
+
                           let form = document.createElement("form");
                           form.setAttribute("id", "desviaciones");
+
+                          let input_inspeccion = document.createElement("input");
+                          input_inspeccion.setAttribute("name", "idInspeccion");
+                          input_inspeccion.setAttribute("type", "hidden");
+
+                          let input_empresas = document.createElement("input");
+                          input_empresas.setAttribute("name", "idempresas");
+                          input_empresas.setAttribute("type", "hidden");
+
 
                           let textarea = document.createElement("textarea");
                           textarea.setAttribute("id", "descripcionActividad");
@@ -350,13 +390,13 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                           textarea.setAttribute("cols", "40");
 
                           let select = document.createElement("select");
-                          select.setAttribute("name", `desviacion`);
+                          select.setAttribute("name", 'idDesviacion');
                           select.setAttribute("id", `${idCleanLvl3.split(',').join('')}03`);
 
                           let url_image = document.createElement("input");
                           url_image.setAttribute("id", "urlImagen");
                           url_image.setAttribute("type", "file");
-
+                          url_image.setAttribute("name", "picture");
 
                           ulSubLiLvl3.appendChild(buttonRegister);
 
@@ -459,9 +499,21 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
                               setTimeout(function() {
 
+                                let idEmpresas = document.getElementById("empresas").value;
+                                input_empresas.value = idEmpresas;
+                                LastInsertInspeccionUser(<?php echo $_SESSION['usuarioId'] ?>)
+                                  .then(resp => {
+
+                                    input_inspeccion.value = resp[0]["ID ULTIMNA INSPECCION"];
+
+                                  });
+
+
                                 form.appendChild(select);
                                 form.appendChild(textarea);
                                 form.appendChild(url_image);
+                                form.appendChild(input_inspeccion);
+                                form.appendChild(input_empresas);
 
 
                                 if (form.elements['save'] == null) {
@@ -476,68 +528,48 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
 
 
-                              }, 350);
-
+                              }, 550);
 
 
                               buttonSave.addEventListener("click", (e) => {
-                                let inspeccion = 1;
 
-                                let descripcionActividad = document.getElementById("descripcionActividad").value;
-                                console.log(descripcionActividad);
+                                e.preventDefault();
+                                const url_registro_hallazgo = "http://localhost/cp/api/desviaciones.php";
 
-                                let idDesviaciones = document.getElementById(`${idCleanLvl3.split(',').join('')}03`).value;
-                                console.log(idDesviaciones);
+                                const RegistrarHallazgo = async () => {
+                                  let response = await fetch(url_registro_hallazgo, {
+                                    method: 'POST',
+                                    body: new FormData(form)
+                                  });
+                                  let result = await response.json();
 
-                                let idEmpresas = document.getElementById("empresas").value;
-                                console.log(idEmpresas);
+                                  console.log(result)
+                                }
 
-                                let url_image = document.getElementById("urlImagen").value;
-                                console.log(url_image);
+                                RegistrarHallazgo();
 
-                            
-
-                              
-                             
-                                let files = $('#urlImagen')[0].files[0];
-                             
-                                RegistrarHallazgo(idDesviaciones, descripcionActividad, idEmpresas, inspeccion, url_image,files);
-                                
                                 document.getElementById("desviaciones").reset();
 
                                 $(`#${idCleanLvl3.split(',').join('')}03 option`).remove();
 
                                 $(`#${modalIdLvl3}`).remove();
+
                               })
 
 
 
 
-                              buttonClose.addEventListener("click", () => {
+                              buttonClose.addEventListener("click", (e) => {
+                                e.preventDefault();
+                                document.getElementById("desviaciones").reset();
+
+                                $(`#${idCleanLvl3.split(',').join('')}03 option`).remove();
                                 $(`#${modalIdLvl3}`).remove();
+
                               })
 
-                            
-                            const url_registro_hallazgo = "http://localhost/cp/api/desviaciones.php";
-                              
-                              const RegistrarHallazgo = async (idDesviacion, descripcion, idempresas, idInspeccion, rutaEvidencia,files) => {
-                                const registro = await fetch(url_registro_hallazgo, {
-                                  method: "POST",
-                                  headers: {
-                                    "Content-Type": "application/json"
-                                  },
-                                  body: JSON.stringify({
-                                    "idDesviacion": idDesviacion,
-                                    "descripcion": descripcion,
-                                    "idempresas": idempresas,
-                                    "idInspeccion": idInspeccion,
-                                    "rutaEvidencia": rutaEvidencia,
-                                    "files":files
-                                  })
-                                })
 
 
-                              }
 
                               divModalBody.appendChild(form);
 
@@ -583,16 +615,6 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                     })
 
                   })
-
-
-
-
-
-
-
-
-
-
                 accordion.appendChild(lilvl1);
                 lilvl1.appendChild(alvl1);
                 lilvl1.append(ulSubLvl1);
@@ -627,6 +649,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
             }
           }
         </script>
+
         <script>
           window.addEventListener('DOMContentLoaded', (event) => {
             setTimeout(function() {
@@ -645,24 +668,6 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                   $this.next().slideToggle(350);
                 }
               });
-
-              /*$(document).ready(function(e) {
-                // Initializing our modal.
-                $('#myModal').modal({
-                  backdrop: 'static',
-                  keyboard: false,
-                  show: false,
-                });
-
-                $(document).on("click", ".modalButton", function() {
-
-                  var ClickedButton = $(this).data("name");
-
-                  $(".modal-body").html("<p>" + ClickedButton + "</p> <p>Some text in the modal.</p> ");
-                  $('#myModal').modal('show');
-                });
-
-              });*/
 
 
             }, 3500);

@@ -1,6 +1,70 @@
 <?php
 
+include("../connection/connection.php");
 
+$pdo = new Conexion();
+
+$idDesviacion = input_data($_POST['idDesviacion']);
+$descripcion = input_data($_POST['descripcion']);
+$idempresas = input_data($_POST['idempresas']);
+$idInspeccion = input_data($_POST['idInspeccion']);
+    
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+    if (!empty($_FILES['picture']['name'])) {
+
+        $result = 0;
+        $uploadDir = "../hallazgo/";
+        $fileName = time() . '_' . basename($_FILES['picture']['name']);
+        $targetPath = $uploadDir . $fileName;
+
+      
+        if (@move_uploaded_file($_FILES['picture']['tmp_name'], $targetPath)) {
+      
+            $sql = "CALL insertarHallazgo(:idDesviacion,:descripcion,:idempresas,:idInspeccion,:rutaEvidencia)";
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->bindValue(':idDesviacion', $idDesviacion);
+            $stmt->bindValue(':descripcion', $descripcion);
+            $stmt->bindValue(':idempresas', $idempresas);
+            $stmt->bindValue(':idInspeccion', $idInspeccion);
+            $stmt->bindValue(':rutaEvidencia', $targetPath);           
+
+            if ($stmt->execute()) {
+                header("HTTP/1.1 201 ok");
+                echo json_encode("success");
+                exit;
+            } else {
+                header("HTTP/1.1 400 ok");
+                echo json_encode("error");
+                exit;
+            }
+        }
+    } else {
+        echo json_encode("No hay imagen cargada");
+    }
+}
+
+
+
+function input_data($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+?>
+
+
+
+
+
+/*
 include("../connection/connection.php");
 $pdo = new Conexion();
 $pdo2 = new Conexion();
@@ -12,38 +76,21 @@ header("Allow: POST, OPTIONS,GET");
 
 $method = $_SERVER['REQUEST_METHOD'];
 if ($method == "OPTIONS") {
-    die();
+die();
 }
 
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $jsonClient = json_decode(file_get_contents("php://input"));
+$jsonClient = json_decode(file_get_contents("php://input"));
 
 
-    if (!$jsonClient) {
-        exit("No day datos para insertar");
-    }
-    echo $jsonClient;
-
-    /*if (($_FILES["file"]["type"] == "image/pjpeg")
-        || ($_FILES["file"]["type"] == "image/jpeg")
-        || ($_FILES["file"]["type"] == "image/png")
-        || ($_FILES["file"]["type"] == "image/gif")
-    ) {
-        if (move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $_FILES['file']['name'])) {
-            //more code here...
-
-        } else {
-            echo 0;
-        }
-    } else {
-        echo 0;
-    }*/
+if (!$jsonClient) {
+exit("No day datos para insertar");
 }
 
-/*$sql = "CALL insertarHallazgo(:idDesviacion,:descripcion,:idempresas,:idInspeccion,:rutaEvidencia)";
+$sql = "CALL insertarHallazgo(:idDesviacion,:descripcion,:idempresas,:idInspeccion,:rutaEvidencia)";
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':idDesviacion', $jsonClient->idDesviacion);
 $stmt->bindValue(':descripcion', $jsonClient->descripcion);
@@ -55,4 +102,11 @@ $stmt->execute();
 
 header("HTTP/1.1 201 ok");
 json_encode($stmt2->fetchAll());
-exit;*/
+exit;
+
+
+}
+
+*/
+
+?>

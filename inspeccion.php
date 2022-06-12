@@ -8,7 +8,7 @@ if (!isset($_SESSION['usuarioId'])) {
     header('location: index.php');
 }
 
-$fullname = $_SESSION['primerNombre']. " " . $_SESSION['segundoNombre']." ".$_SESSION['primerApellido']." ".$_SESSION['segundoApellido'];
+$fullname = $_SESSION['primerNombre'] . " " . $_SESSION['segundoNombre'] . " " . $_SESSION['primerApellido'] . " " . $_SESSION['segundoApellido'];
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
 ?>
@@ -26,40 +26,35 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="./css/responsive.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="sweetalert2.min.css">
+
     <script src="https://kit.fontawesome.com/2dd4f6d179.js" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 
-<?php include("./components/navbar.php") ?>
-<?php include("./components/navbar-movil.php") ?>
+    <?php include("./components/navbar.php") ?>
+    <?php include("./components/navbar-movil.php") ?>
     <div class="container-fluid container-fluid-sm">
-       
+
         <div class="row">
             <div class="offset-md-3 col-md-8">
                 <div class="card mt-responsive mt-3 mx-auto div--center-border mb-3" style="z-index: 1;">
 
                     <div class="card-header">
-                        
-                    <h5 class="card-title mb-0">Registrar Inspección</h5>
+
+                        <h5 class="card-title mb-0">Registrar Inspección</h5>
                     </div>
                     <div class="card-body bg-transparent">
 
-                        <form id="formInspeccion" onSubmit="prueba()" action="./server/inspeccionRegister.php" method="POST" class="needs-validation" novalidate>
+                        <form id="formInspeccion"  action="./server/inspeccionRegister.php" method="POST" class="needs-validation" novalidate>
 
                             <div class="mb-3 row align-items-center ">
                                 <div class="col-sm-12 col-md-3 text-center">
                                     <label> Fecha inspección </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 text-center">
-                                    <input 
-                                    type="date" 
-                                    name="fechaInspeccion" 
-                                    id="fechaInspeccion" 
-                                    class="form-control text-center"
-                                    required>
+                                    <input type="date" name="fechaInspeccion" id="fechaInspeccion" class="form-control text-center" required>
                                 </div>
 
                             </div>
@@ -72,21 +67,17 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Sede </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select"  
-                                            name="sede"  
-                                            id="sedes" 
-                                            aria-label="Default select example" 
-                                            required>
+                                    <select class="form-select" name="sede" id="sedes" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un Sede</option>
-                                        <option value="1" >Mina</option>
-                                        <option value="2" >Puertos</option>
+                                        <option value="1">Mina</option>
+                                        <option value="2">Puertos</option>
 
                                     </select>
                                     <div class="invalid-feedback">
-                                     Selecciona una Sede
+                                        Selecciona una Sede
                                     </div>
                                 </div>
-                               
+
 
                             </div>
 
@@ -95,40 +86,30 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Locacion </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select"  
-                                            name="locacion"  
-                                            id="locacion" 
-                                            aria-label="Default select example" 
-                                            required>
+                                    <select class="form-select" name="locacion" id="locacion" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un locacion</option>
                                     </select>
                                     <div class="invalid-feedback">
-                                     Selecciona una locacion
+                                        Selecciona una locacion
                                     </div>
                                 </div>
-                               
+
 
                             </div>
 
 
-                            
+
 
                             <div class="mb-3 row align-items-center">
                                 <div class="col-sm-12 col-md-3 text-center">
                                     <label> Vicepresidencia </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select  
-                                            class="form-select" 
-                                            name="vp" 
-                                            id="vp_idSede" 
-                                            name="vicepresidencia" 
-                                            aria-label="Default select example" 
-                                            required>
+                                    <select class="form-select" name="vp" id="vp_idSede" name="vicepresidencia" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un Vicepresidencia</option>
                                     </select>
                                     <div class="invalid-feedback">
-                                     Selecciona una vicepresidencia
+                                        Selecciona una vicepresidencia
                                     </div>
                                 </div>
 
@@ -139,16 +120,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Departamento </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" 
-                                            id="dpto" 
-                                            name="dpto"  
-                                            name="departamento" 
-                                            aria-label="Default select example"
-                                            required>
+                                    <select class="form-select" id="dpto" name="dpto" name="departamento" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un Departamento</option>
                                     </select>
                                     <div class="invalid-feedback">
-                                      Selecciona un Departamento
+                                        Selecciona un Departamento
                                     </div>
                                 </div>
 
@@ -159,15 +135,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Área </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 ">
-                                    <select class="form-select" 
-                                            name="area" 
-                                            id="area" 
-                                            aria-label="Default select example" 
-                                            required>
+                                    <select class="form-select" name="area" id="area" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un área</option>
                                     </select>
                                     <div class="invalid-feedback">
-                                      Selecciona un Area
+                                        Selecciona un Area
                                     </div>
                                 </div>
 
@@ -179,8 +151,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Inspector </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select id="inspector"  class="form-select" name="inspector" aria-label="Default select example">
-                                        <option <?php echo "value='".$_SESSION['usuarioId'];?> <?php echo "'"?>  selected><?php echo $fullname ?></option>
+                                    <select id="inspector" class="form-select" name="inspector" aria-label="Default select example" required>  
+                                        <option <?php echo "value='" . $_SESSION['usuarioId']; ?> <?php echo "'" ?> selected><?php echo $fullname ?></option>
                                     </select>
                                 </div>
 
@@ -192,11 +164,15 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Turno </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select value="" class="form-select" id="turno"  name="turno" aria-label="Default select example">
-                                        <option selected>Escoger un Turno</option>
+                                    <select value="" class="form-select" 
+                                            id="turno" 
+                                            name="turno" 
+                                            aria-label="Default select example" 
+                                            required>
+                                        <option selected value="">Escoger un Turno</option>
                                         <option value="1">Dia</option>
                                         <option value="2">Noche</option>
-                                   
+
                                     </select>
                                 </div>
 
@@ -207,7 +183,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Delegado del Area </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" id="delegado" name="delegado" aria-label="Default select example">
+                                    <select class="form-select" id="delegado" name="delegado" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un delegado de area</option>
                                     </select>
                                 </div>
@@ -219,7 +195,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Responsable del Area </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select class="form-select" id="responsable" name="responsable" aria-label="Default select example">
+                                    <select class="form-select" id="responsable" name="responsable" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un responsable de area</option>
                                     </select>
                                 </div>
@@ -231,21 +207,21 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Descripción </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 mb-3">
-                                    <textarea id="description_inspeccion"  
+                                    <textarea id="description_inspeccion" 
                                     class="form-control" name="descripcion" 
-                                    id="descripcionInspeccion" cols="30" rows="5"></textarea>
+                                    id="descripcionInspeccion" cols="30" rows="5" required></textarea>
                                 </div>
 
                             </div>
 
 
-                            
+
                             <div class="mb-3 row">
                                 <div class="col-sm-12 mb-2">
                                     <div class="d-grid gap-2 col-sm-12 offset-md-6 col-md-6">
 
-                                        <button class="btn btn-danger btn-login  btn-lg rounded-pill fw-bolder" type="submit">Ingresar</button>
-                                        
+                                        <button id="registrarInspeccion" class="btn btn-danger btn-login  btn-lg rounded-pill fw-bolder" type="submit">Registrar</button>
+                                        <button type="button">Enviar</button>
                                         <!--<a class="btn btn-danger btn-login rounded-pill fw-bolder" href="./hallazgo.php">Ingresar  </a>-->
 
                                     </div>
@@ -266,51 +242,73 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <script src="./js/defaultValue.js"></script>
     <script src="./js/services_select.js"></script>
     <script>
-/*
-        function prueba(){
-            console.log('hola mundo');
-            Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  }
-})
-            e.preventDefault();
-        }*/
+
+        document.addEventListener("DOMContentLoaded",()=>{
+            $('#registrarInspeccion').attr('disabled', true);
+        })
+
+
+        let rgInspeccion = document.querySelector("#formInspeccion");
+        rgInspeccion.addEventListener("change", (e) => {
+            
+            let area = rgInspeccion.elements['area'].value;
+            /*let descripcion = $('#descripcionInspeccion').val();*/
+            let sedes = rgInspeccion.elements['sedes'].value;
+            let locacion = rgInspeccion.elements['locacion'].value;
+            let turno = rgInspeccion.elements['turno'].value;
+            let delegado = rgInspeccion.elements['delegado'].value;
+            let responsable = rgInspeccion.elements['responsable'].value
+
+            if(area != "" && sedes != "" && locacion != "" && turno != "" && delegado != "" && responsable != "" ){
+              console.log("llenaste los campos")
+              $('#registrarInspeccion').attr('disabled', false);
+            }           
        
+        })
+
+        let btnregistrar = document.getElementById("registrarInspeccion");
+
+btnregistrar.addEventListener("click",(e)=>{
+    e.preventDefault();
+    Swal.fire({
+                title: 'Inspeccion registrada',
+                text: "Deseas ingresar hallazgo a la inspección registrada.",
+                icon: 'success',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (!result.isConfirmed) {
+                    location.href = "http://localhost/cp/menu.php";
+                } else {
+                    location.href = "http://localhost/cp/hallazgo2.php"
+                }
+            })
+})
     </script>
-<script>
-    (function () {
-  'use strict'
+    <script>
+        (function() {
+            'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
-</script>
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </body>
 
 </html>
