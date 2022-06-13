@@ -68,14 +68,9 @@ echo $fullname . "" . $lastInspeccion;
       margin: 1em auto 2.25em;
     }
 
-    body {
-      /*
-      width: 40%;
-      min-width: 300px;
-      max-width: 400px;
-      margin: 1.5em auto;
-      color: #333;*/
-    }
+    /*body {
+     
+    }*/
 
     h1 {
       font-family: 'Pacifico', cursive;
