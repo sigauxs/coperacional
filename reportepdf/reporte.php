@@ -1,11 +1,15 @@
 <?php
 
+$lastInspeccion = $_GET['lastInspeccion'];
+$inspector = $_GET['inspector'];
 
 require "./fpdf/fpdf.php";
 require "./cabeceraypie.php";
 require "conexion.php";
 
-$sql = "Call ReporteHallazgos(11)";
+
+
+$sql = "Call ReporteHallazgos($lastInspeccion)";
 $resultado = $mysqli->query($sql);
 
 /*
@@ -63,6 +67,9 @@ while($row = $resultado->fetch_assoc()){
 
 }
 */
+
 $pdf -> Output();
+
+echo json_encode("success");
 
 ?>

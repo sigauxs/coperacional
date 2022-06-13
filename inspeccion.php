@@ -9,6 +9,7 @@ if (!isset($_SESSION['usuarioId'])) {
 }
 
 $fullname = $_SESSION['primerNombre'] . " " . $_SESSION['segundoNombre'] . " " . $_SESSION['primerApellido'] . " " . $_SESSION['segundoApellido'];
+$_SESSION['fullname'] = $fullname;
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
 ?>
@@ -266,7 +267,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
        
         })
 
-        let btnregistrar = document.getElementById("registrarInspeccion");
+        /*let btnregistrar = document.getElementById("registrarInspeccion");
 
 btnregistrar.addEventListener("click",(e)=>{
     e.preventDefault();
@@ -286,7 +287,7 @@ btnregistrar.addEventListener("click",(e)=>{
                     location.href = "http://localhost/cp/hallazgo2.php"
                 }
             })
-})
+})*/
     </script>
     <script>
         (function() {

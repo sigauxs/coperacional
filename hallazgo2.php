@@ -1,6 +1,9 @@
 <?php
 
 include_once("./include/typeAdmin.php");
+include("./connection/connection.php");
+
+$pdo = new Conexion();
 
 session_start();
 
@@ -8,8 +11,22 @@ if (!isset($_SESSION['usuarioId'])) {
   header('location: index.php');
 }
 
+
+$fullname = $_SESSION['primerNombre'] . " " . $_SESSION['segundoNombre'] . " " . $_SESSION['primerApellido'] . " " . $_SESSION['segundoApellido'];
+
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
+
+$sql = "CALL ultimaInspeccion(:idInspector)";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(":idInspector", $_SESSION['usuarioId']);
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_NUM);
+
+$_SESSION['lastIdInspeccion'] = $row[0];
+$lastInspeccion = $_SESSION['lastIdInspeccion'];
+
+echo $fullname . "" . $lastInspeccion;
 
 
 
@@ -154,29 +171,13 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
             </ul>
 
-            <div class="modal fade" id="myModal" role="dialog">
-              <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="btn" data-bs-dismiss="modal">x</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                  </div>
-                  <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-            </div>
 
 
+            <button type="button" id="prueba"> prueba</button>
 
           </div>
         </div>
+
 
 
 
@@ -191,9 +192,16 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
         <script>
 
+          let idlastInspeccion = "<?php echo $lastInspeccion ?>";
+          let fullname = "<?php echo $fullname ?>";
+         
+          let prueba =  document.getElementById("prueba");
 
-
-
+        prueba.addEventListener("click",()=>{
+          window.open(`reportepdf/reporte.php?lastInspeccion=${idlastInspeccion}&inspector=${fullname}`, '_blank');
+          window.location.href = './menu.php';    
+        })
+      
 
         </script>
 
@@ -505,6 +513,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                   .then(resp => {
 
                                     input_inspeccion.value = resp[0]["ID ULTIMNA INSPECCION"];
+
+
 
                                   });
 

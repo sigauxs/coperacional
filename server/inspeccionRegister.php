@@ -43,10 +43,9 @@ function input_data($data) {
     $stmt->bindValue(':turno',$turno);
 
     $stmt->execute();
+    
 
- 
 
-    exit;
 
 /* INSERT INTO inspecciones 
 (Fecha_inspeccion, Actividad, Area, idDelegado_del_area, idInspector, Pertenece_idPertenece, Turno)

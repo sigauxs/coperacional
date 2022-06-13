@@ -1,4 +1,6 @@
 <?php
+
+
 	global $IdInsp;
 	global $A;
 	global $Fech;
@@ -8,11 +10,13 @@ class PDF extends FPDF
 // Cabecera de página
 function Header()
 {
+	$inspector = $_GET['inspector'];
+	$lastInspeccion = $_GET['lastInspeccion'];
 	require "conexion.php";
-	$sql2 = "Call DatosInspeccionEncabezado(11)";
+	$sql2 = "Call DatosInspeccionEncabezado($lastInspeccion)";
 	$resultado2 = $mysqli->query($sql2);
 	$AltoCelda2 = 9;
-	$inspector = "Cristian Torres";
+	$inspector = $inspector;
 
     // Movernos a la derecha
     $this->Cell(200);
@@ -174,4 +178,6 @@ function DatosH($sql, $resultado)
 }
 
 }
+
+
 ?>
