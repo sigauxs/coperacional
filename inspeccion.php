@@ -48,7 +48,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                     </div>
                     <div class="card-body bg-transparent">
 
-                        <form id="formInspeccion"  action="./server/inspeccionRegister.php" method="POST" class="needs-validation" novalidate>
+                        <form id="formInspeccion"  action="" 
+                              method="POST" class="needs-validation" novalidate>
 
                             <div class="mb-3 row align-items-center ">
                                 <div class="col-sm-12 col-md-3 text-center">
@@ -244,50 +245,69 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <script src="./js/services_select.js"></script>
     <script>
 
-        document.addEventListener("DOMContentLoaded",()=>{
+        document.addEventListener("DOMContentLoaded", () => {
             $('#registrarInspeccion').attr('disabled', true);
         })
 
-
         let rgInspeccion = document.querySelector("#formInspeccion");
         rgInspeccion.addEventListener("change", (e) => {
-            
+
             let area = rgInspeccion.elements['area'].value;
-            /*let descripcion = $('#descripcionInspeccion').val();*/
             let sedes = rgInspeccion.elements['sedes'].value;
             let locacion = rgInspeccion.elements['locacion'].value;
             let turno = rgInspeccion.elements['turno'].value;
             let delegado = rgInspeccion.elements['delegado'].value;
-            let responsable = rgInspeccion.elements['responsable'].value
+            let responsable = rgInspeccion.elements['responsable'].value;
+            let descripcion = rgInspeccion.elements['description_inspeccion'].value;
 
-            if(area != "" && sedes != "" && locacion != "" && turno != "" && delegado != "" && responsable != "" ){
-              console.log("llenaste los campos")
-              $('#registrarInspeccion').attr('disabled', false);
-            }           
-       
+            if (descripcion != "" && area != "" && sedes != "" && locacion != "" && turno != "" && delegado != "" && responsable != "") {
+                console.log("llenaste los campos")
+                $('#registrarInspeccion').attr('disabled', false);
+            }
+
         })
 
-        /*let btnregistrar = document.getElementById("registrarInspeccion");
+        let formInspeccion = document.getElementById("formInspeccion");
+        const url_registro_inspeccion = "http://localhost/cp/server/inspeccionRegister.php";
 
-btnregistrar.addEventListener("click",(e)=>{
-    e.preventDefault();
-    Swal.fire({
-                title: 'Inspeccion registrada',
-                text: "Deseas ingresar hallazgo a la inspección registrada.",
-                icon: 'success',
-                showCancelButton: true,
-                cancelButtonText: 'No',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si'
-            }).then((result) => {
-                if (!result.isConfirmed) {
-                    location.href = "http://localhost/cp/menu.php";
-                } else {
-                    location.href = "http://localhost/cp/hallazgo2.php"
+        const RegistrarHallazgo = async () => {
+            let response = await fetch(url_registro_inspeccion, {
+                method: 'POST',
+                body: new FormData(formInspeccion)
+            });
+            let data = await response.json();
+            return data;
+        }
+
+        let btnregistrar = document.getElementById("registrarInspeccion");
+
+        btnregistrar.addEventListener("click", (e) => {
+            e.preventDefault();
+            RegistrarHallazgo().then(response => {
+                if (response == "success") {
+                    Swal.fire({
+                        title: 'Inspeccion registrada',
+                        text: "Deseas ingresar hallazgo a la inspección registrada.",
+                        icon: 'success',
+                        showCancelButton: true,
+                        cancelButtonText: 'No',
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si'
+                    }).then((result) => {
+                        if (!result.isConfirmed) {
+                            location.href = "http://localhost/cp/menu.php";
+                        } else {
+                            location.href = "http://localhost/cp/hallazgo2.php"
+                        }
+                    })
                 }
             })
-})*/
+
+         
+        })
+
+
     </script>
     <script>
         (function() {

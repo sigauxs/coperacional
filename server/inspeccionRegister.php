@@ -11,6 +11,14 @@ if (!isset($_SESSION['usuarioId'])) {
     header('location: index.php');
 }
 
+
+function input_data($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 $fecha_inspeccion = input_data($_POST['fechaInspeccion']);
 $sede = input_data($_POST['sede']);
 $vp = input_data($_POST['vp']);
@@ -22,17 +30,9 @@ $turno = input_data($_POST['turno']);
 $delegado = input_data($_POST['delegado']);
 $responsable = input_data($_POST['responsable']);
 
-function input_data($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
-
+if($_SERVER['REQUEST_METHOD']=='POST'){
 
     $sql = "INSERT INTO inspecciones (Fecha_inspeccion, Actividad, Area, idDelegado_del_area, idInspector, Pertenece_idPertenece, Turno) VALUES (:fechaInspeccion,:actividad,:idArea, :idDelegado, :idInspector, :idPertenece,:turno)";
-
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':fechaInspeccion',$fecha_inspeccion);
     $stmt->bindValue(':actividad',$descripcionInspeccion);
@@ -42,35 +42,19 @@ function input_data($data) {
     $stmt->bindValue(':idPertenece',$responsable);
     $stmt->bindValue(':turno',$turno);
 
-    $stmt->execute();
-    
-
-
-
-/* INSERT INTO inspecciones 
-(Fecha_inspeccion, Actividad, Area, idDelegado_del_area, idInspector, Pertenece_idPertenece, Turno)
- VALUES (FechaInsp, Actividad, idArea, idDelegado, idInspector, idPertenece) */
-
- 
-   /*if($stmt->execute()) {
-        flash_message('success','Creada la inspeccion con exitos');v
-        header('Location: hallazgo.php');
-    } else {
-        flash_message('error','Hubo un error al crear la inspeccion');
+    if($stmt->execute()){
+        header('HTTP/1.1 201 OK');
+        echo json_encode("success");
+    }else{
+        header('HTTP/1.1 400 OK');
+        echo json_encode("error");
     }
-
-
     
-    function flash_message($type, $message) {
-        $_SESSION['message'] = array('type' => $type, 'message' => $message);
-    }
 
-    
-    if(isset($_SESSION['message'])) {
-        printf("<div class='message %s'>%s</div>", $_SESSION['message']['type'],
-        $_SESSION['message']['message']);
-        unset($_SESSION['message']);
-    }*/
+}else{
+    echo json_encode("No hay datos para guardar");
+}
+
 
 
 
