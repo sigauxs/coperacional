@@ -131,20 +131,24 @@ $sql2 = "Call ReporteHallazgos(12)";
 $resultado2 = $mysqli->query($sql2);
 
  ?>
-<table id="myTable">
-  <tr class="header">
+<table id="myTable" class="table">
+
+  <thead>
+    <tr>
     <th style="width:3%;">ID INSPECCIÓN</th>
     <th style="width:3%;">ID HALLAZGO</th>
-	<th style="width:40%;">DESCRIPCIÓN DEL HALLAZGO</th>
-	<th style="width:10%;">EVIDENCIA</th>
-	<th style="width:10%;">FECHA</th>
-	<th style="width:3%;">FACTORES DE RIESGO</th>
-	<th style="width:7%;">PELIGROS</th>
-	<th style="width:5%;">CONTROLES</th>
-	<th style="width:7%;">JERARQUIA DEL CONTROL</th>
-	<th style="width:5%;">DESVIACIONES</th>
-	<th style="width:10%;">AREA</th>
-  </tr>
+	  <th style="width:40%;">DESCRIPCIÓN DEL HALLAZGO</th>
+	  <th style="width:10%;">EVIDENCIA</th>
+	  <th style="width:10%;">FECHA</th>
+	  <th style="width:3%;">FACTORES DE RIESGO</th>
+	  <th style="width:7%;">PELIGROS</th>
+	  <th style="width:5%;">CONTROLES</th>
+	  <th style="width:7%;">JERARQUIA DEL CONTROL</th>
+	  <th style="width:5%;">DESVIACIONES</th>
+	  <th style="width:10%;">AREA</th>
+    </tr>
+  </thead>
+
   <tr>
   <?php while($row = $resultado2 -> fetch_assoc()){ /*$idH = $idH + 1;*/?>
     <td><?php echo ($row['ID INSP']); ?></td>

@@ -466,6 +466,7 @@ echo $fullname . "" . $lastInspeccion;
                           buttonRegister.classList.add("btn", "btn-info", "btn-lg", "modalButton");
                           buttonRegister.setAttribute("data-name", `Clicked Modal ${idCleanLvl3}`);
                           buttonRegister.setAttribute("data-toggle", "modal");
+                          buttonRegister.setAttribute("style","margin-left:10px");
                           buttonRegister.textContent = `Registrar ${control.Descripcion_Control}`;
 
 
