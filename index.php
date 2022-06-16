@@ -94,18 +94,24 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="./css/responsive.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <script src="https://kit.fontawesome.com/2dd4f6d179.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="container">
+    <img src="./assets/images/inicio.png" 
+    alt="banner_inicio" 
+    id="img_banner"
+    class="img-fluid img-index animate__animated animate__fadeIn animate__slow" style="z-index: 9999">
+    <div class="container" id="login">
         <div class="row">
-            <div class="div--center">
+            <div class="div--center animate__animated animate__fadeIn animate__slower" style="z-index:-1" >
 
                 <div class="div--center-images w-card mx-auto">
-                    <img src="./assets/images/user.png" alt="User logo" class="img-fluid user--size mx-auto">
+                    <img src="./assets/images/Vector.png" alt="User logo" class="img-fluid user--size mx-auto">
                 </div>
-                <div class="card mt-responsive mx-auto div--center-border w-card mb-3" style="z-index: 1;">
+                <div class="card mt-responsive mx-auto div--center-border w-card mb-3">
 
                     <div class="card-body">
 
@@ -156,6 +162,20 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/validate.js"></script>
+    <script>
+        let login = document.getElementById("login");
+        
+        setTimeout(()=>{
+           let img_banner = document.getElementById("img_banner");
+         img_banner.classList.add("animate__animated" ,"animate__fadeOut","animate__slow");
+          
+        },3000)
+        setTimeout(()=>{
+           let img_banner = document.getElementById("img_banner");
+           img_banner.setAttribute("style","width:0");
+        },4500)
+     
+    </script>
   
 
 

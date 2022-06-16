@@ -1,5 +1,47 @@
-<?php 
+<?php
 
+include("../connection/connection.php");
+$pdo = new Conexion();
+
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Allow:  OPTIONS, GET ");
+
+$method = $_SERVER['REQUEST_METHOD'];
+
+if ($method == "OPTIONS") {
+    die();
+}
+
+$idinspeccion = $_GET['idinspeccion'];
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+    $sql = "SELECT * FROM inspecciones WHERE idInspeccion = :idInspeccion";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':idInspeccion', $idinspeccion);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+    var_dump(!$stmt->fetchAll());
+    
+    if(!$stmt->fetchAll()){
+        echo "Hola mundo";
+    }else{
+        echo "esto tiene datos";
+    }
+header('HTTP/1.1 200 OK');
+echo json_encode($stmt->fetchAll());
+
+} else {
+    echo json_encode("No hay datos para guardar");
+}
+
+
+
+
+/*
 include("../connection/connection.php");
 include("../include/typeAdmin.php");
 
@@ -19,24 +61,27 @@ function input_data($data) {
     return $data;
 }
 
-$idInspeccion = input_data($_GET['idInspeccion']);
-$fecha_inspeccion = input_data($_GET['fechaInspeccion']);
-$sede = input_data($_GET['sede']);
-$vp = input_data($_GET['vp']);
-$dpto = input_data($_GET['dpto']);
-$area = input_data($_GET['area']);
-$descripcionInspeccion =input_data($_GET['descripcion']);
-$inspector = input_data($_GET['inspector']);
-$turno = input_data($_GET['turno']);
-$delegado = input_data($_GET['delegado']);
-$responsable = input_data($_GET['responsable']);
+$idInspeccion = input_data($_POST['idInspeccion']);
+$fecha_inspeccion = input_data($_POST['fechaInspeccion']);
+$sede = input_data($_POST['sede']);
+$vp = input_data($_POST['vp']);
+$dpto = input_data($_POST['dpto']);
+$area = input_data($_POST['area']);
+$descripcionInspeccion =input_data($_POST['descripcion']);
+$inspector = input_data($_POST['inspector']);
+$turno = input_data($_POST['turno']);
+$delegado = input_data($_POST['delegado']);
+$responsable = input_data($_POST['responsable']);
 
-if($_SERVER['REQUEST_METHOD']=='GET'){
+if($_SERVER['REQUEST_METHOD']=='PUT'){
     
     $sql = "UPDATE inspecciones AS I
     SET I.Fecha_inspeccion = :fechaInspeccion, I.Actividad = :actividad, I.Area = :idArea, I.idDelegado_del_area = :idDelegado, I.Pertenece_idPertenece = :idPertenece, I.Turno = :turno
-    WHERE I.idInspeccion = ID_INSPECCION";
+    WHERE I.idInspeccion = :idInspeccion";
+
     $stmt = $pdo->prepare($sql);
+
+    $stmt->bindValue(':idInspeccion',$idInspeccion);
     $stmt->bindValue(':fechaInspeccion',$fecha_inspeccion);
     $stmt->bindValue(':actividad',$descripcionInspeccion);
     $stmt->bindValue(':idArea',$area);
@@ -61,6 +106,4 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
 
 
 
-
-
-?>
+*/

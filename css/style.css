@@ -32,6 +32,10 @@
 
 /* Login */
 
+.img-index {
+    width:100%;
+}
+
 .card-body {
     z-index: 1;
     background-color: rgb(211 211 211) !important;
