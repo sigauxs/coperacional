@@ -36,10 +36,10 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
 <body>
 
-    <?php include("./components/navbar.php") ?>
+    
     <?php include("./components/navbar-movil.php") ?>
     <div class="container-fluid container-fluid-sm">
-<?php echo $idInspeccion;?>
+
         <div class="row">
             <div class="offset-md-3 col-md-8">
                 <div class="card mt-responsive mt-3 mx-auto div--center-border mb-3" style="z-index: 1;">
@@ -50,12 +50,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                     </div>
                     <div class="card-body bg-transparent">
 
-                        <form id="formInspeccion"  action="" 
-                              method="POST" class="needs-validation" novalidate>
+                        <form id="formInspeccion" action="" method="POST" class="needs-validation" novalidate>
 
-                              <div class="mb-3 row align-items-center ">
+                            <div class="mb-3 row align-items-center ">
                                 <div class="col-sm-12 col-md-9 text-center">
-                                    <input disabled type="hidden" value="<?php echo $idInspeccion;?>" name="idInspector" id="idInspector" class="form-control text-center" required>
+                                    <input disabled type="hidden" value="<?php echo $idInspeccion; ?>" name="idInspector" id="idInspector" class="form-control text-center" required>
                                 </div>
                             </div>
 
@@ -160,7 +159,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Inspector </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select id="inspector" class="form-select" name="inspector" aria-label="Default select example" required>  
+                                    <select id="inspector" class="form-select" name="inspector" aria-label="Default select example" required>
                                         <option <?php echo "value='" . $_SESSION['usuarioId']; ?> <?php echo "'" ?> selected><?php echo $fullname ?></option>
                                     </select>
                                 </div>
@@ -173,11 +172,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Turno </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9">
-                                    <select value="" class="form-select" 
-                                            id="turno" 
-                                            name="turno" 
-                                            aria-label="Default select example" 
-                                            required>
+                                    <select value="" class="form-select" id="turno" name="turno" aria-label="Default select example" required>
                                         <option selected value="">Escoger un Turno</option>
                                         <option value="1">Dia</option>
                                         <option value="2">Noche</option>
@@ -216,9 +211,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     <label> Descripción </label>
                                 </div>
                                 <div class="col-sm-12 col-md-9 mb-3">
-                                    <textarea id="description_inspeccion" 
-                                    class="form-control" name="descripcion" 
-                                    id="descripcionInspeccion" cols="30" rows="5" required></textarea>
+                                    <textarea id="description_inspeccion" class="form-control" name="descripcion" id="descripcionInspeccion" cols="30" rows="5" required></textarea>
                                 </div>
 
                             </div>
@@ -243,6 +236,18 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
             </div>
             <div class="col-md-1"></div>
         </div>
+        <div class="row">
+       <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 bg-danger">
+            <?php  include("./ListaHallazgos.php")?>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+       </div>
+          
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -251,10 +256,35 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <script src="./js/defaultValue.js"></script>
     <script src="./js/services_select.js"></script>
     <script>
-    console.log(<?php echo $idInspeccion; ?>)
         document.addEventListener("DOMContentLoaded", () => {
-            $('#registrarInspeccion').attr('disabled', true);
+            let idInspeccion = <?php echo $idInspeccion ?>;
+            
+            getinspeccion(idInspeccion)
+                .then(resp => {
+                    console.log(resp);
+                })
         })
+
+        const getinspeccion = async (idInspeccion) => {
+            const options = {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
+
+            var url_get_inspeccion = new URL("http://localhost/cp/server/getinspeccion.php");
+            var params = { idInspeccion: idInspeccion };
+
+            url_get_inspeccion.search = new URLSearchParams(params).toString();
+            console.log(url_get_inspeccion);
+
+            let response = await fetch(url_get_inspeccion, options);
+            let data = await response.json();
+            return data;
+
+        };
+
 
         let rgInspeccion = document.querySelector("#formInspeccion");
         rgInspeccion.addEventListener("change", (e) => {
@@ -311,10 +341,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                 }
             })
 
-         
+
         })
-
-
     </script>
     <script>
         (function() {

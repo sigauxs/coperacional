@@ -145,7 +145,7 @@ const fetchDataSelect = async (vp_idsede,dpto,area,selector,locacion) => {
   var params = { vp_idsede: vp_idsede, dpto:dpto, area:area, locacion:locacion };
   
   url.search = new URLSearchParams(params).toString();
-
+  console.log(url);
   const sedes = await fetch(url, options)
     .then((response) => response.json())
     .then((data) => renderSelect(data, selector));
