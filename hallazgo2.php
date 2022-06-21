@@ -44,12 +44,12 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="./css/responsive.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
-<link href="./css//hallazgos.css" rel="stylesheet">
+  <link href="./css//hallazgos.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/2dd4f6d179.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
 
- 
+
 </head>
 
 <body>
@@ -71,7 +71,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
     <div class="row" id="accord">
 
       <div class="col-md-6 offset-md-3">
-        <ul class="accordion">
+        <ul class="accordion" id="accord_lvl1">
 
         </ul>
 
@@ -197,7 +197,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
 
         fetchDataHallazgo(factoresRiesgo, "", "", "", "")
           .then(dataHallazgo => {
-            console.log("123");
+
             dataHallazgo.map((factorRiesgo) => {
 
 
@@ -207,38 +207,38 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
               let ulSubLiLvl1 = document.createElement("li");
 
               function capitalize(word) {
-  return word[0].toUpperCase() + word.substring(1).toLowerCase();
-}
+                return word[0].toUpperCase() + word.substring(1).toLowerCase();
+              }
 
 
-              alvl1.classList.add("toggle","lvl1");
+              alvl1.classList.add("toggle", "lvl1");
               alvl1.setAttribute("href", "javascript:void(0);");
-              alvl1.innerHTML = capitalize(factorRiesgo.NombreFactor) + 
-              "<span class='f-right'> <b>F</b></span>";
+              alvl1.innerHTML = capitalize(factorRiesgo.NombreFactor) +
+                "<span class='f-right'> <b>F</b></span>";
 
-          
 
-let btnContainer = document.getElementById("accord");
 
-// Get all buttons with class="btn" inside the container
-let btns = btnContainer.getElementsByClassName("lvl1");
+              let btnContainer = document.getElementById("accord");
 
-btnsL = btns.length + 1;
-for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-  let current = document.getElementsByClassName("active");
-console.log(btns[i]);
+              // Get all buttons with class="btn" inside the container
+              let btns = btnContainer.getElementsByClassName("lvl1");
 
-    if (current.length > 0) {
-      current[0].className = current[0].className.replace(" active", "");
-    }
+              btnsL = btns.length + 1;
+              for (let i = 0; i < btns.length; i++) {
+                btns[i].addEventListener("click", function() {
+                  let current = document.getElementsByClassName("active");
 
-   
-    this.className += " active";
-  });
-} 
 
-           
+                  if (current.length > 0) {
+                    current[0].className = current[0].className.replace(" active", "");
+                  }
+
+
+                  this.className += " active";
+                });
+              }
+
+
 
               ulSubLvl1.classList.add("inner");
               ulSubLiLvl1.setAttribute("id", `${factorRiesgo.NombreFactor.split(' ').join('')}`)
@@ -259,10 +259,10 @@ console.log(btns[i]);
 
                     alvl2.classList.add("toggle");
                     alvl2.setAttribute("href", "javascript:void(0);");
-                    alvl2.setAttribute("style","background-color:  #B0B0B0 !important;color:white");
+                    alvl2.setAttribute("style", "background-color:  #B0B0B0 !important;color:white");
                     alvl2.classList.add("lvl2");
-                 
-              
+
+
 
                     alvl2.innerHTML = peligro.Nombre_Peligro + "<span class='f-right'> <b>P</b></span>";
 
@@ -285,11 +285,11 @@ console.log(btns[i]);
                         ulSubLvl3.setAttribute("style", "padding-left:0");
 
                         alvl3.classList.add("toggle");
-                        alvl3.setAttribute("style","background-color: #D7D5D5 ")
+                        alvl3.setAttribute("style", "background-color: #D7D5D5 ")
                         alvl3.setAttribute("href", "javascript:void(0);");
-                        alvl3.innerHTML  = control.Descripcion_Control + "<span class='f-right'> <b>C</b></span>";
+                        alvl3.innerHTML = control.Descripcion_Control + "<span class='f-right'> <b>C</b></span>";
 
-                 
+
 
                         ulSubLvl3.classList.add("inner");
 
@@ -303,8 +303,8 @@ console.log(btns[i]);
                         buttonRegister.setAttribute("data-name", `Clicked Modal ${idCleanLvl3}`);
                         buttonRegister.setAttribute("data-toggle", "modal");
                         buttonRegister.setAttribute("style", "margin-left:10px");
-                        buttonRegister.innerHTML= `Registrar ${control.Descripcion_Control}` + "<span class='f-right'> <b>D</b></span>" ;
-               
+                        buttonRegister.innerHTML = `Registrar ${control.Descripcion_Control}` + "<span class='f-right'> <b>D</b></span>";
+
 
 
 
@@ -362,9 +362,9 @@ console.log(btns[i]);
 
                           buttonRegister.addEventListener("click", (e) => {
 
-                            let accord = document.getElementById("container-accordion");
+                            /*let accord = document.getElementById("container-accordion");
 
-                               console.log (accord.clientHeight);
+                               
                                
                               let height_modal = 0;
                                if (accord.clientHeight <= 990){
@@ -373,16 +373,17 @@ console.log(btns[i]);
                                 height_modal = 750;
                               }else if ( accord.clientHeight >= 1051){
                                 height_modal = 850;
-                              }
+                              }*/
 
 
-                          
+
 
                             let divModal = document.createElement("div");
                             divModal.classList.add("modal-dialog", "modal-dialog-centered", "modal", "fade");
                             divModal.setAttribute("id", `${modalIdLvl3}`);
                             divModal.setAttribute("role", "dialog");
-                            divModal.setAttribute("style", `margin: 0;position: absolute;top:${height_modal}px;left: 50%;transform: translate(-50%, -50%);`);
+                            divModal.setAttribute("style", `margin: 0;position: absolute;top:140vh;left: 50%;transform: translate(-50%, -50%);`);
+
 
 
 
@@ -427,7 +428,6 @@ console.log(btns[i]);
 
 
 
-
                             ulSubLiLvl3.appendChild(divModal);
                             divModal.appendChild(divModalDialog);
                             divModalDialog.appendChild(divModalContent);
@@ -438,6 +438,36 @@ console.log(btns[i]);
 
                             divModalContent.appendChild(divModalBody);
 
+
+                            /* function PopupCenter(url, title, w, h) {
+    // Fixes dual-screen position                         Most browsers      Firefox
+    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+    var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
+
+    var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    var top = ((height / 2) - (h / 2)) + dualScreenTop;
+    var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+    // Puts focus on the newWindow
+    if (window.focus) {
+        newWindow.focus();
+    }
+}*/
+
+
+                            // definimos la anchura y altura de la ventana
+                            /*var altura=380;
+                            var anchura=630;
+                             
+                            // calculamos la posicion x e y para centrar la ventana
+                            var y=parseInt((window.screen.height/2)-(altura/2));
+                            var x=parseInt((window.screen.width/2)-(anchura/2));
+                             
+                            // mostramos la ventana centrada
+                            window.open("hola mudno",target='blank','width='+anchura+',height='+altura+',top='+y+',left='+x+',toolbar=no,location=no,status=no,menubar=no,scrollbars=no,directories=no,resizable=no')*/
 
 
 
@@ -552,15 +582,26 @@ console.log(btns[i]);
 
                               $(`#${idCleanLvl3.split(',').join('')}03 option`).remove();
                               $(`#${modalIdLvl3}`).remove();
+                              window.scroll({
+                                top: 100,
+                                left: 100,
+                                behavior: 'smooth'
+                              });
 
                             })
 
                             buttonCloseX.addEventListener("click", (e) => {
                               e.preventDefault();
+
                               document.getElementById("desviaciones").reset();
 
                               $(`#${idCleanLvl3.split(',').join('')}03 option`).remove();
                               $(`#${modalIdLvl3}`).remove();
+                              window.scroll({
+                                top: 100,
+                                left: 100,
+                                behavior: 'smooth'
+                              });
 
                             })
 
@@ -570,7 +611,12 @@ console.log(btns[i]);
                             divModalBody.appendChild(form);
 
                             $(`#${modalIdLvl3}`).appendTo("body").modal("show");
-                           
+                            console.log("este el modal")
+                            setTimeout(() => {
+                              divModal.scrollIntoView();
+                            }, 500)
+
+
                           })
 
                         })

@@ -40,6 +40,13 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <?php include("./components/navbar-movil.php") ?>
     <div class="container-fluid container-fluid-sm">
 
+    <div class="row">
+            <div class="col-12">
+                <h2 class="text-center encabezado_listado fw-bolder mt-5">Editar inspección</h2>
+                <hr class="hr_red mx-auto">
+            </div>
+        </div>
+
         <div class="row">
             <div class="offset-md-1 col-md-10">
 
@@ -204,8 +211,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         <div class="row">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8 bg-danger">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
                         <?php include("./ListaHallazgos.php") ?>
                     </div>
                     <div class="col-md-2"></div>

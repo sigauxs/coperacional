@@ -8,15 +8,9 @@
       color:gray;
   }
 
-  select option:hover {
-    box-shadow: 0 0 10px 100px #fe8686 inset;
-}
+ 
 
-select option {
-    background-color: green!important;
-    font-weight: bold!important;
-    color: red!important;
-}
+
 
 .btncloseX {
 margin-left: 10px;

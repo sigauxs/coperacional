@@ -106,13 +106,23 @@ select {
 
 /* end inspeccion */
 
+#myImg{
+    animation: 7s easy ;
+}
 
+#myImg:hover{
+        -ms-transform: scale(1.5); /* IE 9 */
+        -webkit-transform: scale(.5); /* Safari 3-8 */
+        transform: scale(2.5); 
+}
 
+.head-listado{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    color: #878788
+}
 
-
-
-
-position: absolute;
-left: 32%;
-/* bottom: -14px; */
-top: -60px;
+tbody{
+    text-align: center;
+}
