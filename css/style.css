@@ -1,4 +1,9 @@
 @import url("../css/navbar.css");
+@import url("../css/brand.css");
+@import url("../css/table.css");
+@import url("../css/modal.css");
+
+@import url("../css/utilidades.css");
 
 
 
@@ -100,6 +105,8 @@ select {
 }
 
 /* end inspeccion */
+
+
 
 
 

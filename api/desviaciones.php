@@ -4,10 +4,10 @@ include("../connection/connection.php");
 
 $pdo = new Conexion();
 
-$idDesviacion = input_data($_POST['idDesviacion']);
-$descripcion = input_data($_POST['descripcion']);
-$idempresas = input_data($_POST['idempresas']);
-$idInspeccion = input_data($_POST['idInspeccion']);
+$idDesviacion = input_data($_POST["idDesviacion"]);
+$descripcion = input_data($_POST["descripcion"]);
+$idempresas = input_data($_POST["idempresas"]);
+$idInspeccion = input_data($_POST["idInspeccion"]);
     
 
 
@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $uploadDir = "../hallazgo/";
         $fileName = time() . '_' . basename($_FILES['picture']['name']);
         $targetPath = $uploadDir . $fileName;
-
+       
       
         if (@move_uploaded_file($_FILES['picture']['tmp_name'], $targetPath)) {
-      
+   
             $sql = "CALL insertarHallazgo(:idDesviacion,:descripcion,:idempresas,:idInspeccion,:rutaEvidencia)";
             $stmt = $pdo->prepare($sql);
 
@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo json_encode("error");
                 exit;
             }
+        }else{
+            echo json_encode("no hemos podido guardar la iamgen");
         }
     } else {
         echo json_encode("No hay imagen cargada");
@@ -64,49 +66,3 @@ function input_data($data)
 
 
 
-/*
-include("../connection/connection.php");
-$pdo = new Conexion();
-$pdo2 = new Conexion();
-
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-header("Access-Control-Allow-Methods: POST, OPTIONS,GET");
-header("Allow: POST, OPTIONS,GET");
-
-$method = $_SERVER['REQUEST_METHOD'];
-if ($method == "OPTIONS") {
-die();
-}
-
-
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-$jsonClient = json_decode(file_get_contents("php://input"));
-
-
-if (!$jsonClient) {
-exit("No day datos para insertar");
-}
-
-$sql = "CALL insertarHallazgo(:idDesviacion,:descripcion,:idempresas,:idInspeccion,:rutaEvidencia)";
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':idDesviacion', $jsonClient->idDesviacion);
-$stmt->bindValue(':descripcion', $jsonClient->descripcion);
-$stmt->bindValue(':idempresas', $jsonClient->idempresas);
-$stmt->bindValue(':idInspeccion', $jsonClient->idInspeccion);
-$stmt->bindValue(':rutaEvidencia', $jsonClient->rutaEvidencia);
-
-$stmt->execute();
-
-header("HTTP/1.1 201 ok");
-json_encode($stmt2->fetchAll());
-exit;
-
-
-}
-
-*/
-
-?>

@@ -25,7 +25,7 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     var_dump($stmt);
 
     if ($row) {
-        // validar rol
+        
         $idUsuario = $row[0];
         $idPerson = $row[1];
         $tipoUsuario = $row[2];

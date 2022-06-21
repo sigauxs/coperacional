@@ -10,6 +10,7 @@ if (!isset($_SESSION['usuarioId'])) {
 
 $fullname = $_SESSION['primerNombre'] . " " . $_SESSION['segundoNombre'] . " " . $_SESSION['primerApellido'] . " " . $_SESSION['segundoApellido'];
 $_SESSION['fullname'] = $fullname;
+echo var_dump($_SESSION['fullname']);
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
 ?>
@@ -37,76 +38,57 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <?php include("./components/navbar.php") ?>
     <?php include("./components/navbar-movil.php") ?>
     <div class="container-fluid container-fluid-sm">
-
         <div class="row">
-            <div class="offset-md-3 col-md-8">
+            <div class="col-12">
+                <h2 class="text-center encabezado_listado fw-bolder mt-5">Registrar inspección</h2>
+                <hr class="hr_red mx-auto">
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-1 col-md-10">
+
                 <div class="card mt-responsive mt-3 mx-auto div--center-border mb-3" style="z-index: 1;">
 
-                    <div class="card-header">
 
-                        <h5 class="card-title mb-0">Registrar Inspección</h5>
-                    </div>
                     <div class="card-body bg-transparent">
 
-                        <form id="formInspeccion"  action="" 
-                              method="POST" class="needs-validation" novalidate>
+                        <form id="formInspeccion" action="" method="POST" class="needs-validation" novalidate>
 
                             <div class="mb-3 row align-items-center ">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Fecha inspección </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9 text-center">
+                                <div class="col-sm-12 col-md-4">
+                                    <label for="fechaInspeccion" class="form-label">Fecha inspección:</label>
                                     <input type="date" name="fechaInspeccion" id="fechaInspeccion" class="form-control text-center" required>
                                 </div>
 
-                            </div>
-
-
-
-
-                            <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Sede </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
+                                <div class="col-sm-12 col-md-4">
+                                    <label for="sedes" class="form-label"> Sede: </label>
                                     <select class="form-select" name="sede" id="sedes" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un Sede</option>
                                         <option value="1">Mina</option>
                                         <option value="2">Puertos</option>
-
                                     </select>
                                     <div class="invalid-feedback">
                                         Selecciona una Sede
                                     </div>
                                 </div>
-
-
-                            </div>
-
-                            <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Locacion </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
+                                <div class="col-sm-12 col-md-4">
+                                    <label for="locacion" class="form-label"> locación: </label>
                                     <select class="form-select" name="locacion" id="locacion" aria-label="Default select example" required>
-                                        <option value="" selected>Escoger un locacion</option>
+                                        <option value="" selected>Escoger un locación</option>
                                     </select>
                                     <div class="invalid-feedback">
-                                        Selecciona una locacion
+                                        Selecciona una locación
                                     </div>
                                 </div>
 
-
                             </div>
 
 
 
 
                             <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Vicepresidencia </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
+                                <div class="col-sm-12 col-md-4">
+                                    <label for="vp_idSede" class="form-label"> Vicepresidencia: </label>
                                     <select class="form-select" name="vp" id="vp_idSede" name="vicepresidencia" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un Vicepresidencia</option>
                                     </select>
@@ -115,13 +97,9 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     </div>
                                 </div>
 
-                            </div>
 
-                            <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Departamento </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
+                                <div class="col-sm-12 col-md-4">
+                                    <label for="dpto" class="form-label"> Departamento :</label>
                                     <select class="form-select" id="dpto" name="dpto" name="departamento" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un Departamento</option>
                                     </select>
@@ -130,13 +108,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     </div>
                                 </div>
 
-                            </div>
-
-                            <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Área </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9 ">
+                                <div class="col-sm-12 col-md-4 ">
+                                <label for="area" class="form-label"> Área : </label>
                                     <select class="form-select" name="area" id="area" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un área</option>
                                     </select>
@@ -145,32 +118,23 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     </div>
                                 </div>
 
+
                             </div>
 
+                         
                             <div class="mb-3 row align-items-center">
 
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Inspector </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
-                                    <select id="inspector" class="form-select" name="inspector" aria-label="Default select example" required>  
+                                <div class="col-sm-12 col-md-6">
+                                <label for="inspector" class="form-label"> Inspector :</label>
+                                    <select id="inspector" class="form-select" name="inspector" aria-label="Default select example" required>
                                         <option <?php echo "value='" . $_SESSION['usuarioId']; ?> <?php echo "'" ?> selected><?php echo $fullname ?></option>
                                     </select>
                                 </div>
 
-                            </div>
-
-
-                            <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Turno </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
-                                    <select value="" class="form-select" 
-                                            id="turno" 
-                                            name="turno" 
-                                            aria-label="Default select example" 
-                                            required>
+                         
+                                <div class="col-sm-12 col-md-6">
+                                <label  for="turno" class="form-label"> Turno :</label>
+                                    <select value="" class="form-select" id="turno" name="turno" aria-label="Default select example" required>
                                         <option selected value="">Escoger un Turno</option>
                                         <option value="1">Dia</option>
                                         <option value="2">Noche</option>
@@ -178,56 +142,58 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     </select>
                                 </div>
 
+
                             </div>
 
+
+                        
+
                             <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Delegado del Area </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
+                             
+                                <div class="col-sm-12 col-md-6">
+                                <label for="delegado" class="form-label"> Delegado del Área </label>
                                     <select class="form-select" id="delegado" name="delegado" aria-label="Default select example" required>
-                                        <option value="" selected>Escoger un delegado de area</option>
+                                        <option value="" selected>Escoger un delegado de área</option>
                                     </select>
                                 </div>
 
-                            </div>
-
-                            <div class="mb-3 row align-items-center">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Responsable del Area </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
+                                <div class="col-sm-12 col-md-6">
+                                <label for="responsable" class="form-label"> Responsable del Área </label>
                                     <select class="form-select" id="responsable" name="responsable" aria-label="Default select example" required>
-                                        <option value="" selected>Escoger un responsable de area</option>
+                                        <option value="" selected>Escoger un responsable de área</option>
                                     </select>
                                 </div>
 
-                            </div>
-
-                            <div class="mb-3 row">
-                                <div class="col-sm-12 col-md-3 text-center">
-                                    <label> Descripción </label>
-                                </div>
-                                <div class="col-sm-12 col-md-9 mb-3">
-                                    <textarea id="description_inspeccion" 
-                                    class="form-control" name="descripcion" 
-                                    id="descripcionInspeccion" cols="30" rows="5" required></textarea>
-                                </div>
 
                             </div>
 
+                         
+
+                            <div class="mb-3 row">
+                        
+                                <div class="col-sm-12 col-md-12 mb-3">
+                                <label for="responsable" class="form-label"> Descripción </label>
+                                    <textarea id="description_inspeccion" class="form-control" name="descripcion" id="descripcionInspeccion" cols="30" rows="5" required></textarea>
+                                </div>
+
+                            </div>
+
 
 
                             <div class="mb-3 row">
-                                <div class="col-sm-12 mb-2">
-                                    <div class="d-grid gap-2 col-sm-12 offset-md-6 col-md-6">
+                              
+                                    <div class="d-grid gap-2 col-sm-12 col-md-4 offset-md-2">
 
-                                        <button id="registrarInspeccion" class="btn btn-danger btn-login  btn-lg rounded-pill fw-bolder" type="submit">Registrar</button>
-                                        <button type="button">Enviar</button>
-                                        <!--<a class="btn btn-danger btn-login rounded-pill fw-bolder" href="./hallazgo.php">Ingresar  </a>-->
+                                        <button id="registrarInspeccion" class="btn btn-danger btn-login  btn-lg  fw-bolder" type="submit" style="border-radius: 10px;">Registrar</button>
+                                       
+
 
                                     </div>
-                                </div>
+                                    <div class="d-grid gap-2 col-sm-12 col-md-4">
+                                    <a href="menu.php" id="Cancelar" class="btn  btn-lg  fw-bolder btn-consultar   btn-lg     btn-consultar--border" style="border-radius: 10px;">Cancelar</a>
+                                    </div>
+
+                        
                             </div>
 
                         </form>
@@ -244,7 +210,6 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <script src="./js/defaultValue.js"></script>
     <script src="./js/services_select.js"></script>
     <script>
-
         document.addEventListener("DOMContentLoaded", () => {
             $('#registrarInspeccion').attr('disabled', true);
         })
@@ -304,10 +269,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                 }
             })
 
-         
+
         })
-
-
     </script>
     <script>
         (function() {

@@ -11,7 +11,7 @@
 
 
 .div--center-border {
-  border: 1px solid rgb(202, 202, 202);
+  border: 1px solid transparent;
   border-radius: 10px;
 }
 
@@ -118,6 +118,10 @@
     color:red;
     font-weight: 600;
   }
+
+  .table-responsive{
+    overflow-x: unset;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1179px) {
@@ -148,6 +152,16 @@
     font-size: 18px;
     color:red;
     font-weight: 600;
+  }
+
+  /*listado de inspecciones*/
+
+  #dates input[type="date"]{
+    width: 250px !important;
+  }
+  
+  .table-responsive{
+    overflow-x: unset !important;
   }
 }
 
@@ -185,10 +199,23 @@
     font-weight: 600;
   }
 
+   /*listado de inspecciones*/
+
+  #dates input[type="date"]{
+    width: 250px !important;
+  }
+
+  .table-responsive{
+    overflow-x: unset !important;
+  }
+
 
 }
 
 @media (min-width: 1500px) {
+
+
+
   #navbar-movil{
     display:none;
   }
@@ -225,6 +252,13 @@
     font-weight: 600;
   }
 
+   /*listado de inspecciones*/
+  #dates input[type="date"]{
+    width: 250px !important;
+  }
 
+  .table-responsive{
+    overflow-x: unset !important;
+  }
 
 }
