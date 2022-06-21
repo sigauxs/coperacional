@@ -34,7 +34,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 </head>
 
 <body>
-
+<?php include("./components/brand.php") ?>
     <?php include("./components/navbar.php") ?>
     <?php include("./components/navbar-movil.php") ?>
     <div class="container-fluid container-fluid-sm">

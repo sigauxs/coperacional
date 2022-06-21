@@ -39,33 +39,35 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
             </div>
         </div>
         <div class="row animate__animated animate__fadeInDown animate__slow">
-            <div class="col-sm-6 col-md-4 text-center">
+           <!-- <div class="col-sm-6 col-md-4 text-center">
                 <a href="./inspeccion.php" class="text-link text-link--mt">
-                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
-                    <p> Registrar nueva inspección </p>
+                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1 menu-img">
+                    <p> inicio </p>
                 </a>
 
-            </div>
-            <div class="col-sm-6 col-md-4 text-center">
+            </div>-->
+            <div class="col-sm-6 col-md-6 text-center">
                 <a href="./inspeccion.php" class="text-link text-link--mt">
-                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
-                    <p> Ver inspecciones </p>
+                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1 menu-img">
+                    <img src="./assets/images/hallazgo.png" alt="">
+                    <p> Listado de inspecciones </p>
                 </a>
             </div>
-            <div class="col-sm-6 col-md-4 text-center">
+            <div class="col-sm-6 col-md-6 text-center">
                 <a href="./inspeccion.php" class="text-link text-link--mt">
-                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
-                    <p> Registrar nueva inspección </p>
+                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1 menu-img">
+
+                    <p> Nueva inspección </p>
                 </a>
             </div>
            
             <?php if(typeAdmin($tipoUsuario)){ ?>
-            <div class="col-sm-6 col-md-4 text-center">
+           <!-- <div class="col-sm-6 col-md-4 text-center">
                 <a href="./inspeccion.php" class="text-link text-link--mt">
                     <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1">
                     <p> configuraciones </p>
                 </a>
-            </div>
+            </div>-->
             <?php } ?>
         </div>
     </div>

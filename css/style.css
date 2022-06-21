@@ -126,3 +126,8 @@ select {
 tbody{
     text-align: center;
 }
+
+.menu-img{
+    width: 200px !important;
+    border-radius: 999px !important;
+}
