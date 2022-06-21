@@ -40,10 +40,10 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <?php include("./components/navbar-movil.php") ?>
     <div class="container-fluid container-fluid-sm">
 
-    <div class="row">
+        <div class="row">
             <div class="col-12">
                 <h2 class="text-center encabezado_listado fw-bolder mt-5">Editar inspección</h2>
-                <hr class="hr_red mx-auto">
+                <hr class="hr_red mx-auto" style="border-radius:15px">
             </div>
         </div>
 
@@ -225,15 +225,82 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script src="./js/defaultValue.js"></script>
-    <script src="./js/services_select.js"></script>
+
+  
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             let idInspeccion = <?php echo $idInspeccion ?>;
+            let formEditarInspeccion = document.querySelector("#formInspeccion");
+            
+            
+            const fetchDataSelect = async (vp_idsede, dpto, area, selector, locacion) => {
+                const options = {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
 
+
+                var url = new URL("http://localhost/cp/server/inspeccion-server.php");
+
+                var params = {
+                    vp_idsede: vp_idsede,
+                    dpto: dpto,
+                    area: area,
+                    locacion: locacion
+                };
+
+                url.search = new URLSearchParams(params).toString();
+                console.log(url);
+                const sedes = await fetch(url, options)
+                    .then((response) => response.json())
+                    .then((data) => renderSelect(data, selector));
+
+            };
+
+            function renderSelect(values, selector) {
+
+                const select = document.querySelector(selector);
+                const textSelect = select.children[0].text
+
+
+                $(`${selector} option`).remove();
+
+                let defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.text = textSelect;
+                defaultOption.selected = true;
+                select.appendChild(defaultOption);
+
+                for (option of values) {
+                    const newOption = document.createElement("option");
+                    let data = Object.values(option);
+                    newOption.value = data[0];
+                    newOption.text = data[1];
+                    select.appendChild(newOption);
+                }
+            }
+
+            
             getinspeccion(idInspeccion)
                 .then(resp => {
                     console.log(resp);
+                    let dpto = resp[0]['DEPARTAMENTO'];
+
+                    fetchDataSelect("", "", dpto, "#area", "");
+                   
+                    setTimeout(()=>{
+                    formEditarInspeccion.elements['fechaInspeccion'].value = resp[0]['FECHA'];
+                    formEditarInspeccion.elements['sedes'].value = resp[0]['SEDE'];
+                    formEditarInspeccion.elements['descripcion'].value = resp[0]['ACTIVIDAD'];
+                    formEditarInspeccion.elements['turno'].value = resp[0]['TURNO'];
+                    formEditarInspeccion.elements['area'].value = resp[0]['AREA'];
+                    },350)
+                    
+                    /*console.log(resp[0]['AREA']);
+                    $("#area option[value='35']").attr("selected",true);*/
+                   
                 })
         })
 
@@ -260,64 +327,74 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         };
 
 
-        let rgInspeccion = document.querySelector("#formInspeccion");
-        rgInspeccion.addEventListener("change", (e) => {
+      
 
-            let area = rgInspeccion.elements['area'].value;
-            let sedes = rgInspeccion.elements['sedes'].value;
-            let locacion = rgInspeccion.elements['locacion'].value;
-            let turno = rgInspeccion.elements['turno'].value;
-            let delegado = rgInspeccion.elements['delegado'].value;
-            let responsable = rgInspeccion.elements['responsable'].value;
-            let descripcion = rgInspeccion.elements['description_inspeccion'].value;
-
-            if (descripcion != "" && area != "" && sedes != "" && locacion != "" && turno != "" && delegado != "" && responsable != "") {
-                console.log("llenaste los campos")
-                $('#registrarInspeccion').attr('disabled', false);
-            }
-
-        })
-
-        let formInspeccion = document.getElementById("formInspeccion");
-        const url_registro_inspeccion = "http://localhost/cp/server/inspeccionRegister.php";
-
-        const RegistrarHallazgo = async () => {
-            let response = await fetch(url_registro_inspeccion, {
-                method: 'POST',
-                body: new FormData(formInspeccion)
-            });
-            let data = await response.json();
-            return data;
-        }
-
-        let btnregistrar = document.getElementById("registrarInspeccion");
-
-        btnregistrar.addEventListener("click", (e) => {
-            e.preventDefault();
-            RegistrarHallazgo().then(response => {
-                if (response == "success") {
-                    Swal.fire({
-                        title: 'Inspeccion registrada',
-                        text: "Deseas ingresar hallazgo a la inspección registrada.",
-                        icon: 'success',
-                        showCancelButton: true,
-                        cancelButtonText: 'No',
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si'
-                    }).then((result) => {
-                        if (!result.isConfirmed) {
-                            location.href = "http://localhost/cp/menu.php";
-                        } else {
-                            location.href = "http://localhost/cp/hallazgo2.php"
-                        }
-                    })
-                }
-            })
+            
 
 
-        })
+
+     
+
+
+        /* let rgInspeccion = document.querySelector("#formInspeccion");
+         rgInspeccion.addEventListener("change", (e) => {
+
+             let area = rgInspeccion.elements['area'].value;
+             let sedes = rgInspeccion.elements['sedes'].value;
+             let locacion = rgInspeccion.elements['locacion'].value;
+             let turno = rgInspeccion.elements['turno'].value;
+             let delegado = rgInspeccion.elements['delegado'].value;
+             let responsable = rgInspeccion.elements['responsable'].value;
+             let descripcion = rgInspeccion.elements['description_inspeccion'].value;
+
+             if (descripcion != "" && area != "" && sedes != "" && locacion != "" && turno != "" && delegado != "" && responsable != "") {
+                 console.log("llenaste los campos")
+                 $('#registrarInspeccion').attr('disabled', false);
+             }
+
+         })
+
+         let formInspeccion = document.getElementById("formInspeccion");
+         const url_registro_inspeccion = "http://localhost/cp/server/inspeccionRegister.php";
+
+         const RegistrarHallazgo = async () => {
+             let response = await fetch(url_registro_inspeccion, {
+                 method: 'POST',
+                 body: new FormData(formInspeccion)
+             });
+             let data = await response.json();
+             return data;
+         }
+
+         let btnregistrar = document.getElementById("registrarInspeccion");
+
+         btnregistrar.addEventListener("click", (e) => {
+             e.preventDefault();
+             RegistrarHallazgo().then(response => {
+                 if (response == "success") {
+                     Swal.fire({
+                         title: 'Inspeccion registrada',
+                         text: "Deseas ingresar hallazgo a la inspección registrada.",
+                         icon: 'success',
+                         showCancelButton: true,
+                         cancelButtonText: 'No',
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#d33',
+                         confirmButtonText: 'Si'
+                     }).then((result) => {
+                         if (!result.isConfirmed) {
+                             location.href = "http://localhost/cp/menu.php";
+                         } else {
+                             location.href = "http://localhost/cp/hallazgo2.php"
+                         }
+                     })
+                 }
+             })
+
+
+         })*/
     </script>
+      <script src="./js/services_select_edit.js"></script>
     <script>
         (function() {
             'use strict'

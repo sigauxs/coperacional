@@ -44,6 +44,21 @@ $resultado2 = $mysqli->query($sql2);
 	  <?php } ?>
 </table>
 
+<div class="div">
+  <div class="row">
+     <div class="col-md-12">
+     <button id="nuevoHallazgo" class="btn btn-danger btn-login  btn-lg  fw-bolder" type="button" style="border-radius: 10px;">Nuevo Hallazgo</button>
+     </div>
+  </div>
+</div>
+<script>
+
+let nuevoHallazgo = document.getElementById("nuevoHallazgo");
+nuevoHallazgo.addEventListener("click",()=>{
+  window.open("./hallazgo2.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=1000,height=1000");
+})
+
+</script>
 
 
 

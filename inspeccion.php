@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuarioId'])) {
 
 $fullname = $_SESSION['primerNombre'] . " " . $_SESSION['segundoNombre'] . " " . $_SESSION['primerApellido'] . " " . $_SESSION['segundoApellido'];
 $_SESSION['fullname'] = $fullname;
-echo var_dump($_SESSION['fullname']);
+
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
 ?>
@@ -41,7 +41,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         <div class="row">
             <div class="col-12">
                 <h2 class="text-center encabezado_listado fw-bolder mt-5">Registrar inspección</h2>
-                <hr class="hr_red mx-auto">
+                <hr class="hr_red mx-auto" style="border-radius:15px">
             </div>
         </div>
         <div class="row">

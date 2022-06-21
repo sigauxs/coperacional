@@ -6,6 +6,6 @@ Date.prototype.toDateInputValue = (function() {
 
 
 $(document).ready( function() {
-    console.log(document.querySelector('#fechaInspeccion'));
-    $('#fechaInspeccion').val(new Date().toDateInputValue());
+    console.log(document.querySelector('#ini'));
+    $('#ini').val(new Date().toDateInputValue());
 });

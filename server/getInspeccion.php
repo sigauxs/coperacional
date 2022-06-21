@@ -24,13 +24,9 @@ function input_data($data) {
 
 $idInspeccion = input_data($_GET['idInspeccion']);
 
-
-
-
-
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if(!empty($idInspeccion)){
-        $sql = "SELECT * FROM inspecciones WHERE idInspeccion = :idInspeccion";
+        $sql = "CALL Inspeccion_Seleccionada(:idInspeccion)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':idInspeccion', $idInspeccion);
         $stmt->execute();
