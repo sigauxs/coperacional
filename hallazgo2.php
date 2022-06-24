@@ -16,6 +16,11 @@ $fullname = $_SESSION['primerNombre'] . " " . $_SESSION['segundoNombre'] . " " .
 
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
+if(isset($_GET['idInspeccion'])){
+
+  $lastInspeccion = $_GET['idInspeccion'];
+
+}else{
 
 $sql = "CALL ultimaInspeccion(:idInspector)";
 $stmt = $pdo->prepare($sql);
@@ -25,6 +30,9 @@ $row = $stmt->fetch(PDO::FETCH_NUM);
 
 $_SESSION['lastIdInspeccion'] = $row[0];
 $lastInspeccion = $_SESSION['lastIdInspeccion'];
+}
+
+
 
 
 
@@ -90,6 +98,8 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
       <script>
+
+      
         $(document).ready(function() {
           $('#empresas').select2();
         });
@@ -97,7 +107,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
 
         let idlastInspeccion = "<?php echo $lastInspeccion ?>";
         let fullname = "<?php echo $fullname ?>";
-
+        console.log(idlastInspeccion);
         let prueba = document.getElementById("prueba");
 
         prueba.addEventListener("click", () => {

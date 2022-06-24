@@ -109,17 +109,19 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
             <div class="div--center animate__animated animate__fadeIn animate__slower" style="z-index:-1" >
 
                 <div class="div--center-images w-card mx-auto">
-                    <img src="./assets/images/Vector.png" alt="User logo" class="img-fluid user--size mx-auto">
+                    <img src="./assets/images/login.png" alt="User logo" class="img-fluid img-login mx-auto b-40 img-flex
+                    ">
                 </div>
-                <div class="card mt-responsive mx-auto div--center-border w-card mb-3">
+                <div 
+                class="card mt-responsive mx-auto div--center-border  card-login mb-3">
 
-                    <div class="card-body">
+                    <div class="card-body r-20">
 
                
 
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="login" class="needs-validation" novalidate>
 
-                            <div class="mb-3 mt-5 row">
+                            <div class="mb-3 mt-100 row">
                                 <div class="col-sm-12 mb-3">
                                     <input type="email" id="email" name="email" class="useFontAwesomeFamily form-control" placeholder="&#xf406;   Usuario" required>
                                 </div>
@@ -151,10 +153,40 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
                             </div>
 
                         </form>
+
+                        
+                        <form method="" action="" id="">
+
+                            <div class="mb-3 row">
+                                <div class="col-sm-4 mb-3">
+                                    <label for="recuerdame" class="remember-text">
+                                    <input type="checkbox" 
+                                    id="recuerdame" 
+                                    name="recuerdame" 
+                                    class="remember-text" 
+                                    placeholder="" style="accent-color:#e31937; position:relative; top:2.5px">
+                                    Recuerdame</label>
+                                </div>
+                          
+                            
+                                <div class="col-sm-8 mb-3 text-center">
+                                   <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
+                                </div>
+
+                            </div>
+
+                        </form>
+                        
+                    </div>
+                    <div class="card-footer card-footer-t">
+                    <hr class="mx-auto">
                     </div>
                 </div>
             </div>
 
+        </div>
+        <div class="row">
+            
         </div>
     </div>
 

@@ -30,36 +30,35 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 </head>
 
 <body>
-
-
+<?php include("./components/navbar.php") ?>
+<?php include("./components/brand.php") ?>
     <div class="container container-sm">
         <div class="row">
             <div class="col text-center">
-                <h2 class="my-5">Menu Principal</h2>
+                <h2 class="mt-5 head-menu">Menu principal</h2>
+                <hr class="hr_red mx-auto mb-5" style="border-radius:15px">
             </div>
         </div>
         <div class="row animate__animated animate__fadeInDown animate__slow">
-           <!-- <div class="col-sm-6 col-md-4 text-center">
-                <a href="./inspeccion.php" class="text-link text-link--mt">
-                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1 menu-img">
-                    <p> inicio </p>
-                </a>
 
-            </div>-->
-            <div class="col-sm-6 col-md-6 text-center">
+        <div class="col-sm-6 col-md-6 text-center">
                 <a href="./inspeccion.php" class="text-link text-link--mt">
-                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1 menu-img">
-                    <img src="./assets/images/hallazgo.png" alt="">
-                    <p> Listado de inspecciones </p>
+                    <img src="./assets/images/add.png" alt="iconos" class="img-menu mt-1 menu-img">
+                    <hr class="hr_red mx-auto mb-3" style="border-radius:15px; width:70px; margin-top:35px">
+                    <p class="head-listado"> Nueva inspección </p>
+                   
                 </a>
             </div>
+        
             <div class="col-sm-6 col-md-6 text-center">
-                <a href="./inspeccion.php" class="text-link text-link--mt">
-                    <img src="./assets/images/icon2.png" alt="iconos" class="img-menu mt-1 menu-img">
-
-                    <p> Nueva inspección </p>
+                <a href="./listaInspecciones.php" class="text-link text-link--mt">
+                    <img src="./assets/images/lista.png" alt="iconos" class="img-menu mt-1 menu-img">
+                    <hr class="hr_red mx-auto mb-3" style="border-radius:15px;  width:70px; margin-top:35px">
+                    <p class="head-listado"> Listado de inspecciones </p>
+                   
                 </a>
             </div>
+           
            
             <?php if(typeAdmin($tipoUsuario)){ ?>
            <!-- <div class="col-sm-6 col-md-4 text-center">
@@ -72,9 +71,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         </div>
     </div>
 
-    <div>
-        <a class="nav-link" href="client/logout.php"> Salir</a>
-    </div>
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

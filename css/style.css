@@ -5,6 +5,19 @@
 
 @import url("../css/utilidades.css");
 
+@font-face {
+    font-family: 'tahoma';
+    src: url('../assets/fonts/tahoma.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  @font-face {
+    font-family: 'tahoma bold';
+    src: url('../assets/fonts/tahomabd.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
 
 
 .useFontAwesomeFamily::placeholder { /* Most modern browsers */
@@ -15,7 +28,9 @@
     
 }
 
-
+body{
+    font-family: 'tahoma' ;
+}
 
 
 .user_icon--position-absolute{
@@ -41,9 +56,49 @@
     width:100%;
 }
 
+.card{
+    bottom: 40px;
+}
+
 .card-body {
     z-index: 1;
     background-color: rgb(211 211 211) !important;
+}
+
+.card-login {
+    width: 20rem;
+}
+
+.img-login{
+    width:240px;
+}
+
+.b-40{
+    bottom: 40px;
+}
+
+.r-20 {
+    border-radius:20px;
+}
+
+.mt-100{
+  margin-top: 100px;
+}
+
+.img-flex{
+    display: flex;
+}
+
+.card-footer-t{
+background-color:transparent !important;
+}
+
+.card-footer-t hr {
+    border-radius: 30px;
+    width: 80% !important;
+    color: #E31937;
+    opacity: 1 !important;
+    height: 5px !important;
 }
 
 .div--center-images {
@@ -131,3 +186,37 @@ tbody{
     width: 200px !important;
     border-radius: 999px !important;
 }
+
+.head-menu{
+    font-style: normal;
+    color: #878788;
+    font-family: "tahoma bold";
+}
+
+
+/* form */
+
+.remember input:checked {
+    background-color: red;
+}
+
+input[type="checkbox"]:checked{
+background-color:red;
+}
+
+.forgot{
+    font-size: 11px;
+    color:#878788;
+    text-decoration: none;
+}
+
+.forgot:hover{
+    font-size: 11px;
+    color:#E31937;
+}
+
+.remember-text {
+    font-size: 11px !important;
+    font-weight: 100 !important;
+}
+

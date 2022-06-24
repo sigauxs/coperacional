@@ -36,8 +36,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
 <body>
 
-<?php include("./components/brand.php") ?>
-<?php include("./components/navbar-movil.php") ?>
+    <?php include("./components/brand.php") ?>
+    <?php include("./components/navbar-movil.php") ?>
 
     <div class="container-fluid container-fluid-sm">
 
@@ -57,6 +57,10 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                     <div class="card-body bg-transparent">
 
                         <form id="formInspeccion" action="" method="POST" class="needs-validation" novalidate>
+
+                            <div class="row">
+                                <input type="hidden" name="idInspeccion" value="<?php echo $idInspeccion; ?>">
+                            </div>
 
                             <div class="mb-3 row align-items-center ">
                                 <div class="col-sm-12 col-md-4">
@@ -176,8 +180,8 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                             <div class="mb-3 row">
 
                                 <div class="col-sm-12 col-md-12 mb-3">
-                                    <label for="responsable" class="form-label"> Descripción </label>
-                                    <textarea id="description_inspeccion" class="form-control" name="descripcion" id="descripcionInspeccion" cols="30" rows="5" required></textarea>
+                                    <label for="actividad" class="form-label"> Descripción </label>
+                                    <textarea id="actividad" class="form-control" name="actividad" cols="30" rows="5" required></textarea>
                                 </div>
 
                             </div>
@@ -188,7 +192,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
                                 <div class="d-grid gap-2 col-sm-12 col-md-4 offset-md-2">
 
-                                    <button id="registrarInspeccion" class="btn btn-danger btn-login  btn-lg  fw-bolder" type="submit" style="border-radius: 10px;">Registrar</button>
+                                    <button id="updateInspeccion" class="btn btn-danger btn-login  btn-lg  fw-bolder" type="button" style="border-radius: 10px;">Guardar</button>
 
 
 
@@ -227,13 +231,76 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-  
+
     <script>
+        let updateInspeccion = document.getElementById("updateInspeccion");
+        let formUpdateInspeccion = document.querySelector("#formInspeccion");
+
+
+
+        updateInspeccion.addEventListener("click", () => {
+
+            let idInspeccion = formUpdateInspeccion.elements['idInspeccion'].value;
+            let fechaInspeccion = formUpdateInspeccion.elements['fechaInspeccion'].value;
+            let area = formUpdateInspeccion.elements['area'].value;
+            let turno = formUpdateInspeccion.elements['turno'].value;
+            let delegado = formUpdateInspeccion.elements['delegado'].value;
+            let responsable = formUpdateInspeccion.elements['responsable'].value;
+            let actividad = formUpdateInspeccion.elements['actividad'].value;
+
+            updateInspeccionFetch(idInspeccion, fechaInspeccion, area, turno, delegado, responsable, actividad)
+                .then(response => {
+                    if (response == "success") {
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: 'Inspección actualizada',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                });
+
+
+
+        })
+
+
+
+
+
+        const updateInspeccionFetch = async (idInspeccion, fechaInspeccion, area, turno, delegado, responsable, actividad) => {
+
+            const options = {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    idInspeccion: idInspeccion,
+                    fechaInspeccion: fechaInspeccion,
+                    area: area,
+                    turno: turno,
+                    delegado: delegado,
+                    responsable: responsable,
+                    actividad: actividad
+                })
+            };
+
+            let url_update_inspeccion = "http://localhost/cp/server/inspeccionUpdate.php";
+            let response = await fetch(url_update_inspeccion, options);
+            let data = await response.json();
+
+            return data;
+
+        };
+
+
         document.addEventListener("DOMContentLoaded", () => {
             let idInspeccion = <?php echo $idInspeccion ?>;
             let formEditarInspeccion = document.querySelector("#formInspeccion");
-            
-            
+
+
             const fetchDataSelect = async (vp_idsede, dpto, area, selector, locacion) => {
                 const options = {
                     method: "GET",
@@ -283,25 +350,25 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                 }
             }
 
-            
+
             getinspeccion(idInspeccion)
                 .then(resp => {
                     console.log(resp);
                     let dpto = resp[0]['DEPARTAMENTO'];
 
                     fetchDataSelect("", "", dpto, "#area", "");
-                   
-                    setTimeout(()=>{
-                    formEditarInspeccion.elements['fechaInspeccion'].value = resp[0]['FECHA'];
-                    formEditarInspeccion.elements['sedes'].value = resp[0]['SEDE'];
-                    formEditarInspeccion.elements['descripcion'].value = resp[0]['ACTIVIDAD'];
-                    formEditarInspeccion.elements['turno'].value = resp[0]['TURNO'];
-                    formEditarInspeccion.elements['area'].value = resp[0]['AREA'];
-                    },350)
-                    
+
+                    setTimeout(() => {
+                        formEditarInspeccion.elements['fechaInspeccion'].value = resp[0]['FECHA'];
+                        formEditarInspeccion.elements['sedes'].value = resp[0]['SEDE'];
+                        formEditarInspeccion.elements['actividad'].value = resp[0]['ACTIVIDAD'];
+                        formEditarInspeccion.elements['turno'].value = resp[0]['TURNO'];
+                        formEditarInspeccion.elements['area'].value = resp[0]['AREA'];
+                    }, 350)
+
                     /*console.log(resp[0]['AREA']);
                     $("#area option[value='35']").attr("selected",true);*/
-                   
+
                 })
         })
 
@@ -328,13 +395,13 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         };
 
 
-      
-
-            
 
 
 
-     
+
+
+
+
 
 
         /* let rgInspeccion = document.querySelector("#formInspeccion");
@@ -395,7 +462,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
          })*/
     </script>
-      <script src="./js/services_select_edit.js"></script>
+    <script src="./js/services_select_edit.js"></script>
     <script>
         (function() {
             'use strict'

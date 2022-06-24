@@ -53,9 +53,10 @@ $resultado2 = $mysqli->query($sql2);
 </div>
 <script>
 
+let idInspeccion = "<?php echo $idInspeccion  ?>"
 let nuevoHallazgo = document.getElementById("nuevoHallazgo");
 nuevoHallazgo.addEventListener("click",()=>{
-  window.open("./hallazgo2.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=1000,height=1000");
+  window.open("./hallazgo2.php?idInspeccion=" + idInspeccion , "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=1000,height=1000");
 })
 
 </script>

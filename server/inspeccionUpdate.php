@@ -24,19 +24,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         exit("No day datos para insertar");
     }
 
-    $sql = "UPDATE inspecciones AS I SET I.Fecha_inspeccion = :fechaInspeccion, I.Actividad = :actividad, I.Area = :idArea, I.idDelegado_del_area = :idDelegado, I.Pertenece_idPertenece = :idPertenece, I.Turno = :turno
-    WHERE I.idInspeccion = :idInspeccion";
+    
+
+    $sql = "CALL actualizarInspecion(:fechaInspeccion,:actividad,:area,:delegado,:responsable,:turno,:idInspeccion)";
+ 
+ 
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->bindValue(':idInspeccion', $jsonClient->idInspeccion);
-    $stmt->bindValue(':fechaInspeccion', $jsonClient->$fecha_inspeccion);
-    $stmt->bindValue(':actividad', $jsonClient->descripcionInspeccion);
-    $stmt->bindValue(':idArea', $jsonClient->area);
-    $stmt->bindValue(':idDelegado', $jsonClient->$delegado);
-    $stmt->bindValue(':idInspector', $jsonClient->$inspector);
-    $stmt->bindValue(':idPertenece', $jsonClient->$responsable);
-    $stmt->bindValue(':turno', $jsonClient->$turno);
+    $stmt->bindValue(':fechaInspeccion', $jsonClient->fechaInspeccion);
+    $stmt->bindValue(':actividad', $jsonClient->actividad);
+    $stmt->bindValue(':area', $jsonClient->area);
+    $stmt->bindValue(':delegado', $jsonClient->delegado);
+    $stmt->bindValue(':responsable', $jsonClient->responsable);
+    $stmt->bindValue(':turno', $jsonClient->turno);
 
 
 
