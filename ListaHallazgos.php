@@ -26,6 +26,7 @@ $resultado2 = $mysqli->query($sql2);
     </tr>
   </thead>
 
+  <tbody id="tbody">
   <tr>
   <?php while($row = $resultado2 -> fetch_assoc()){ /*$idH = $idH + 1;*/?>
   <td><?php echo ($row['ID HALL']); ?></td>
@@ -38,10 +39,12 @@ $resultado2 = $mysqli->query($sql2);
   <td>
     <span><i class="fa-solid fa-pen-to-square icon_edit me-2"></i></span> 
     <span><i class="fa-solid fa-eye icon_edit me-2"></i></span>
-    <span><i class="fa-solid fa-trash-can icon_edit"></i></span>
+    <button class="btn btnBorrar"><span><i class="fa-solid fa-trash-can icon_edit"></i></span></button>
   </td>
   </tr>
 	  <?php } ?>
+  </tbody>
+  
 </table>
 
 <div class="div">
@@ -51,13 +54,75 @@ $resultado2 = $mysqli->query($sql2);
      </div>
   </div>
 </div>
+
+<div id="modalArticulo" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Articulo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="descripcion" class="col-form-label">Descripción:</label>
+            <input id="descripcion" type="text" class="form-control" autofocus>
+          </div>
+          <div class="mb-3">
+            <label for="precio" class="col-form-label">Precio</label>
+            <input id="precio" type="number" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="stock" class="col-form-label">Stock</label>
+            <input id="stock" type="number" class="form-control">
+          </div>      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <script>
 
-let idInspeccion = "<?php echo $idInspeccion  ?>"
-let nuevoHallazgo = document.getElementById("nuevoHallazgo");
-nuevoHallazgo.addEventListener("click",()=>{
-  window.open("./hallazgo2.php?idInspeccion=" + idInspeccion , "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=1000,height=1000");
+const contenedor = document.querySelector('#tbody');
+const modalArticulo = new bootstrap.Modal(document.getElementById('modalArticulo'))
+console.log(contenedor);
+
+
+const on = (element, event, selector, handler) => {
+    element.addEventListener(event, e => {
+        if(e.target.closest(selector)){
+            handler(e)
+        }
+    })
+}
+
+
+on(document, 'click', '.btnBorrar', e => {
+    const fila = e.target.parentNode.parentNode
+    const id = fila.firstElementChild.innerHTML
+
+    console.log(id);
+   /* alertify.confirm("This is a confirm dialog.",
+    function(){
+        fetch(url+id, {
+            method: 'DELETE'
+        })
+        .then( res => res.json() )
+        .then( ()=> location.reload())
+        //alertify.success('Ok')
+    },
+    function(){
+        alertify.error('Cancel')
+    })*/
 })
+
+
 
 </script>
 
