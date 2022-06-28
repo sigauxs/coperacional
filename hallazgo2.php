@@ -449,38 +449,6 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
                             divModalContent.appendChild(divModalBody);
 
 
-                            /* function PopupCenter(url, title, w, h) {
-    // Fixes dual-screen position                         Most browsers      Firefox
-    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
-    var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
-
-    var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-    var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
-    var left = ((width / 2) - (w / 2)) + dualScreenLeft;
-    var top = ((height / 2) - (h / 2)) + dualScreenTop;
-    var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-
-    // Puts focus on the newWindow
-    if (window.focus) {
-        newWindow.focus();
-    }
-}*/
-
-
-                            // definimos la anchura y altura de la ventana
-                            /*var altura=380;
-                            var anchura=630;
-                             
-                            // calculamos la posicion x e y para centrar la ventana
-                            var y=parseInt((window.screen.height/2)-(altura/2));
-                            var x=parseInt((window.screen.width/2)-(anchura/2));
-                             
-                            // mostramos la ventana centrada
-                            window.open("hola mudno",target='blank','width='+anchura+',height='+altura+',top='+y+',left='+x+',toolbar=no,location=no,status=no,menubar=no,scrollbars=no,directories=no,resizable=no')*/
-
-
-
 
 
 

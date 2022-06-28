@@ -51,7 +51,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
             </div>
         
             <div class="col-sm-6 col-md-6 text-center">
-                <a href="./listaInspecciones.php" class="text-link text-link--mt">
+                <a href="./ListaInspecciones.php" class="text-link text-link--mt">
                     <img src="./assets/images/lista.png" alt="iconos" class="img-menu mt-1 menu-img">
                     <hr class="hr_red mx-auto mb-3" style="border-radius:15px;  width:70px; margin-top:35px">
                     <p class="head-listado"> Listado de inspecciones </p>

@@ -1,14 +1,12 @@
-
-
-
 <?php require "./reportepdf/conexion.php"; ?>
-
-
 <p class="head-listado">Listado de hallazgos: </p>
+<link href="js/chosen/chosen.css" rel="stylesheet" />
+
+
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por descripción.." title="Type in a name">
-<?php 
-$idInspeccion = $_GET['idInspeccion']; 
+<?php
+$idInspeccion = $_GET['idInspeccion'];
 $sql2 = "Call ReporteHallazgos($idInspeccion)";
 $resultado2 = $mysqli->query($sql2);
 ?>
@@ -16,45 +14,58 @@ $resultado2 = $mysqli->query($sql2);
 
   <thead class="thead">
     <tr>
-    <th >Id Hallazgo</th>
-	  <th >Descripción</th>
-	  <th >Evidencia</th>
-    <th >Fecha </th>
-	  <th >Factores de riesgos</th>
-	  <th >Area</th>
-    <th></th>
+      <th>Id Hallazgo</th>
+      <th>Descripción</th>
+      <th>Evidencia</th>
+      <th>Fecha </th>
+      <th>Factores de riesgos</th>
+      <th>Area</th>
+      <th></th>
     </tr>
   </thead>
 
+
+ 
+       
+      
+            $stmt->bindValue(':idInspeccion', $idInspeccion);
+       
+       
   <tbody id="tbody">
-  <tr>
-  <?php while($row = $resultado2 -> fetch_assoc()){ /*$idH = $idH + 1;*/?>
-  <td><?php echo ($row['ID HALL']); ?></td>
-	<td><?php echo ($row['DESCRIPCIÓN DEL HALLAZGO']); ?></td>
-	<td><a title="<?php echo ("Imagen del hallazgo #".$row['ID HALL']); ?>" href="<?php echo "http://localhost/cp/".substr($row['EVIDENCIA'],2); ?>" target="_BLANK">
-  <img id="myImg" width="100" height="100" src="<?php echo "http://localhost/cp/".substr($row['EVIDENCIA'],2); ?>"></a></td>
-	<td><?php echo ($row['FECHA']); ?></td>
-	<td><?php echo ($row['FACTORES DE RIESGO']); ?></td>
-	<td><?php echo ($row['AREA']); ?></td>
-  <td>
-    <span><i class="fa-solid fa-pen-to-square icon_edit me-2"></i></span> 
-    <span><i class="fa-solid fa-eye icon_edit me-2"></i></span>
-    <button class="btn btnBorrar"><span><i class="fa-solid fa-trash-can icon_edit"></i></span></button>
-  </td>
-  </tr>
-	  <?php } ?>
+    <tr>
+      <?php while ($row = $resultado2->fetch_assoc()) { /*$idH = $idH + 1;*/ ?>
+
+        <td class="numero"><?php echo ($row['ID HALL']); ?></td>
+        <td class="d-none"><?php echo ($row['ID INSP']); ?></td>
+        <td class="d-none"><?php echo ($row['ID DESVIACION']); ?></td>
+        <td class="d-none"><?php echo ($row['empresa']); ?></td>
+        <td><?php echo ($row['DESCRIPCIÓN DEL HALLAZGO']); ?></td>
+        <td class="d-none"> <?php echo "http://localhost/cp/" . substr($row['EVIDENCIA'], 2); ?></td>
+
+        <td><a title="<?php echo ("Imagen del hallazgo #" . $row['ID HALL']); ?>" href="<?php echo "http://localhost/cp/" . substr($row['EVIDENCIA'], 2); ?>" target="_BLANK">
+            <img id="myImg" width="100" height="100" src="<?php echo "http://localhost/cp/" . substr($row['EVIDENCIA'], 2); ?>"></a></td>
+        <td><?php echo ($row['FECHA']); ?></td>
+        <td><?php echo ($row['FACTORES DE RIESGO']); ?></td>
+        <td><?php echo ($row['AREA']); ?></td>
+        <td>
+          <button class="btn btnEditar"> <span><i class="fa-solid fa-pen-to-square icon_edit me-2"></i></span></button>
+          <button class="btn btnBorrar"><span><i class="fa-solid fa-trash-can icon_edit"></i></span></button>
+        </td>
+    </tr>
+  <?php } ?>
   </tbody>
-  
+
 </table>
 
 <div class="div">
   <div class="row">
-     <div class="col-md-12">
-     <button id="nuevoHallazgo" class="btn btn-danger btn-login  btn-lg  fw-bolder" type="button" style="border-radius: 10px;">Nuevo Hallazgo</button>
-     </div>
+    <div class="col-md-12">
+      <button id="nuevoHallazgo" class="" type="button" style="border-radius: 10px;">Nuevo Hallazgo</button>
+      <button id="btnCrear" type="button" class="btn btn-danger btn-login  btn-lg  fw-bolder" data-bs-toggle="modal" data-bs-target="#modalArticulo">Crear</button>
+    </div>
   </div>
 </div>
-
+<?php require "./reportepdf/conexion.php"; ?>
 <div id="modalArticulo" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -63,94 +74,381 @@ $resultado2 = $mysqli->query($sql2);
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="descripcion" class="col-form-label">Descripción:</label>
-            <input id="descripcion" type="text" class="form-control" autofocus>
+        <form id="formDesviacion">
+
+        <input type="hidden" name="idHallazgo" value="" id="idHallazgo">
+          <input type="hidden" name="idInspeccion" value="<?php echo $idInspeccion ?>" id="idInspeccion">
+          <select name="idempresas" id="empresas" class="empresas">
+            <option value="">Selecciona una empresa</option>
+          </select>
+          <br>
+          <label>Factor</label>
+          <select name="lista1" id="lista1" class="form-select">
+            <option value=0>Selecciona un factor</option>
+            <?php
+            $sql1 = "Select idFactor, NombreFactor from factores_riesgo";
+            $resultado1 = $mysqli->query($sql1);
+            while ($row1 = $resultado1->fetch_assoc()) {
+              //echo "<option value=".$row1['idFactor'].">".$row1['NombreFactor']."</option>";
+
+            ?>
+
+              <option value="<?php echo $row1['idFactor'] ?>"><?php echo $row1['NombreFactor'] ?></option>
+            <?php
+            }
+            mysqli_close($mysqli);
+            ?>
+
+          </select>
+
+
+          <br>
+          <label>Peligro</label>
+          <select id="lista2" name="lista2" class="form-select">
+            <option value=0>Selecciona un Peligro</option>
+          </select>
+          <br>
+          <label>Control</label>
+          <select id="lista3" name="lista3" class="form-select">
+            <option value="0">Selecciona un Control</option>
+          </select>
+          <br>
+          <label>Desviación</label>
+          <select id="lista4" name="idDesviacion" class="form-select">
+          <?php require "./reportepdf/conexion.php"; ?>
+            <option value="0">Selecciona un Desviacion</option>
+            <?php
+            $sql2 = "SELECT idDesviacion , Descripcion_Desviacion FROM desviaciones";
+            $resultado2 = $mysqli->query($sql2);
+            while ($row2 = $resultado2->fetch_assoc()) {
+              //echo "<option value=".$row1['idFactor'].">".$row1['NombreFactor']."</option>";
+
+            ?>
+
+              <option value="<?php echo $row2['idDesviacion'] ?>"><?php echo $row2['Descripcion_Desviacion'] ?></option>
+            <?php
+            }
+            mysqli_close($mysqli);
+            ?>
+          </select>
+
+          <textarea class="form-control mt-2" id="descripcionActividad" name="descripcion" rows="5" cols="40"></textarea>
+          <label class="my-3 btn fw-bolder btn-file btn-file--border" for="urlImagen" style="display:block;width:50%;">Adjuntar evidencia <i class="fa-solid fa-paperclip"></i></label>
+          <input id="urlImagen" type="file" name="picture" placeholder="Adjuntar evidencia" required>
+
+
+
+
+
+
+          <div class="modal-footer">
+
+            <button class="btn btn-save" id="saveHallazgo" data-bs-dismiss="modal" type="button">Guardar</button>
+            <button class="btn btn-file btn-cancel" id="close" data-bs-dismiss="modal">Cerrar</button>
+
           </div>
-          <div class="mb-3">
-            <label for="precio" class="col-form-label">Precio</label>
-            <input id="precio" type="number" class="form-control">
-          </div>
-          <div class="mb-3">
-            <label for="stock" class="col-form-label">Stock</label>
-            <input id="stock" type="number" class="form-control">
-          </div>      
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </div>
-    </form>
     </div>
   </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-<script>
-
-const contenedor = document.querySelector('#tbody');
-const modalArticulo = new bootstrap.Modal(document.getElementById('modalArticulo'))
-console.log(contenedor);
 
 
-const on = (element, event, selector, handler) => {
-    element.addEventListener(event, e => {
-        if(e.target.closest(selector)){
-            handler(e)
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="js/chosen/chosen.jquery.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+  <script>
+    const modalDesviacion = new bootstrap.Modal(document.getElementById('modalArticulo'))
+    let btnCrear = document.getElementById("btnCrear");
+    let formDesviacion = document.querySelector("#formDesviacion");
+    let btnSaveHallazgo = document.getElementById("saveHallazgo");
+    let opcion = "";
+    let idHallazgo = "";
+
+    btnCrear.addEventListener('click', () => {
+      formDesviacion.elements['empresas'].value = "";
+      formDesviacion.elements['lista1'].value = 0;
+      formDesviacion.elements['lista2'].value = 0;
+      formDesviacion.elements['lista3'].value = 0;
+      formDesviacion.elements['lista4'].value = 0;
+      formDesviacion.elements['descripcionActividad'].value = "";
+      formDesviacion.elements['urlImagen'] = "";
+      modalDesviacion.show()
+      opcion = 'crear';
+      console.log(opcion);
     })
-}
+
+    $(".btnEditar").click(function() {
+
+      let idHallazgo = $(this).parents("tr").find("td")[0].innerHTML;
+      let idInsp = $(this).parents("tr").find("td")[1].innerHTML;
+      let idDes = $(this).parents("tr").find("td")[2].innerHTML;
+      let empresa = $(this).parents("tr").find("td")[3].innerHTML;
+      let descripcion = $(this).parents("tr").find("td")[4].innerHTML;
+      let ruta = $(this).parents("tr").find("td")[5].innerHTML;
 
 
-on(document, 'click', '.btnBorrar', e => {
-    const fila = e.target.parentNode.parentNode
-    const id = fila.firstElementChild.innerHTML
+      formDesviacion.elements['idHallazgo'].value = idHallazgo;
+      formDesviacion.elements['idInspeccion'].value = idInsp;
+      formDesviacion.elements['empresas'].value = empresa;
+      formDesviacion.elements['lista4'].value = idDes;
+      formDesviacion.elements['descripcionActividad'].value = descripcion;
+       console.log(empresa)
+      modalDesviacion.show()
+      opcion = 'editar';
+ 
+    
+        
+     
+    
+    })
 
-    console.log(id);
-   /* alertify.confirm("This is a confirm dialog.",
-    function(){
-        fetch(url+id, {
-            method: 'DELETE'
-        })
-        .then( res => res.json() )
-        .then( ()=> location.reload())
-        //alertify.success('Ok')
-    },
-    function(){
-        alertify.error('Cancel')
-    })*/
-})
+    btnSaveHallazgo.addEventListener('click', (e) => {
+      e.preventDefault()
+      if (opcion == 'crear') {
+        const url_registro_hallazgo = "http://localhost/cp/api/desviaciones.php";
+
+        const RegistrarHallazgo = async () => {
+          let response = await fetch(url_registro_hallazgo, {
+            method: 'POST',
+            body: new FormData(formDesviacion)
+          });
+          let result = await response.json();
+
+          console.log(result)
+        }
+
+        RegistrarHallazgo();
 
 
 
-</script>
-
-
-
-<script>
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1]; // Jorge, Aqui colocas la columna que tendra el filtro.
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+        console.log('OPCION CREAR')
       }
-    }       
-  }
-}
-</script>
+      if (opcion == 'editar') {
+        console.log('OPCION editar')
+        console.log(formDesviacion.elements['idHallazgo'].value);
+        const url_update_hallazgo = "http://localhost/cp/api/hallazgoUpdate.php";
+
+        const updateHallazgo = async () => {
+          let response = await fetch(url_update_hallazgo, {
+            method: 'POST',
+            body: new FormData(formDesviacion)
+          });
+          let result = await response.json();
+
+          console.log(result)
+        }
+
+        updateHallazgo();
+      }
+      modalDesviacion.hide()
+    })
 
 
 
 
+    const fechDataEmpresa = async () => {
+
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      var url = new URL("http://localhost/cp/api/empresas.php");
+      var params = {};
+      url.search = new URLSearchParams(params).toString();
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      return data;
+
+    }
+
+    let company = document.getElementById("empresas");
+
+    fechDataEmpresa().then(empresas => {
+      empresas.map((empresa) => {
+        const newOption = document.createElement("option");
+        let data = Object.values(empresa);
+        newOption.value = data[0];
+        newOption.text = data[1];
+        company.appendChild(newOption);
+      })
+
+    })
 
 
+    $(document).ready(function() {
+      $(".btnBorrar").click(function() {
+          let id = $(this).parents("tr").find("td")[0].innerHTML;
+          let url_delete_hallazgo = "http://localhost/cp/server/deleteHallazgo.php";
+
+          Swal.fire({
+            title: '¿Estas seguro?',
+            text: "Esta accion no podra ser revertido",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No, Cancelar',
+            confirmButtonText: 'Si, Eliminar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+              fetch(url_delete_hallazgo, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    idHallazgo: id
+                  })
+                })
+                .then(res => {
+                  Swal.fire(
+                    'Eliminado',
+                    'Tu hallazgo ha sido eliminado',
+                    'success'
+                  )
+                  res.json()
+                })
+                .then(() => {
+
+                  setTimeout(() => {
+                    location.reload()
+                  }, 700);
+
+                })
+
+
+            }
+          })
+
+
+          /**/
+
+
+        }
+
+
+
+      );
+
+    });
+  </script>
+  <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1]; // Jorge, Aqui colocas la columna que tendra el filtro.
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    $(document).ready(function(e) {
+      $("#lista1").change(function() {
+        //$('#lista1').val(1);	
+        //var parametros= "id="+$("#lista1").val();
+        var parametros_Factor = $("#lista1").val();
+        $.ajax({
+          data: {
+            parametros_Factor
+          },
+          //url: './datos.php',
+          //dataType: 'post',
+          url: 'datos.php',
+          type: 'post',
+          beforeSend: function() {
+            //alert(parametros)
+          },
+          success: function(response) {
+            $("#lista2").html(response);
+            //alert("success")
+            console.log(lista2);
+          },
+          error: function() {
+            alert("error")
+          }
+        });
+      })
+
+      $("#lista2").change(function() {
+        //$('#lista1').val(1);	
+        //var parametros= "id="+$("#lista1").val();
+        var parametros_Peligro = $("#lista2").val();
+        $.ajax({
+          data: {
+            parametros_Peligro
+          },
+          //url: 'datos1.php',
+          //dataType: 'post',
+          url: 'datos.php',
+          type: 'post',
+          beforeSend: function() {
+            //alert(parametros)
+          },
+          success: function(response) {
+            $("#lista3").html(response);
+            //alert("success")
+
+          },
+          error: function() {
+            alert("error")
+          }
+        });
+      })
+
+      $("#lista3").change(function() {
+        //$('#lista1').val(1);	
+        //var parametros= "id="+$("#lista1").val();
+        var parametros_Control = $("#lista3").val();
+        $.ajax({
+          data: {
+            parametros_Control
+          },
+          //url: 'datos1.php',
+          //dataType: 'post',
+          url: 'datos.php',
+          type: 'post',
+          beforeSend: function() {
+            //alert(parametros)
+          },
+          success: function(response) {
+            $("#lista4").html(response);
+            //alert("success")
+
+          },
+          error: function() {
+            alert("error")
+          }
+        });
+      })
+
+    })
+  </script>

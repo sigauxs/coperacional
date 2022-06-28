@@ -31,6 +31,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <link href="./css/style.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/2dd4f6d179.js" crossorigin="anonymous"></script>
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -218,7 +219,12 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
-                        <?php include("./ListaHallazgos.php") ?>
+                  
+                        <?php 
+                    
+                        include("./ListaHallazgos.php") 
+                        
+                        ?>
                     </div>
                     <div class="col-md-2"></div>
                 </div>
@@ -366,8 +372,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                         formEditarInspeccion.elements['area'].value = resp[0]['AREA'];
                     }, 350)
 
-                    /*console.log(resp[0]['AREA']);
-                    $("#area option[value='35']").attr("selected",true);*/
+                  
 
                 })
         })
@@ -393,74 +398,6 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
             return data;
 
         };
-
-
-
-
-
-
-
-
-
-
-
-        /* let rgInspeccion = document.querySelector("#formInspeccion");
-         rgInspeccion.addEventListener("change", (e) => {
-
-             let area = rgInspeccion.elements['area'].value;
-             let sedes = rgInspeccion.elements['sedes'].value;
-             let locacion = rgInspeccion.elements['locacion'].value;
-             let turno = rgInspeccion.elements['turno'].value;
-             let delegado = rgInspeccion.elements['delegado'].value;
-             let responsable = rgInspeccion.elements['responsable'].value;
-             let descripcion = rgInspeccion.elements['description_inspeccion'].value;
-
-             if (descripcion != "" && area != "" && sedes != "" && locacion != "" && turno != "" && delegado != "" && responsable != "") {
-                 console.log("llenaste los campos")
-                 $('#registrarInspeccion').attr('disabled', false);
-             }
-
-         })
-
-         let formInspeccion = document.getElementById("formInspeccion");
-         const url_registro_inspeccion = "http://localhost/cp/server/inspeccionRegister.php";
-
-         const RegistrarHallazgo = async () => {
-             let response = await fetch(url_registro_inspeccion, {
-                 method: 'POST',
-                 body: new FormData(formInspeccion)
-             });
-             let data = await response.json();
-             return data;
-         }
-
-         let btnregistrar = document.getElementById("registrarInspeccion");
-
-         btnregistrar.addEventListener("click", (e) => {
-             e.preventDefault();
-             RegistrarHallazgo().then(response => {
-                 if (response == "success") {
-                     Swal.fire({
-                         title: 'Inspeccion registrada',
-                         text: "Deseas ingresar hallazgo a la inspección registrada.",
-                         icon: 'success',
-                         showCancelButton: true,
-                         cancelButtonText: 'No',
-                         confirmButtonColor: '#3085d6',
-                         cancelButtonColor: '#d33',
-                         confirmButtonText: 'Si'
-                     }).then((result) => {
-                         if (!result.isConfirmed) {
-                             location.href = "http://localhost/cp/menu.php";
-                         } else {
-                             location.href = "http://localhost/cp/hallazgo2.php"
-                         }
-                     })
-                 }
-             })
-
-
-         })*/
     </script>
     <script src="./js/services_select_edit.js"></script>
     <script>
