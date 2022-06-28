@@ -80,7 +80,7 @@ $inspector = $_SESSION['usuarioId'];
 
     <div class="row">
 
-      <div class="col-md-10 offset-md-1">
+      <div class="col-md-12">
 
 
         <table id="myTable" class="table table-hover">
@@ -124,19 +124,19 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
              echo "<tr class='text-center'>";
              
              echo "<td class='td_id'>".$row['ID INSP']."</td>";
-             echo "<td class='td_fecha'>".$row['FECHA']."</td>";
+             echo "<td class='td_fecha fs-td' style='width:10%; '>".$row['FECHA']."</td>";
              echo "<td>".$row['ACTIVIDAD']."</td>";
              echo "<td>".$row['LOCACIÓN']."</td>";
              echo "<td>".$row['VICEPRESIDENCIA']."</td>";
              echo "<td>".$row['DEPARTAMENTO']."</td>"; 
              echo "<td>".$row['AREA']."</td>"; 
-             echo "<td>".$row['# HALLAZGOS ASOCIADOS']."</td>";
+             echo "<td style='width:10%;'>".$row['# HALLAZGOS ASOCIADOS']."</td>";
          
            
              if($row['INSPECTOR'] == $inspector){
-              echo "<td>"."<a href="."http://localhost/cp/editarInspeccion.php?idInspeccion=" . $row['ID INSP'] . "><span><i class='fas fa-edit'></i></span></a></td>";     
+              echo "<td>"."<a style='color: #E31937 !important;' href="."http://localhost/cp/editarInspeccion.php?idInspeccion=" . $row['ID INSP'] . "><span><i class='fas fa-edit'></i></span></a></td>";     
              }else{
-              echo "<td>"."<span><i class='fas fa-edit'></i></span></a></td>";     
+              echo "<td>"."<span><i class='fas fa-edit' ></i></span></a></td>";     
              }
            
              echo "</tr>";               

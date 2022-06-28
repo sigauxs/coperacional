@@ -39,6 +39,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
     <?php include("./components/brand.php") ?>
     <?php include("./components/navbar-movil.php") ?>
+    <?php include("./components/navbar.php") ?>
 
     <div class="container-fluid container-fluid-sm">
 
@@ -52,7 +53,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         <div class="row">
             <div class="offset-md-1 col-md-10">
 
-                <div class="card mt-responsive mt-3 mx-auto div--center-border mb-3" style="z-index: 1;">
+                <div class="card mt-responsive mt-5 mx-auto div--center-border mb-3" style="z-index: 1;">
 
 
                     <div class="card-body bg-transparent">

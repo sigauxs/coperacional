@@ -73,7 +73,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
 
     <div class="row">
       <div class="col-md-8 offset-md-2 my-4">
-        <select name="" id="empresas"></select>
+        <select name="" id="empresas" ></select>
       </div>
     </div>
     <div class="row" id="accord">
@@ -86,6 +86,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
 
 
         <button type="button" id="finalizar" class="btn btn-danger btn-login  btn-lg  fw-bolder my-5"> Finalizar</button>
+
 
       </div>
 
@@ -353,6 +354,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
                         select.setAttribute("id", `${idCleanLvl3.split(',').join('')}03`);
 
                         let url_image = document.createElement("input");
+                        url_image.setAttribute("accept","image/png,image/jpeg")
                         url_image.setAttribute("id", "urlImagen");
                         url_image.setAttribute("type", "file");
                         url_image.setAttribute("name", "picture");

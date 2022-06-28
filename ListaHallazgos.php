@@ -1,5 +1,41 @@
 <?php require "./reportepdf/conexion.php"; ?>
 <p class="head-listado">Listado de hallazgos: </p>
+<style>
+  .file-select {
+  position: relative;
+  display: inline-block;
+}
+
+.file-select::before {
+  background-color: #5678EF;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: 'Seleccionar'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select input[type="file"] {
+  opacity: 0;
+  width: 200px;
+  height: 32px;
+  display: inline-block;
+}
+
+#src-file1::before {
+  content: 'Seleccionar Archivo 1';
+}
+
+#src-file2::before {
+  content: 'Seleccionar Archivo 2';
+}
+</style>
 
 
 
@@ -7,7 +43,7 @@
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por descripción.." class="form-control mb-3" title="Type in a name" style="width: 300px">
 <?php
 $idInspeccion = $_GET['idInspeccion'];
-$sql2 = "Call ReporteHallazgos($idInspeccion)";
+$sql2 = "Call listaHallazgo($idInspeccion)";
 $resultado2 = $mysqli->query($sql2);
 ?>
 <table id="myTable" class="table table-hover">
@@ -63,16 +99,18 @@ $resultado2 = $mysqli->query($sql2);
 <div id="modalArticulo" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Articulo</h5>
+      <div class="modal-header bg-modal text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Hallazgo</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form id="formDesviacion">
 
+        <input type="hidden" name="opcion" value="" id="opcion">
         <input type="hidden" name="idHallazgo" value="" id="idHallazgo">
           <input type="hidden" name="idInspeccion" value="<?php echo $idInspeccion ?>" id="idInspeccion">
-          <select name="idempresas" id="empresas" class="empresas">
+          <label>Empresas</label>
+          <select name="idempresas" id="empresas" class="empresas form-control">
             <option value="">Selecciona una empresa</option>
           </select>
           <br>
@@ -126,9 +164,10 @@ $resultado2 = $mysqli->query($sql2);
             ?>
           </select>
 
+
           <textarea class="form-control mt-2" id="descripcionActividad" name="descripcion" rows="5" cols="40"></textarea>
-          <label class="my-3 btn fw-bolder btn-file btn-file--border" for="urlImagen" style="display:block;width:50%;">Adjuntar evidencia <i class="fa-solid fa-paperclip"></i></label>
-          <input id="urlImagen" type="file" name="picture" placeholder="Adjuntar evidencia" required>
+          <label id="urlImagenLabel" style="display:inline-block; margin-right:10px" class="my-3 btn fw-bolder btn-file btn-file--border" for="urlImagen" style="display:block;width:50%;">Adjuntar evidencia <i class="fa-solid fa-paperclip"></i></label><label id="lfile"></label>
+          <input id="urlImagen" accept="image/png,image/jpeg" type="file" name="picture" placeholder="Adjuntar evidencia" style="display:none" required>
 
 
 
@@ -160,7 +199,6 @@ $resultado2 = $mysqli->query($sql2);
 
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="js/chosen/chosen.jquery.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
   <script>
@@ -184,6 +222,11 @@ $resultado2 = $mysqli->query($sql2);
       console.log(opcion);
     })
 
+    $("#urlImagen").change(function() {
+      const picture = document.getElementById('urlImagen').files[0];
+      let lfile = document.getElementById('lfile').innerHTML = picture.name;
+    })
+
     $(".btnEditar").click(function() {
 
       let idHallazgo = $(this).parents("tr").find("td")[0].innerHTML;
@@ -193,13 +236,13 @@ $resultado2 = $mysqli->query($sql2);
       let descripcion = $(this).parents("tr").find("td")[4].innerHTML;
       let ruta = $(this).parents("tr").find("td")[5].innerHTML;
 
-
+   
       formDesviacion.elements['idHallazgo'].value = idHallazgo;
       formDesviacion.elements['idInspeccion'].value = idInsp;
       formDesviacion.elements['empresas'].value = empresa;
       formDesviacion.elements['lista4'].value = idDes;
       formDesviacion.elements['descripcionActividad'].value = descripcion;
-       console.log(empresa)
+      
       modalDesviacion.show()
       opcion = 'editar';
  
@@ -237,10 +280,20 @@ $resultado2 = $mysqli->query($sql2);
         console.log('OPCION CREAR')
       }
       if (opcion == 'editar') {
-        console.log('OPCION editar')
-        console.log(formDesviacion.elements['idHallazgo'].value);
-        const url_update_hallazgo = "http://localhost/cp/api/hallazgoUpdate.php";
 
+
+  
+        const picture = document.getElementById('urlImagen').files[0];
+        
+
+        if(picture != "" && picture != undefined){
+          formDesviacion.elements['opcion'].value = 1;
+        }else{
+          formDesviacion.elements['opcion'].value = 2;
+        }
+       
+        const url_update_hallazgo = "http://localhost/cp/api/hallazgoUpdate.php";
+        
         const updateHallazgo = async () => {
           let response = await fetch(url_update_hallazgo, {
             method: 'POST',

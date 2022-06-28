@@ -41,13 +41,13 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         <div class="row">
             <div class="col-12">
                 <h2 class="text-center encabezado_listado fw-bolder mt-5">Registrar inspección</h2>
-                <hr class="hr_red mx-auto" style="border-radius:15px">
+                <hr class="hr_red mx-auto mt-3" style="border-radius:15px">
             </div>
         </div>
         <div class="row">
             <div class="offset-md-1 col-md-10">
 
-                <div class="card mt-responsive mt-3 mx-auto div--center-border mb-3" style="z-index: 1;">
+                <div class="card mt-responsive mt-5 mx-auto div--center-border mb-3" style="z-index: 1;">
 
 
                     <div class="card-body bg-transparent">
@@ -225,7 +225,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
             let responsable = rgInspeccion.elements['responsable'].value;
             let descripcion = rgInspeccion.elements['description_inspeccion'].value;
 
-            if (descripcion != "" && area != "" && sedes != "" && locacion != "" && turno != "" && delegado != "" && responsable != "") {
+            if ( area != "" && sedes != "" && locacion != "" && turno != "" && delegado != "" && responsable != "") {
                 console.log("llenaste los campos")
                 $('#registrarInspeccion').attr('disabled', false);
             }

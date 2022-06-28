@@ -46,7 +46,6 @@ body{
 
 .btn-login{
     background-color: #E31D38 !important;
-    
 }
 
 
@@ -224,3 +223,12 @@ background-color:red;
     display: none;
 }
 
+.bg-modal{
+    
+  background-color: #E31D38 !important;
+    
+}
+
+.fs-td{
+    font-size: 14.5px;
+}
