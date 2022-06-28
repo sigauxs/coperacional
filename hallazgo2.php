@@ -85,7 +85,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
 
 
 
-        <button type="button" id="prueba"> prueba</button>
+        <button type="button" id="finalizar" class="btn btn-danger btn-login  btn-lg  fw-bolder my-5"> Finalizar</button>
 
       </div>
 
@@ -108,9 +108,9 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
         let idlastInspeccion = "<?php echo $lastInspeccion ?>";
         let fullname = "<?php echo $fullname ?>";
         console.log(idlastInspeccion);
-        let prueba = document.getElementById("prueba");
+        let finalizar = document.getElementById("finalizar");
 
-        prueba.addEventListener("click", () => {
+        finalizar.addEventListener("click", () => {
           window.open(`reportepdf/reporte.php?lastInspeccion=${idlastInspeccion}&inspector=${fullname}`, '_blank');
           window.location.href = './menu.php';
         })

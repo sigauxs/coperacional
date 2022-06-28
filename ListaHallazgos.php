@@ -1,10 +1,10 @@
 <?php require "./reportepdf/conexion.php"; ?>
 <p class="head-listado">Listado de hallazgos: </p>
-<link href="js/chosen/chosen.css" rel="stylesheet" />
 
 
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por descripción.." title="Type in a name">
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por descripción.." class="form-control mb-3" title="Type in a name" style="width: 300px">
 <?php
 $idInspeccion = $_GET['idInspeccion'];
 $sql2 = "Call ReporteHallazgos($idInspeccion)";
@@ -24,11 +24,6 @@ $resultado2 = $mysqli->query($sql2);
     </tr>
   </thead>
 
-
- 
-       
-      
-            $stmt->bindValue(':idInspeccion', $idInspeccion);
        
        
   <tbody id="tbody">
@@ -59,9 +54,8 @@ $resultado2 = $mysqli->query($sql2);
 
 <div class="div">
   <div class="row">
-    <div class="col-md-12">
-      <button id="nuevoHallazgo" class="" type="button" style="border-radius: 10px;">Nuevo Hallazgo</button>
-      <button id="btnCrear" type="button" class="btn btn-danger btn-login  btn-lg  fw-bolder" data-bs-toggle="modal" data-bs-target="#modalArticulo">Crear</button>
+    <div class="col-md-12 my-5">
+      <button id="btnCrear" type="button" class="btn btn-danger btn-login  btn-lg  fw-bolder" data-bs-toggle="modal" data-bs-target="#modalArticulo">Nuevo Hallazgo</button>
     </div>
   </div>
 </div>
@@ -225,12 +219,18 @@ $resultado2 = $mysqli->query($sql2);
             method: 'POST',
             body: new FormData(formDesviacion)
           });
-          let result = await response.json();
+          let data = await response.json();
 
-          console.log(result)
+          console.log(data)
+          return data;
         }
 
-        RegistrarHallazgo();
+        RegistrarHallazgo().then( resp => {
+          if(resp == "success"){
+            console.log("hola");
+            window.location.reload();
+          }
+        });
 
 
 
@@ -246,12 +246,18 @@ $resultado2 = $mysqli->query($sql2);
             method: 'POST',
             body: new FormData(formDesviacion)
           });
-          let result = await response.json();
-
-          console.log(result)
+          let data = await response.json();
+         
+          console.log(data)
+          return data;
         }
 
-        updateHallazgo();
+        updateHallazgo().then( resp => {
+          if(resp == "success"){
+            console.log("hola");
+            window.location.reload();
+          }
+        });;
       }
       modalDesviacion.hide()
     })
@@ -358,7 +364,7 @@ $resultado2 = $mysqli->query($sql2);
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1]; // Jorge, Aqui colocas la columna que tendra el filtro.
+        td = tr[i].getElementsByTagName("td")[4]; // Jorge, Aqui colocas la columna que tendra el filtro.
         if (td) {
           txtValue = td.textContent || td.innerText;
           if (txtValue.toUpperCase().indexOf(filter) > -1) {
