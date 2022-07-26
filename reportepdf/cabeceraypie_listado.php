@@ -10,13 +10,13 @@ class PDF extends FPDF
 // Cabecera de página
 function Header()
 {
-	$inspector = $_GET['inspector'];
+	
 	$lastInspeccion = $_GET['lastInspeccion'];
 	require "conexion.php";
 	$sql2 = "Call DatosInspeccionEncabezado2($lastInspeccion)";
 	$resultado2 = $mysqli->query($sql2);
 	$AltoCelda2 = 9;
-	$inspector = $inspector;
+
 
     // Movernos a la derecha
     $this->Cell(200);
@@ -65,7 +65,7 @@ function Header()
 		$this -> Cell(60, $AltoCelda2, utf8_decode($row['RESPONSABLE AREA']), 0, 0, 'C', 0);
 		$this -> Cell(4, $AltoCelda2, '', 0, 0, 'L', 0);
 		$this -> Image('./imgCabecera/Celda.png',$this -> GetX(),$this -> GetY(), 60, $AltoCelda2);
-		$this -> Cell(60, $AltoCelda2, utf8_decode($inspector), 0, 0, 'C', 0);
+		$this -> Cell(60, $AltoCelda2, utf8_decode($row['INSPECTOR']), 0, 0, 'C', 0);
 		$this -> Cell(4, $AltoCelda2, '', 0, 0, 'L', 0);
 		$this -> Image('imgCabecera/Celda.png',$this -> GetX(),$this -> GetY(), 60, $AltoCelda2);
 		$this -> Cell(60, $AltoCelda2, utf8_decode($row['DELEGADO']), 0, 1, 'C', 0);

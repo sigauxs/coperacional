@@ -2,40 +2,57 @@
 <p class="head-listado">Listado de hallazgos: </p>
 <style>
   .file-select {
-  position: relative;
-  display: inline-block;
-}
+    position: relative;
+    display: inline-block;
+  }
 
-.file-select::before {
-  background-color: #5678EF;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 3px;
-  content: 'Seleccionar'; /* testo por defecto */
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
+  .file-select::before {
+    background-color: #5678EF;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    content: 'Seleccionar';
+    /* testo por defecto */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
 
-.file-select input[type="file"] {
-  opacity: 0;
-  width: 200px;
-  height: 32px;
-  display: inline-block;
-}
+  .file-select input[type="file"] {
+    opacity: 0;
+    width: 200px;
+    height: 32px;
+    display: inline-block;
+  }
 
-#src-file1::before {
-  content: 'Seleccionar Archivo 1';
-}
+  #src-file1::before {
+    content: 'Seleccionar Archivo 1';
+  }
 
-#src-file2::before {
-  content: 'Seleccionar Archivo 2';
-}
+  #src-file2::before {
+    content: 'Seleccionar Archivo 2';
+  }
+
+  /* Clase modal */
+  .d-modal-none {
+    display: none;
+  }
+
+  .d-modal-block {
+    display: block;
+  }
 </style>
+
+
+
+
+
+
+
 
 
 
@@ -43,9 +60,19 @@
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por descripción.." class="form-control mb-3" title="Type in a name" style="width: 300px">
 <?php
 $idInspeccion = $_GET['idInspeccion'];
+
 $sql2 = "Call listaHallazgo($idInspeccion)";
 $resultado2 = $mysqli->query($sql2);
 ?>
+
+
+
+
+
+
+
+
+
 <table id="myTable" class="table table-hover">
 
   <thead class="thead">
@@ -60,8 +87,8 @@ $resultado2 = $mysqli->query($sql2);
     </tr>
   </thead>
 
-       
-       
+
+
   <tbody id="tbody">
     <tr>
       <?php while ($row = $resultado2->fetch_assoc()) { /*$idH = $idH + 1;*/ ?>
@@ -73,13 +100,14 @@ $resultado2 = $mysqli->query($sql2);
         <td><?php echo ($row['DESCRIPCIÓN DEL HALLAZGO']); ?></td>
         <td class="d-none"> <?php echo "http://localhost/cp/" . substr($row['EVIDENCIA'], 2); ?></td>
 
-        <td><a title="<?php echo ("Imagen del hallazgo #" . $row['ID HALL']); ?>" href="<?php echo "http://localhost/cp/" . substr($row['EVIDENCIA'], 2); ?>" target="_BLANK">
-            <img id="myImg" width="100" height="100" src="<?php echo "http://localhost/cp/" . substr($row['EVIDENCIA'], 2); ?>"></a></td>
+        <td>
+          <img id="myImg" class="showModal" data-content="img" width="100" height="100" src="<?php echo "http://localhost/cp/" . substr($row['EVIDENCIA'], 2); ?>">
+        </td>
         <td><?php echo ($row['FECHA']); ?></td>
         <td><?php echo ($row['FACTORES DE RIESGO']); ?></td>
         <td><?php echo ($row['AREA']); ?></td>
         <td>
-          <button class="btn btnEditar"> <span><i class="fa-solid fa-pen-to-square icon_edit me-2"></i></span></button>
+          <button class="btn btnEditar showModal" data-content="editar"> <span><i class="fa-solid fa-pen-to-square icon_edit me-2"></i></span></button>
           <button class="btn btnBorrar"><span><i class="fa-solid fa-trash-can icon_edit"></i></span></button>
         </td>
     </tr>
@@ -91,97 +119,117 @@ $resultado2 = $mysqli->query($sql2);
 <div class="div">
   <div class="row">
     <div class="col-md-12 my-5">
-      <button id="btnCrear" type="button" class="btn btn-danger btn-login  btn-lg  fw-bolder" data-bs-toggle="modal" data-bs-target="#modalArticulo">Nuevo Hallazgo</button>
+      <button id="btnCrear" data-content="nuevo" type="button" class="showModal btn btn-danger btn-login  btn-lg  fw-bolder" data-bs-toggle="modal" data-bs-target="#modalArticulo">Nuevo Hallazgo</button>
     </div>
   </div>
+
 </div>
-<?php require "./reportepdf/conexion.php"; ?>
-<div id="modalArticulo" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+
+<?php require "./reportepdf/conexion.php";  ?>
+
+<div id="modalHallazgo" class="modal fade" tabindex="-1" aria-labelledby="hallazgoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header bg-modal text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Hallazgo</h5>
+      <div class="modal-header bg-modal text-white" style="background-color: transparent">
+        <h5 class="modal-title" id="hallazgoModalLabel">Hallazgo</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
+
+
+
       <div class="modal-body">
-        <form id="formDesviacion">
 
-        <input type="hidden" name="opcion" value="" id="opcion">
-        <input type="hidden" name="idHallazgo" value="" id="idHallazgo">
-          <input type="hidden" name="idInspeccion" value="<?php echo $idInspeccion ?>" id="idInspeccion">
-          <label>Empresas</label>
-          <select name="idempresas" id="empresas" class="empresas form-control">
-            <option value="">Selecciona una empresa</option>
-          </select>
-          <br>
-          <label>Factor</label>
-          <select name="lista1" id="lista1" class="form-select">
-            <option value=0>Selecciona un factor</option>
-            <?php
-            $sql1 = "Select idFactor, NombreFactor from factores_riesgo";
-            $resultado1 = $mysqli->query($sql1);
-            while ($row1 = $resultado1->fetch_assoc()) {
-              //echo "<option value=".$row1['idFactor'].">".$row1['NombreFactor']."</option>";
+        <div id="content-imagen">
 
-            ?>
+        </div>
 
-              <option value="<?php echo $row1['idFactor'] ?>"><?php echo $row1['NombreFactor'] ?></option>
-            <?php
-            }
-            mysqli_close($mysqli);
-            ?>
+        <div id="content-form">
 
-          </select>
+          <form id="formDesviacion">
 
+            <input type="hidden" name="opcion" value="" id="opcion">
+            <input type="hidden" name="idHallazgo" value="" id="idHallazgo">
+            <input type="hidden" name="idInspeccion" value="<?php echo $idInspeccion ?>" id="idInspeccion">
+            <label>Empresas</label>
+            <select name="idempresas" id="empresas" class="empresas form-control">
+              <option value="">Selecciona una empresa</option>
+            </select>
+            <br>
+            <label>Factor</label>
+            <select name="lista1" id="lista1" class="form-select">
+              <option value=0>Selecciona un factor</option>
 
-          <br>
-          <label>Peligro</label>
-          <select id="lista2" name="lista2" class="form-select">
-            <option value=0>Selecciona un Peligro</option>
-          </select>
-          <br>
-          <label>Control</label>
-          <select id="lista3" name="lista3" class="form-select">
-            <option value="0">Selecciona un Control</option>
-          </select>
-          <br>
-          <label>Desviación</label>
-          <select id="lista4" name="idDesviacion" class="form-select">
-          <?php require "./reportepdf/conexion.php"; ?>
-            <option value="0">Selecciona un Desviacion</option>
-            <?php
-            $sql2 = "SELECT idDesviacion , Descripcion_Desviacion FROM desviaciones";
-            $resultado2 = $mysqli->query($sql2);
-            while ($row2 = $resultado2->fetch_assoc()) {
-              //echo "<option value=".$row1['idFactor'].">".$row1['NombreFactor']."</option>";
+              <?php
 
-            ?>
+              $sql1 = "Select idFactor, NombreFactor from factores_riesgo";
+              $resultado1 = $mysqli->query($sql1);
+              while ($row1 = $resultado1->fetch_assoc()) {
+              ?>
+                <option value="<?php echo $row1['idFactor'] ?>"><?php echo $row1['NombreFactor'] ?></option>
+              <?php
+              }
+              mysqli_close($mysqli);
+              ?>
 
-              <option value="<?php echo $row2['idDesviacion'] ?>"><?php echo $row2['Descripcion_Desviacion'] ?></option>
-            <?php
-            }
-            mysqli_close($mysqli);
-            ?>
-          </select>
+            </select>
 
 
-          <textarea class="form-control mt-2" id="descripcionActividad" name="descripcion" rows="5" cols="40"></textarea>
-          <label id="urlImagenLabel" style="display:inline-block; margin-right:10px" class="my-3 btn fw-bolder btn-file btn-file--border" for="urlImagen" style="display:block;width:50%;">Adjuntar evidencia <i class="fa-solid fa-paperclip"></i></label><label id="lfile"></label>
-          <input id="urlImagen" accept="image/png,image/jpeg" type="file" name="picture" placeholder="Adjuntar evidencia" style="display:none" required>
+            <br>
+            <label>Peligro</label>
+            <select id="lista2" name="lista2" class="form-select">
+              <option value=0>Selecciona un Peligro</option>
+            </select>
+            <br>
+            <label>Control</label>
+            <select id="lista3" name="lista3" class="form-select">
+              <option value="0">Selecciona un Control</option>
+            </select>
+            <br>
+            <?php require "./reportepdf/conexion.php";  ?>
+            <label>Desviación</label>
+            <select id="lista4" name="idDesviacion" class="form-select">
+
+              <option value="0">Selecciona un Desviacion</option>
+
+              <?php
+              $sql2 = "SELECT idDesviacion , Descripcion_Desviacion FROM desviaciones";
+              $resultado2 = $mysqli->query($sql2);
+              while ($row2 = $resultado2->fetch_assoc()) {
+              ?>
+                <option value="<?php echo $row2['idDesviacion'] ?>"><?php echo $row2['Descripcion_Desviacion'] ?></option>
+              <?php
+              }
+              mysqli_close($mysqli);
+              ?>
+            </select>
+
+
+            <label for="descripcionActividad" class="mt-2">Actividad </label>
+            <textarea class="form-control mt-2" id="descripcionActividad" name="descripcion" rows="5" cols="40"></textarea>
+
+            <label id="urlImagenLabel" style="display:inline-block; margin-right:10px" class="my-3 btn fw-bolder btn-file btn-file--border" for="urlImagen" style="display:block;width:50%;">Adjuntar evidencia <i class="fa-solid fa-paperclip"></i></label><label id="lfile"></label>
+            <input id="urlImagen" accept="image/png,image/jpeg" type="file" name="picture" placeholder="Adjuntar evidencia" style="display:none" required>
 
 
 
 
 
 
-          <div class="modal-footer">
+            <div class="modal-footer">
 
-            <button class="btn btn-save" id="saveHallazgo" data-bs-dismiss="modal" type="button">Guardar</button>
-            <button class="btn btn-file btn-cancel" id="close" data-bs-dismiss="modal">Cerrar</button>
+              <button class="btn btn-save" id="saveHallazgo" data-bs-dismiss="modal" type="button">Guardar</button>
+              <button class="btn btn-file btn-cancel" id="close" data-bs-dismiss="modal">Cerrar</button>
 
-          </div>
-        </form>
+            </div>
+          </form>
+        </div>
+
       </div>
+
+
     </div>
   </div>
 
@@ -191,6 +239,28 @@ $resultado2 = $mysqli->query($sql2);
 
 
 
+
+
+
+
+
+
+
+  <!-- <div id="modalArticulo" class="modal fade" tabindex="-1" aria-labelledby="hallazgoModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-modal text-white">
+          <h5 class="modal-title" id="hallazgoModalLabel">Hallazgo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        
+
+
+        </div>
+      </div>
+    </div>-->
 
 
 
@@ -202,118 +272,96 @@ $resultado2 = $mysqli->query($sql2);
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
   <script>
-    const modalDesviacion = new bootstrap.Modal(document.getElementById('modalArticulo'))
-    let btnCrear = document.getElementById("btnCrear");
+
+
+  </script>
+  <script>
+    const modalHallazgo = new bootstrap.Modal(document.getElementById('modalHallazgo'), {
+      backdrop: 'static',
+      keyboard: true,
+    });
+
+    let contentImagen = document.getElementById("content-imagen");
+    let contentForm = document.getElementById("content-form");
     let formDesviacion = document.querySelector("#formDesviacion");
-    let btnSaveHallazgo = document.getElementById("saveHallazgo");
     let opcion = "";
     let idHallazgo = "";
+    let btnSaveHallazgo = document.getElementById("saveHallazgo");
 
-    btnCrear.addEventListener('click', () => {
-      formDesviacion.elements['empresas'].value = "";
-      formDesviacion.elements['lista1'].value = 0;
-      formDesviacion.elements['lista2'].value = 0;
-      formDesviacion.elements['lista3'].value = 0;
-      formDesviacion.elements['lista4'].value = 0;
-      formDesviacion.elements['descripcionActividad'].value = "";
-      formDesviacion.elements['urlImagen'] = "";
-      modalDesviacion.show()
-      opcion = 'crear';
-      console.log(opcion);
+    $(".showModal").click(function() {
+
+      let data = this.dataset.content;
+
+      if (data == "img") {
+
+        let ruta = $(this).parents("tr").find("td")[5].innerHTML;
+        let imagen = document.createElement("img");
+        imagen.setAttribute("src", ruta);
+        imagen.classList.add("modal_imagen");
+        contentImagen.appendChild(imagen);
+
+        contentForm.classList.add("d-modal-none");
+        contentImagen.classList.remove("d-modal-none");
+
+
+        modalHallazgo.show();
+
+      } else if (data == "nuevo") {
+
+        formDesviacion.elements['empresas'].value = "";
+        formDesviacion.elements['lista1'].value = 0;
+        formDesviacion.elements['lista2'].value = 0;
+        formDesviacion.elements['lista3'].value = 0;
+        formDesviacion.elements['lista4'].value = 0;
+        formDesviacion.elements['descripcionActividad'].value = "";
+        formDesviacion.elements['urlImagen'] = "";
+
+        contentForm.classList.remove("d-modal-none");
+        contentImagen.classList.add("d-modal-none");
+
+        modalHallazgo.show();
+        opcion = 'crear';
+
+        console.log('crear');
+
+
+      } else if (data == "editar") {
+
+        let idHallazgo = $(this).parents("tr").find("td")[0].innerHTML;
+        let idInsp = $(this).parents("tr").find("td")[1].innerHTML;
+        let idDes = $(this).parents("tr").find("td")[2].innerHTML;
+        let empresa = $(this).parents("tr").find("td")[3].innerHTML;
+        let descripcion = $(this).parents("tr").find("td")[4].innerHTML;
+        let ruta = $(this).parents("tr").find("td")[5].innerHTML;
+
+
+        formDesviacion.elements['idHallazgo'].value = idHallazgo;
+        formDesviacion.elements['idInspeccion'].value = idInsp;
+        formDesviacion.elements['empresas'].value = empresa;
+        formDesviacion.elements['lista4'].value = idDes;
+        formDesviacion.elements['descripcionActividad'].value = descripcion;
+
+
+        contentForm.classList.remove("d-modal-none");
+        contentImagen.classList.add("d-modal-none");
+
+        modalHallazgo.show()
+        opcion = 'editar';
+
+      }
+
     })
+
+
 
     $("#urlImagen").change(function() {
+
+
       const picture = document.getElementById('urlImagen').files[0];
       let lfile = document.getElementById('lfile').innerHTML = picture.name;
+      console.log(lfile);
     })
 
-    $(".btnEditar").click(function() {
-
-      let idHallazgo = $(this).parents("tr").find("td")[0].innerHTML;
-      let idInsp = $(this).parents("tr").find("td")[1].innerHTML;
-      let idDes = $(this).parents("tr").find("td")[2].innerHTML;
-      let empresa = $(this).parents("tr").find("td")[3].innerHTML;
-      let descripcion = $(this).parents("tr").find("td")[4].innerHTML;
-      let ruta = $(this).parents("tr").find("td")[5].innerHTML;
-
-   
-      formDesviacion.elements['idHallazgo'].value = idHallazgo;
-      formDesviacion.elements['idInspeccion'].value = idInsp;
-      formDesviacion.elements['empresas'].value = empresa;
-      formDesviacion.elements['lista4'].value = idDes;
-      formDesviacion.elements['descripcionActividad'].value = descripcion;
-      
-      modalDesviacion.show()
-      opcion = 'editar';
- 
-    
-        
-     
-    
-    })
-
-    btnSaveHallazgo.addEventListener('click', (e) => {
-      e.preventDefault()
-      if (opcion == 'crear') {
-        const url_registro_hallazgo = "http://localhost/cp/api/desviaciones.php";
-
-        const RegistrarHallazgo = async () => {
-          let response = await fetch(url_registro_hallazgo, {
-            method: 'POST',
-            body: new FormData(formDesviacion)
-          });
-          let data = await response.json();
-
-          console.log(data)
-          return data;
-        }
-
-        RegistrarHallazgo().then( resp => {
-          if(resp == "success"){
-            console.log("hola");
-            window.location.reload();
-          }
-        });
-
-
-
-        console.log('OPCION CREAR')
-      }
-      if (opcion == 'editar') {
-
-
-  
-        const picture = document.getElementById('urlImagen').files[0];
-        
-
-        if(picture != "" && picture != undefined){
-          formDesviacion.elements['opcion'].value = 1;
-        }else{
-          formDesviacion.elements['opcion'].value = 2;
-        }
-       
-        const url_update_hallazgo = "http://localhost/cp/api/hallazgoUpdate.php";
-        
-        const updateHallazgo = async () => {
-          let response = await fetch(url_update_hallazgo, {
-            method: 'POST',
-            body: new FormData(formDesviacion)
-          });
-          let data = await response.json();
-         
-          console.log(data)
-          return data;
-        }
-
-        updateHallazgo().then( resp => {
-          if(resp == "success"){
-            console.log("hola");
-            window.location.reload();
-          }
-        });;
-      }
-      modalDesviacion.hide()
-    })
 
 
 
@@ -351,7 +399,77 @@ $resultado2 = $mysqli->query($sql2);
     })
 
 
+
+
+    btnSaveHallazgo.addEventListener('click', (e) => {
+      console.log(opcion)
+      e.preventDefault()
+      if (opcion == 'crear') {
+        const url_registro_hallazgo = "http://localhost/cp/api/desviaciones.php";
+
+        const RegistrarHallazgo = async () => {
+          let response = await fetch(url_registro_hallazgo, {
+            method: 'POST',
+            body: new FormData(formDesviacion)
+          });
+          let data = await response.json();
+
+          console.log(data)
+          return data;
+        }
+
+        RegistrarHallazgo().then(resp => {
+          if (resp == "success") {
+            console.log("hola");
+            window.location.reload();
+          }
+        });
+
+
+
+        console.log('OPCION CREAR')
+      }
+      if (opcion == 'editar') {
+
+
+
+        const picture = document.getElementById('urlImagen').files[0];
+
+
+        if (picture != "" && picture != undefined) {
+          formDesviacion.elements['opcion'].value = 1;
+        } else {
+          formDesviacion.elements['opcion'].value = 2;
+        }
+
+        const url_update_hallazgo = "http://localhost/cp/api/hallazgoUpdate.php";
+
+        const updateHallazgo = async () => {
+          let response = await fetch(url_update_hallazgo, {
+            method: 'POST',
+            body: new FormData(formDesviacion)
+          });
+          let data = await response.json();
+
+          console.log(data)
+          return data;
+        }
+
+        updateHallazgo().then(resp => {
+          if (resp == "success") {
+            console.log("hola");
+            window.location.reload();
+          }
+        });;
+      }
+      modalHallazgo.hide()
+    })
+
+
+
     $(document).ready(function() {
+
+
       $(".btnBorrar").click(function() {
           let id = $(this).parents("tr").find("td")[0].innerHTML;
           let url_delete_hallazgo = "http://localhost/cp/server/deleteHallazgo.php";
@@ -361,8 +479,8 @@ $resultado2 = $mysqli->query($sql2);
             text: "Esta accion no podra ser revertido",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#E31D38',
+            cancelButtonColor: 'rgb(149,149,149)',
             cancelButtonText: 'No, Cancelar',
             confirmButtonText: 'Si, Eliminar'
           }).then((result) => {
@@ -398,7 +516,7 @@ $resultado2 = $mysqli->query($sql2);
           })
 
 
-          /**/
+
 
 
         }
@@ -408,6 +526,189 @@ $resultado2 = $mysqli->query($sql2);
       );
 
     });
+
+
+
+
+    $(".btn-close").click(function() {
+      contentImagen.innerHTML = "";
+      modalHallazgo.hide();
+    })
+
+    document.onkeydown = function(evt) {
+      evt = evt || window.event;
+      var isEscape = false;
+      if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+      } else {
+        isEscape = (evt.keyCode === 27);
+      }
+      if (isEscape) {
+        contentImagen.innerHTML = "";
+        modalHallazgo.hide();
+      }
+    };
+  </script>
+
+
+  <script>
+    /*const modalDesviacion = new bootstrap.Modal(document.getElementById('modalArticulo'))
+      let btnCrear = document.getElementById("btnCrear");
+      let formDesviacion = document.querySelector("#formDesviacion");
+      let btnSaveHallazgo = document.getElementById("saveHallazgo");
+      let contentImagen = document.getElementById("content-imagen");
+      let opcion = "";
+      let idHallazgo = "";
+
+      btnCrear.addEventListener('click', () => {
+        formDesviacion.elements['empresas'].value = "";
+        formDesviacion.elements['lista1'].value = 0;
+        formDesviacion.elements['lista2'].value = 0;
+        formDesviacion.elements['lista3'].value = 0;
+        formDesviacion.elements['lista4'].value = 0;
+        formDesviacion.elements['descripcionActividad'].value = "";
+        formDesviacion.elements['urlImagen'] = "";
+        modalDesviacion.show();
+        opcion = 'crear';
+        console.log(opcion);
+      })
+
+      $("#urlImagen").change(function() {
+        const picture = document.getElementById('urlImagen').files[0];
+        let lfile = document.getElementById('lfile').innerHTML = picture.name;
+      })
+
+      $(".btnEditar").click(function() {
+
+        let idHallazgo = $(this).parents("tr").find("td")[0].innerHTML;
+        let idInsp = $(this).parents("tr").find("td")[1].innerHTML;
+        let idDes = $(this).parents("tr").find("td")[2].innerHTML;
+        let empresa = $(this).parents("tr").find("td")[3].innerHTML;
+        let descripcion = $(this).parents("tr").find("td")[4].innerHTML;
+        let ruta = $(this).parents("tr").find("td")[5].innerHTML;
+
+
+        formDesviacion.elements['idHallazgo'].value = idHallazgo;
+        formDesviacion.elements['idInspeccion'].value = idInsp;
+        formDesviacion.elements['empresas'].value = empresa;
+        formDesviacion.elements['lista4'].value = idDes;
+        formDesviacion.elements['descripcionActividad'].value = descripcion;
+
+        modalDesviacion.show()
+        opcion = 'editar';
+
+      })
+
+
+      $(".evidencia").click(function() {
+        let ruta = $(this).parents("tr").find("td")[5].innerHTML;
+        let imagen = document.createElement("img");
+        imagen.setAttribute("src", ruta);
+        imagen.classList.add("modal_imagen");
+        contentImagen.appendChild(imagen);
+        modalDesviacion.show();
+      })
+
+      btnSaveHallazgo.addEventListener('click', (e) => {
+        e.preventDefault()
+        if (opcion == 'crear') {
+          const url_registro_hallazgo = "http://localhost/cp/api/desviaciones.php";
+
+          const RegistrarHallazgo = async () => {
+            let response = await fetch(url_registro_hallazgo, {
+              method: 'POST',
+              body: new FormData(formDesviacion)
+            });
+            let data = await response.json();
+
+            console.log(data)
+            return data;
+          }
+
+          RegistrarHallazgo().then(resp => {
+            if (resp == "success") {
+              console.log("hola");
+              window.location.reload();
+            }
+          });
+
+
+
+          console.log('OPCION CREAR')
+        }
+        if (opcion == 'editar') {
+
+
+
+          const picture = document.getElementById('urlImagen').files[0];
+
+
+          if (picture != "" && picture != undefined) {
+            formDesviacion.elements['opcion'].value = 1;
+          } else {
+            formDesviacion.elements['opcion'].value = 2;
+          }
+
+          const url_update_hallazgo = "http://localhost/cp/api/hallazgoUpdate.php";
+
+          const updateHallazgo = async () => {
+            let response = await fetch(url_update_hallazgo, {
+              method: 'POST',
+              body: new FormData(formDesviacion)
+            });
+            let data = await response.json();
+
+            console.log(data)
+            return data;
+          }
+
+          updateHallazgo().then(resp => {
+            if (resp == "success") {
+              console.log("hola");
+              window.location.reload();
+            }
+          });;
+        }
+        modalDesviacion.hide()
+      })
+
+
+
+
+      const fechDataEmpresa = async () => {
+
+        const options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        var url = new URL("http://localhost/cp/api/empresas.php");
+        var params = {};
+        url.search = new URLSearchParams(params).toString();
+
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+
+      }
+
+      let company = document.getElementById("empresas");
+
+      fechDataEmpresa().then(empresas => {
+        empresas.map((empresa) => {
+          const newOption = document.createElement("option");
+          let data = Object.values(empresa);
+          newOption.value = data[0];
+          newOption.text = data[1];
+          company.appendChild(newOption);
+        })
+
+      })*/
+
+
+     
   </script>
   <script>
     function myFunction() {
@@ -511,3 +812,4 @@ $resultado2 = $mysqli->query($sql2);
 
     })
   </script>
+

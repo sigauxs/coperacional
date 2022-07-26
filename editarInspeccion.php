@@ -182,8 +182,12 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                             <div class="mb-3 row">
 
                                 <div class="col-sm-12 col-md-12 mb-3">
-                                    <label for="actividad" class="form-label"> Descripción </label>
-                                    <textarea id="actividad" class="form-control" name="actividad" cols="30" rows="5" required></textarea>
+                                    <label for="actividad" class="form-label"> Actividad </label>
+                                    <textarea id="actividad" 
+                                    class="form-control" 
+                                    name="actividad" 
+                                    cols="30" rows="5" maxlength="300"
+                                    required></textarea>
                                 </div>
 
                             </div>
@@ -193,11 +197,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                             <div class="mb-3 row">
 
                                 <div class="d-grid gap-2 col-sm-12 col-md-4 offset-md-2">
-
                                     <button id="updateInspeccion" class="btn btn-danger btn-login  btn-lg  fw-bolder" type="button" style="border-radius: 10px;">Guardar</button>
-
-
-
                                 </div>
                                 <div class="d-grid gap-2 col-sm-12 col-md-4">
                                     <a href="menu.php" id="Cancelar" class="btn  btn-lg  fw-bolder btn-consultar   btn-lg     btn-consultar--border" style="border-radius: 10px;">Cancelar</a>

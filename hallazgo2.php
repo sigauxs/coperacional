@@ -16,20 +16,19 @@ $fullname = $_SESSION['primerNombre'] . " " . $_SESSION['segundoNombre'] . " " .
 
 $tipoUsuario = $_SESSION['tipoUsuario'];
 
-if(isset($_GET['idInspeccion'])){
+if (isset($_GET['idInspeccion'])) {
 
   $lastInspeccion = $_GET['idInspeccion'];
+} else {
 
-}else{
+  $sql = "CALL ultimaInspeccion(:idInspector)";
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindValue(":idInspector", $_SESSION['usuarioId']);
+  $stmt->execute();
+  $row = $stmt->fetch(PDO::FETCH_NUM);
 
-$sql = "CALL ultimaInspeccion(:idInspector)";
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(":idInspector", $_SESSION['usuarioId']);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_NUM);
-
-$_SESSION['lastIdInspeccion'] = $row[0];
-$lastInspeccion = $_SESSION['lastIdInspeccion'];
+  $_SESSION['lastIdInspeccion'] = $row[0];
+  $lastInspeccion = $_SESSION['lastIdInspeccion'];
 }
 
 
@@ -73,7 +72,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
 
     <div class="row">
       <div class="col-md-8 offset-md-2 my-4">
-        <select name="" id="empresas" ></select>
+        <select name="" id="empresas"></select>
       </div>
     </div>
     <div class="row" id="accord">
@@ -99,8 +98,6 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
       <script>
-
-      
         $(document).ready(function() {
           $('#empresas').select2();
         });
@@ -314,7 +311,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
                         buttonRegister.setAttribute("data-name", `Clicked Modal ${idCleanLvl3}`);
                         buttonRegister.setAttribute("data-toggle", "modal");
                         buttonRegister.setAttribute("style", "margin-left:10px");
-                        buttonRegister.innerHTML = `Registrar ${control.Descripcion_Control}` + "<span class='f-right'> <b>D</b></span>";
+                        buttonRegister.innerHTML = `${control.Descripcion_Control}` + "<span class='f-right'> <b>D</b></span>";
 
 
 
@@ -354,7 +351,7 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
                         select.setAttribute("id", `${idCleanLvl3.split(',').join('')}03`);
 
                         let url_image = document.createElement("input");
-                        url_image.setAttribute("accept","image/png,image/jpeg")
+                        url_image.setAttribute("accept", "image/png,image/jpeg")
                         url_image.setAttribute("id", "urlImagen");
                         url_image.setAttribute("type", "file");
                         url_image.setAttribute("name", "picture");
@@ -365,7 +362,16 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
                         label_url_image.innerHTML = "Adjuntar evidencia" + " <i class='fa-solid fa-paperclip'></i>";
                         label_url_image.classList.add("my-3", "btn", "fw-bolder", "btn-file", "btn-file--border");
                         label_url_image.setAttribute("for", "urlImagen");
-                        label_url_image.setAttribute("style", "display:block;width:50%;");
+                        label_url_image.setAttribute("style", "display:inline-block;width:50%;");
+
+                        let br = document.createElement("br");
+                
+
+                        let lfile = document.createElement("label");
+                        lfile.setAttribute("id", "lfile");
+                        lfile.setAttribute("style","margin-bottom:2px");
+
+
 
                         ulSubLiLvl3.appendChild(buttonRegister);
 
@@ -507,22 +513,27 @@ $lastInspeccion = $_SESSION['lastIdInspeccion'];
                               form.appendChild(textarea);
                               form.appendChild(label_url_image);
                               form.appendChild(url_image);
+                              form.insertAdjacentElement("beforebegin", lfile);
                               form.appendChild(input_inspeccion);
                               form.appendChild(input_empresas);
+                  
+                              form.appendChild(lfile);
 
                               let formDesviaciones = document.querySelector("#desviaciones");
                               if (form.elements['save'] == null) {
-
-                                form.appendChild(buttonSave);
+                                
+                                form.insertAdjacentElement("afterend",buttonClose );
 
                               }
 
                               if (form.elements['close'] == null) {
-
-                                form.appendChild(buttonClose);
+                                form.insertAdjacentElement("afterend", buttonSave );
                               }
 
-
+                              $("#urlImagen").change(function() {
+                                const picture = document.getElementById('urlImagen').files[0];
+                                let lfile = document.getElementById('lfile').innerHTML = "<img style='width:20px; height:20px' src='assets/images/adjunto.png'>";
+                              })
 
 
                             }, 550);

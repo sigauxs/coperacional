@@ -1,10 +1,10 @@
 <?php
 
 $lastInspeccion = $_GET['lastInspeccion'];
-$inspector = $_GET['inspector'];
+
 
 require "./fpdf/fpdf.php";
-require "./cabeceraypie.php";
+require "./cabeceraypie_listado.php";
 require "conexion.php";
 
 

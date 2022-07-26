@@ -149,6 +149,13 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                         
 
                             <div class="mb-3 row align-items-center">
+
+                            <div class="col-sm-12 col-md-6">
+                                <label for="responsable" class="form-label"> Responsable del Área </label>
+                                    <select class="form-select" id="responsable" name="responsable" aria-label="Default select example" required>
+                                        <option value="" selected>Escoger un responsable de área</option>
+                                    </select>
+                                </div>
                              
                                 <div class="col-sm-12 col-md-6">
                                 <label for="delegado" class="form-label"> Delegado del Área </label>
@@ -157,12 +164,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                                     </select>
                                 </div>
 
-                                <div class="col-sm-12 col-md-6">
-                                <label for="responsable" class="form-label"> Responsable del Área </label>
-                                    <select class="form-select" id="responsable" name="responsable" aria-label="Default select example" required>
-                                        <option value="" selected>Escoger un responsable de área</option>
-                                    </select>
-                                </div>
+                             
 
 
                             </div>
@@ -172,8 +174,14 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                             <div class="mb-3 row">
                         
                                 <div class="col-sm-12 col-md-12 mb-3">
-                                <label for="responsable" class="form-label"> Descripción </label>
-                                    <textarea id="description_inspeccion" class="form-control" name="descripcion" id="descripcionInspeccion" cols="30" rows="5" required></textarea>
+                                <label for="description_inspeccion" class="form-label"> Actividad </label>
+                                    <textarea 
+                                    id="description_inspeccion" 
+                                    class="form-control" 
+                                    name="descripcion" 
+                                    id="descripcionInspeccion" 
+                                    cols="30" rows="5" 
+                                    required maxlength="300"></textarea>
                                 </div>
 
                             </div>

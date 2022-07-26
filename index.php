@@ -22,9 +22,11 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_NUM);
     
-    var_dump($stmt);
+  
 
     if ($row) {
+        
+        
         
         $idUsuario = $row[0];
         $idPerson = $row[1];
@@ -36,7 +38,7 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
         $_SESSION['usuarioId']  = $idUsuario;
         $_SESSION['personId'] = $idPerson;
         $_SESSION['tipoUsuario'] = $tipoUsuario;
-        $_SESSION['test'] = "Hola mundo";
+      
 
                        
         
@@ -57,27 +59,23 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
         $_SESSION['primerApellido'] = $primer_apellido;
         $_SESSION['segundoApellido'] = $segundo_apellido;
 
-          
-
        
-
+     
      header('location: menu.php');
+     $pdo= null;
+
     } else {
         
-       echo $messages = "<div class='alert alert-danger alert-dismissible fade show mx-auto mt-4' style='width:370px' role='alert'>
-                            Usuario y/o constraseña incorrectas
-       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-     </div>";
-        
+       $SESSION['messages'] = true;
+
+            $pdo=null;
+
+            $pdo_person=null;
     }
 
-
-
+    $pdo= null;
+    $pdo_person=null;
 }
-
-
-
-
 
 ?>
 
@@ -120,7 +118,6 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
                
 
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="login" class="needs-validation" novalidate>
-
                             <div class="mb-3 mt-100 row">
                                 <div class="col-sm-12 mb-3">
                                     <input type="email" id="email" name="email" class="useFontAwesomeFamily form-control" placeholder="&#xf406;   Usuario" required>
@@ -142,7 +139,7 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
                                 <div class="col-sm-12 mb-2">
                                     <div class="d-grid gap-2">
 
-                                        <button class="btn btn-danger btn-login rounded-pill fw-bolder" type="submit">Ingresar</button>
+                                        <button class="btn btn-danger btn-login rounded-pill fw-bolder" type="submit" name="loguear">Ingresar</button>
 
 
 
@@ -211,6 +208,27 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
   
 
 
+
 </body>
 
 </html>
+
+ <?php
+
+   
+
+    if(isset($_POST['loguear'])){
+
+      echo  "<div style='width:325px' class='alert alert-danger alert-dismissible fade show mx-auto mb-2' role='alert'>
+
+              Usuario y/o contraseña incorrecta.
+
+             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+
+            </div>";
+
+    }
+
+   
+
+    ?>

@@ -232,3 +232,29 @@ background-color:red;
 .fs-td{
     font-size: 14.5px;
 }
+
+
+
+  
+
+#scroll {
+   height: 500px;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+
+
+.label-inspecciones{
+    font-weight: normal;
+    color: #666;
+}
+
+
+/* Lista de hallazgo */
+
+.modal_imagen{
+ width: 800px !important;
+ height:auto;
+ position:absolute;
+ left:-150px;
+}
