@@ -258,3 +258,11 @@ background-color:red;
  position:absolute;
  left:-150px;
 }
+
+
+/* Inspeccion */
+
+.w-select-inspeccion {
+    width: 95%;
+    display: inline-block;
+}

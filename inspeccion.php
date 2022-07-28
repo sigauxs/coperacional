@@ -31,6 +31,14 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
     <script src="https://kit.fontawesome.com/2dd4f6d179.js" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+   :root {
+     --main-bg-color: pink;
+   }
+        .custom-tooltip {
+         --bs-tooltip-bg: var(--main-bg-color) !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,6 +46,7 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
     <?php include("./components/navbar.php") ?>
     <?php include("./components/navbar-movil.php") ?>
     <div class="container-fluid container-fluid-sm">
+   
         <div class="row">
             <div class="col-12">
                 <h2 class="text-center encabezado_listado fw-bolder mt-5">Registrar inspección</h2>
@@ -152,16 +161,31 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
 
                             <div class="col-sm-12 col-md-6">
                                 <label for="responsable" class="form-label"> Responsable del Área </label>
-                                    <select class="form-select" id="responsable" name="responsable" aria-label="Default select example" required>
+                                    <select class="form-select w-select-inspeccion" id="responsable" name="responsable" aria-label="Default select example" required>
                                         <option value="" selected>Escoger un responsable de área</option>
                                     </select>
+                                    <i class="fa-solid fa-circle-info"
+                                     data-bs-toggle="tooltip" 
+                                     data-bs-placement="top" 
+                                     data-bs-custom-class="custom-tooltip"
+                                     data-bs-title="Escoge el responsable del área, (Superintendente)."></i>
                                 </div>
                              
                                 <div class="col-sm-12 col-md-6">
-                                <label for="delegado" class="form-label"> Delegado del Área </label>
-                                    <select class="form-select" id="delegado" name="delegado" aria-label="Default select example" required>
+                                <label for="delegado" class="form-label"> Delegado del Área 
+                                    </label>
+                                    <select 
+                                            class="form-select w-select-inspeccion" 
+                                            id="delegado" 
+                                            name="delegado" 
+                                            aria-label="Default select example" required>
                                         <option value="" selected>Escoger un delegado de área</option>
-                                    </select>
+                                    </select>  
+                                    <i class="fa-solid fa-circle-info"
+                                     data-bs-toggle="tooltip" 
+                                     data-bs-placement="top" 
+                                     data-bs-custom-class="custom-tooltip"
+                                     data-bs-title="Escoge la persona que acompaña al inspector en su recorrido por el área."></i>
                                 </div>
 
                              
@@ -174,7 +198,11 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
                             <div class="mb-3 row">
                         
                                 <div class="col-sm-12 col-md-12 mb-3">
-                                <label for="description_inspeccion" class="form-label"> Actividad </label>
+                                <label for="description_inspeccion" class="form-label"> Actividad </label>                                     <i class="fa-solid fa-circle-info"
+                                     data-bs-toggle="tooltip" 
+                                     data-bs-placement="right" 
+                                     data-bs-custom-class="custom-tooltip"
+                                     data-bs-title="Redacta la actividad en ejecución (Max 300 caracteres)."></i>
                                     <textarea 
                                     id="description_inspeccion" 
                                     class="form-control" 
@@ -212,11 +240,17 @@ $tipoUsuario = $_SESSION['tipoUsuario'];
         </div>
     </div>
 
+    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/defaultValue.js"></script>
     <script src="./js/services_select.js"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             $('#registrarInspeccion').attr('disabled', true);

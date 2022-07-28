@@ -33,12 +33,16 @@ $inspector = $_SESSION['usuarioId'];
 
           <div class="mb-3">
             <div class="radio-item">
-              <input type="radio" id="ritema" name="selc" value=1>
-              <label for="ritema"> Todas </label>
+              <input type="radio" id="ritema" name="selc" value='1'>
+              <label for="ritema" 
+                                     data-bs-toggle="tooltip" 
+                                     data-bs-placement="top" 
+                                     data-bs-custom-class="custom-tooltip"
+                                     data-bs-title="Ver todas las inspecciones registradas"> Todas </label>
             </div>
 
             <div class="radio-item">
-              <input type="radio" id="ritemb" name="selc" value=2>
+              <input type="radio" id="ritemb" name="selc" value='2'>
               <label for="ritemb"> Usuario Activo</label>
             </div>
           </div>
@@ -81,11 +85,36 @@ $inspector = $_SESSION['usuarioId'];
       </div>
 
     </div>
+
+
     <div class="row">
-      <div class="col-12 col-md-4 my-4">
-        <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Buscar por 脕rea.." title="Type in a name">
+    <div class="col-12 col-md-4 my-4">
+        <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Buscar por área.." title="Ingresa el nombre del área">
       </div>
+      <div class="offset-md-4 col-md-4 my-4">
+        <div>
+          <span>Iconos de ayuda</span>
+        </div>
+        <div class="text-center">
+          <i class='fa-solid fa-file-pdf mx-4' 
+                                     data-bs-toggle="tooltip" 
+                                     data-bs-placement="left" 
+                                     data-bs-custom-class="custom-tooltip"
+                                     data-bs-title="Generar reporte pdf"></i>
+          <i class='fa-solid fa-edit'
+                                     data-bs-toggle="tooltip" 
+                                     data-bs-placement="right" 
+                                     data-bs-custom-class="custom-tooltip"
+                                     data-bs-title="Editar la inspección"></i>
+        </div>
+        
+        
+      </div>
+    
+
     </div>
+
+
     <div class="row">
 
       <div class="col-md-12">
@@ -197,6 +226,10 @@ $inspector = $_SESSION['usuarioId'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
     <script>
+
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
       const modalDesviacion = new bootstrap.Modal(document.getElementById('modalArticulo'));
       let pictureContent = document.querySelector("#picture-content");
 
