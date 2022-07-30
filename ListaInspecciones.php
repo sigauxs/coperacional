@@ -89,28 +89,13 @@ $inspector = $_SESSION['usuarioId'];
 
     <div class="row">
     <div class="col-12 col-md-4 my-4">
-        <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Buscar por área.." title="Ingresa el nombre del área">
+        <input 
+          type="text" 
+          id="myInput" class="form-control" 
+          onkeyup="myFunction()" placeholder="Buscar por área.." 
+          title="Ingresa el nombre del área">
       </div>
-      <div class="offset-md-4 col-md-4 my-4">
-        <div>
-          <span>Iconos de ayuda</span>
-        </div>
-        <div class="text-center">
-          <i class='fa-solid fa-file-pdf mx-4' 
-                                     data-bs-toggle="tooltip" 
-                                     data-bs-placement="left" 
-                                     data-bs-custom-class="custom-tooltip"
-                                     data-bs-title="Generar reporte pdf"></i>
-          <i class='fa-solid fa-edit'
-                                     data-bs-toggle="tooltip" 
-                                     data-bs-placement="right" 
-                                     data-bs-custom-class="custom-tooltip"
-                                     data-bs-title="Editar la inspección"></i>
-        </div>
-        
-        
-      </div>
-    
+
 
     </div>
 
